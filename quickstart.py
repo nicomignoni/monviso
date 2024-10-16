@@ -43,7 +43,7 @@ ax.plot(residual)
 ax.grid(True, alpha=0.2)
 ax.set_xlabel("Iterations ($k$)")
 ax.set_ylabel(
-    r"$\|\mathbf{x}_k - \text{proj}_{\mathcal{A}}(\mathbf{x}_k - F(\mathbf{x}_k))\|$"
+    r"$\|\mathbf{x}_k - \text{proj}_{\mathcal{S}}(\mathbf{x}_k - F(\mathbf{x}_k))\|$"
 )
 
 plt.savefig("examples/figs/quickstart.svg", bbox_inches="tight")
