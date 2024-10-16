@@ -1,9 +1,9 @@
-.. monvi documentation master file, created by
+.. monviso documentation master file, created by
    sphinx-quickstart on Tue Oct  8 19:25:41 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ``monvi``!
+Welcome to ``monviso``!
 =================================
 
 .. meta::
@@ -11,14 +11,13 @@ Welcome to ``monvi``!
                  inqualities.
    :keywords: monotone variational inequalities, open source, software,
 
-.. currentmodule:: monvi.core.VI
+.. currentmodule:: monviso.core.VI
 
 .. toctree::
    :maxdepth: 2
 
 .. autosummary::
    :toctree: functions
-      __init__ 
       pg
       eg
       popov
@@ -46,7 +45,7 @@ and :math:`\mathcal{S} = \{\mathbf{x} \in \mathbb{R}^n : \mathbf{A} \mathbf{x}
 :math:`\mathbf{b} \in \mathbb{R}^n`. It is straightforward to verify that 
 :math:`F(\cdot)` is strongly monotone with :math:`\mu = \lambda_{\min}(\mathbf{H})` 
 and Lipschitz with :math:`L = \|\mathbf{H}\|_2`. The solution of the VI 
-in can be implemented using ``monvi`` as follows
+in can be implemented using ``monviso`` as follows
 
 .. code:: python
 
@@ -55,7 +54,7 @@ in can be implemented using ``monvi`` as follows
 
    import matplotlib.pyplot as plt
 
-   from monvi import VI
+   from monviso import VI
 
    np.random.seed(2024)
 
@@ -111,7 +110,7 @@ each iteration
 Algorithms
 ----------
 
-The following algorithms are implemented in ``monvi``:
+The following algorithms are implemented in ``monviso``:
 
 * :func:`Proximal Gradient <pg>`
 * :func:`Extra-gradient <eg>`

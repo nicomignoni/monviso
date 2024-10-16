@@ -801,7 +801,7 @@ class VI:
         r"""**Hybrid Golden Ratio Algorithm I**
 
         The HGRAAL-1 algorithm is a variation of the 
-        :func:`Adaptive Golden Ratio Algorithm <monvi.core.VI.agraal>`. 
+        :func:`Adaptive Golden Ratio Algorithm <monviso.core.VI.agraal>`. 
         Following [13]_, let :math:`\theta_0 = 1`, :math:`\rho = 1/\phi + 
         1/\phi^2`, where :math:`\phi \in (0,\varphi]` and 
         :math:`\varphi = \frac{1+\sqrt{5}}{2}` is the golden ratio. 

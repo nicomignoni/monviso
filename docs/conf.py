@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'monvi'
+project = 'monviso'
 copyright = '2024, Nicola Mignoni'
 author = 'Nicola Mignoni'
 release = '0.1'
@@ -38,7 +38,7 @@ html_theme = 'furo'
 html_static_path = ['_static']
 html_favicon = "_static/favicon.svg"
 html_theme_options = {
-    "light_logo": "monvi-light.svg",
-    "dark_logo": "monvi-dark.svg",
+    "light_logo": "monviso-light.svg",
+    "dark_logo": "monviso-dark.svg",
     "sidebar_hide_name": True
 }

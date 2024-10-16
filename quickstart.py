@@ -3,7 +3,7 @@ import cvxpy as cp
 
 import matplotlib.pyplot as plt
 
-from monvi import VI
+from monviso import VI
 
 np.random.seed(2024)
 

@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="26.965191mm"
-   height="7.3003926mm"
-   viewBox="0 0 26.96519 7.3003924"
+   width="37.779224mm"
+   height="6.668056mm"
+   viewBox="0 0 37.779223 6.6680558"
    version="1.1"
    id="svg5"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-   sodipodi:docname="monvi-light.svg"
+   sodipodi:docname="monviso-light-2.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -19,14 +19,14 @@
      bordercolor="#000000"
      borderopacity="0.25"
      inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="5.9794051"
-     inkscape:cx="47.078262"
-     inkscape:cy="5.602564"
+     inkscape:cx="66.143704"
+     inkscape:cy="5.7698048"
      inkscape:window-width="1920"
      inkscape:window-height="1018"
      inkscape:window-x="0"
@@ -37,13 +37,33 @@
      id="defs2">
     <marker
        style="overflow:visible"
+       id="Dot"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="1.45"
+       markerHeight="1.45"
+       viewBox="0 0 5.6666667 5.6666667"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         id="Dot1"
+         sodipodi:nodetypes="sssss" />
+    </marker>
+    <marker
+       style="overflow:visible"
        id="TriangleStart"
        refX="0"
        refY="0"
        orient="auto-start-reverse"
        inkscape:stockid="TriangleStart"
        markerWidth="1.7"
-       markerHeight="1.965319"
+       markerHeight="1.965318"
        viewBox="0 0 5.3244081 6.1553851"
        inkscape:isstock="true"
        inkscape:collect="always"
@@ -116,7 +136,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-121.62927,-65.043622)">
+     transform="translate(-121.62927,-65.675959)">
     <path
        d="m 127.46281,67.08409 q 0.54187,0 0.95673,0.220133 0.42334,0.211667 0.6604,0.6604 0.24554,0.440267 0.24554,1.134534 v 2.607735 h -1.3208 v -2.404535 q 0,-0.550333 -0.2286,-0.8128 -0.2286,-0.262467 -0.64347,-0.262467 -0.28787,0 -0.51647,0.135467 -0.2286,0.127 -0.3556,0.389467 -0.127,0.262466 -0.127,0.668867 v 2.286001 h -1.3208 v -2.404535 q 0,-0.550333 -0.2286,-0.8128 -0.22013,-0.262467 -0.635,-0.262467 -0.28787,0 -0.51647,0.135467 -0.2286,0.127 -0.3556,0.389467 -0.127,0.262466 -0.127,0.668867 v 2.286001 h -1.3208 v -4.555069 h 1.26154 v 1.244601 l -0.23707,-0.364067 q 0.23707,-0.465667 0.66887,-0.702734 0.44026,-0.245533 0.99906,-0.245533 0.62654,0 1.09221,0.321733 0.47413,0.313267 0.62653,0.965201 l -0.46567,-0.127001 q 0.2286,-0.5334 0.72814,-0.846667 0.508,-0.313266 1.15993,-0.313266 z"
        style="font-weight:bold;font-size:8.46667px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Bold';fill:#0e2037;fill-opacity:1;stroke:none;stroke-width:7.05556;stroke-opacity:1"
@@ -126,15 +146,11 @@
        style="font-weight:bold;font-size:8.46667px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Bold';fill:#0e2037;fill-opacity:1;stroke:none;stroke-width:7.05556;stroke-opacity:1"
        id="path1054" />
     <path
-       d="m 147.11279,71.706892 v -4.555069 h 1.3208 v 4.555069 z m 0.6604,-5.190069 q -0.36407,0 -0.59267,-0.211667 -0.2286,-0.211667 -0.2286,-0.524934 0,-0.313266 0.2286,-0.524933 0.2286,-0.211667 0.59267,-0.211667 0.36407,0 0.59267,0.2032 0.2286,0.194734 0.2286,0.508 0,0.330201 -0.2286,0.550334 -0.22014,0.211667 -0.59267,0.211667 z"
-       style="font-weight:bold;font-size:8.46667px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Bold';fill:#0e2037;fill-opacity:1;stroke:none;stroke-width:7.05556;stroke-opacity:1"
-       id="path1058" />
-    <path
-       style="fill:#d40000;fill-opacity:1;stroke:#48668c;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-6)"
+       style="fill:#48668c;fill-opacity:1;stroke:#48668c;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-6)"
        d="m 145.66946,67.151821 -1.91347,4.55507"
        id="path1273-5" />
     <path
-       style="fill:#cb4e31;fill-opacity:1;stroke:#cb4e31;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart)"
+       style="fill:#ee6c4d;fill-opacity:1;stroke:#cb4e31;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart)"
        d="m 141.78845,67.151821 1.91347,4.55507"
        id="path1273" />
     <circle
@@ -144,11 +160,11 @@
        cy="71.531395"
        r="0.81261951" />
     <path
-       style="fill:#48668c;fill-opacity:1;stroke:#48668c;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-6-3)"
+       style="fill:#d40000;fill-opacity:1;stroke:#48668c;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-6-3)"
        d="m 140.53692,71.089629 -1.91347,-4.55507"
        id="path1273-5-3" />
     <path
-       style="fill:#ee6c4d;fill-opacity:1;stroke:#cb4e31;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-7)"
+       style="fill:#ff9376;fill-opacity:1;stroke:#cb4e31;stroke-width:1.2;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleStart-7)"
        d="m 136.65591,71.089629 1.91347,-4.55507"
        id="path1273-56" />
     <circle
@@ -158,5 +174,21 @@
        cy="-66.710052"
        r="0.81261951"
        transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;font-family:Montserrat;-inkscape-font-specification:'Montserrat Bold';fill:#0e2037;fill-opacity:1;stroke:#48668c;stroke-width:1.2"
+       x="149.63795"
+       y="71.706894"
+       id="text382"><tspan
+         sodipodi:role="line"
+         id="tspan380"
+         style="fill:#0e2037;fill-opacity:1;stroke:none;stroke-width:1.2"
+         x="149.63795"
+         y="71.706894">so</tspan></text>
+    <path
+       style="fill:#e9eff7;fill-opacity:1;stroke:#cb4e31;stroke-width:1.2;stroke-opacity:1;marker-start:url(#Dot);marker-end:url(#TriangleStart)"
+       d="M 148.33777,71.474015 V 67.036522"
+       id="path1591"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
