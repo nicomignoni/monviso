@@ -11,7 +11,7 @@ Welcome to ``monviso``!
                  inqualities.
    :keywords: monotone variational inequalities, open source, software,
 
-.. currentmodule:: monviso.core.VI
+.. currentmodule:: monviso.VI
 
 .. toctree::
    :maxdepth: 2
