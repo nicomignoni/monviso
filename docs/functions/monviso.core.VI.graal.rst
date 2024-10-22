@@ -1,6 +1,6 @@
-﻿monvi.core.VI.graal
-===================
+﻿monviso.core.VI.graal
+=====================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.graal

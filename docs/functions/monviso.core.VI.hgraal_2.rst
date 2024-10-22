@@ -1,6 +1,6 @@
-﻿monvi.core.VI.hgraal\_2
-=======================
+﻿monviso.core.VI.hgraal\_2
+=========================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.hgraal_2

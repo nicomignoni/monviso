@@ -1,6 +1,6 @@
-﻿monvi.core.VI.agraal
-====================
+﻿monviso.core.VI.agraal
+======================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.agraal

@@ -1,6 +1,6 @@
-﻿monvi.core.VI.eag
-=================
+﻿monviso.core.VI.eag
+===================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.eag

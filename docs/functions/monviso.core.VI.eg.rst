@@ -1,6 +1,6 @@
-﻿monvi.core.VI.eg
-================
+﻿monviso.core.VI.eg
+==================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.eg

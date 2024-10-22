@@ -1,6 +1,6 @@
-﻿monvi.core.VI.cfogda
-====================
+﻿monviso.core.VI.cfogda
+======================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.cfogda

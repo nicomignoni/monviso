@@ -8,7 +8,7 @@ GOLDEN_RATIO = 0.5*(np.sqrt(5) + 1)
 
 
 class VI:
-    r"""Variational Inequality (VI)
+    r"""**Variational Inequality (VI)**
 
     Attributes
     ----------
@@ -48,7 +48,7 @@ class VI:
         self._proj = cp.Problem(cp.Minimize(0.5*cp.norm(self.y - self.param_x)), S)
 
     def prox(self, x, **cvxpy_solve_params):
-        r"""Constrained Proximal Operator
+        r"""**Constrained Proximal Operator**
 
         Given a scalar function :math:`g  : \mathbb{R}^n \to \mathbb{R}` and
         a constraints set :math:`\mathcal{S} \subseteq \mathbb{R}^n`, the 
@@ -719,7 +719,7 @@ class VI:
         r"""**Adaptive Golden Ratio Algorithm**
 
         The Adaptive Golden Ratio Algorithm (aGRAAL) algorithm is a variation 
-        of the :func:`Golden Ratio Algorithm <graal>`, with 
+        of the :func:`Golden Ratio Algorithm <monviso.core.VI.graal>`, with 
         adaptive step size. Following [5]_, let :math:`\theta_0 = 1`, 
         :math:`\rho = 1/\phi + 1/\phi^2`, where :math:`\phi \in (0,\varphi]` 
         and :math:`\varphi = \frac{1+\sqrt{5}}{2}` is the golden ratio. 

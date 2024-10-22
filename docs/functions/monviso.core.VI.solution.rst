@@ -1,6 +1,6 @@
-﻿monvi.core.VI.solution
-======================
+﻿monviso.core.VI.solution
+========================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.solution

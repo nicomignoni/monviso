@@ -1,6 +1,6 @@
-﻿monvi.core.VI.frb
-=================
+﻿monviso.core.VI.frb
+===================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.frb

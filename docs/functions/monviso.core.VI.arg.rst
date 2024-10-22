@@ -1,6 +1,6 @@
-﻿monvi.core.VI.arg
-=================
+﻿monviso.core.VI.arg
+===================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.arg

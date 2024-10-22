@@ -1,6 +1,6 @@
-﻿monvi.core.VI.popov
-===================
+﻿monviso.core.VI.popov
+=====================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.popov

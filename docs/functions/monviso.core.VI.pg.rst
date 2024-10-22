@@ -1,6 +1,6 @@
-﻿monvi.core.VI.pg
-================
+﻿monviso.core.VI.pg
+==================
 
-.. currentmodule:: monvi.core
+.. currentmodule:: monviso.core
 
 .. automethod:: VI.pg
