@@ -61,14 +61,15 @@ in can be implemented using ``monviso`` as follows
    # Create the problem data
    n, m = 30, 40
    H = np.random.uniform(2,10, size=(n,n))
-   A = np.random.uniform(4,5, size=(m,n))
+   A = np.random.uniform(45,50, size=(m,n))
    b = np.random.uniform(3,7, size=(m,))
 
-   # Make H positive definite (using Gershgorin)
+   # Make H positive definite (using Gershgorin Circle Theorem)
    H = (H + H.T)/2
-   H = H + np.diag(((1 - np.eye(n))*H).sum(1))
+   centers = np.diag(H)
+   H += np.eye(n)*(H[np.argmin(centers),:].sum() + np.abs(centers.min()))
 
-   # Liptshits and strong monotonicity constants
+   # Lipschitz and strong monotonicity constants
    mu = np.linalg.eigvals(H).min()
    L = np.linalg.norm(H,2)
 
@@ -84,7 +85,7 @@ in can be implemented using ``monviso`` as follows
 
    x0 = np.random.uniform(4, 5, n)
    algorithm_params = {"x": x0, "step_size": 2*mu/L**2}
-   sol = vi.solution("pg", algorithm_params, max_iters=30, log_path="result.log")
+   sol = vi.solution("pg", algorithm_params, max_iters=25, eval_tol=-np.inf, log_path="result.log")
 
 By checking the logs collected in ``result.log``, we can plot the residual at 
 each iteration
@@ -127,10 +128,16 @@ The following algorithms are implemented in ``monviso``:
 * :func:`Hybrid Golden Ratio Algorithm I <hgraal_1>`
 * :func:`Hybrid Golden Ratio Algorithm II <hgraal_2>` 
 
+Examples
+--------
 
-.. Indices and tables
-.. ==================
+The following examples, related to control, optimization, game theory, finance, 
+and machine learning problems, can be reduced to a VI and solved through ``monviso``.
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
+* :doc:`Feasibility problem <examples/feasibility-problem>`
+* :doc:`Zero-sum game <examples/zero-sum-game>`
+* :doc:`Sparse logistic regression <examples/logistic-regression>`
+* :doc:`Skew-symmetric operator <examples/skew-symmetric>`
+* :doc:`Markov decision process <examples/markov-decision-process>`
+* :doc:`Linear complementarity problem <examples/linear-complementarity>`
+* :doc:`Linear-Quadratic game <examples/linear-quadratic-game>`

@@ -581,6 +581,7 @@ class VI:
             x_previous: np.ndarray,
             y: np.ndarray,
             z: np.ndarray,
+            step_size: float,
             alpha: float = 2.1, 
             **cvxpy_solve_params
         ) -> np.ndarray:
@@ -589,7 +590,8 @@ class VI:
         Given a constant step-size :math:`\lambda > 0` and initial vectors 
         :math:`\mathbf{x}_1 \in \mathcal{S}`, :math:`\mathbf{z}_1 \in 
         N_{\mathcal{S}}(\mathbf{x}_1)`, :math:`\mathbf{x}_0,\mathbf{y}_0 \in 
-        \mathbb{R}^n`, the basic :math:`k`-th iterate of FOGDA is the following [12]_:
+        \mathbb{R}^n`, the basic :math:`k`-th iterate of Constrained Fast 
+        Optimistic Gradient Descent Ascent (CFOGDA) is the following [12]_:
 
         .. math:: 
             \begin{align}
@@ -623,7 +625,7 @@ class VI:
             The initial auxiliary point, corresponding to :math:`\mathbf{z}_1`.
         step_size : float
             The step size value, corresponding to :math:`\lambda`.
-        alpha : float
+        alpha : float, optional
             The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
 
         Yields
@@ -643,8 +645,8 @@ class VI:
                         step_size*alpha*(self.F(x_current) + z)
             x = self.prox(
                 y - step_size*(1 + k/(k+alpha)*(self.F(y_current) - \
-                self.F(y) - z)), 
-                **cvxpy_solve_params)
+                self.F(y) - z)), **cvxpy_solve_params
+            )
             z = (k+alpha)*(y_current - x)/(step_size*(2*k+alpha)) - \
                 (self.F(y_current) - self.F(y) - z)
 
@@ -965,7 +967,7 @@ class VI:
         # current point x and the descent step x - F(x) projected onto the
         # constraints set
         if not eval_func:
-            eval_func = lambda x: np.linalg.norm(x - self.prox(x - self.F(x)))
+            eval_func = lambda x: np.linalg.norm(x - self.prox(x - self.F(x), **cvxpy_solve_params))
 
         # default path for iterations' logs
         if not log_path:
