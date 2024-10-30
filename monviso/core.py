@@ -1,10 +1,11 @@
 import time
 import datetime
+import math
 
 import numpy as np
 import cvxpy as cp
 
-GOLDEN_RATIO = 0.5*(np.sqrt(5) + 1)
+GOLDEN_RATIO = 0.5*(math.sqrt(5) + 1)
 
 
 class VI:

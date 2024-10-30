@@ -26,6 +26,7 @@ extensions = [
 ]
 
 autodoc_member_order = 'bysource'
+autodoc_mock_imports = ['numpy', 'cvxpy']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
