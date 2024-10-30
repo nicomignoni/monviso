@@ -2,11 +2,5 @@ Distributionally Robust Game
 ----------------------------
 
 
-
-
-
-
-
-
 References
-----------
+^^^^^^^^^^

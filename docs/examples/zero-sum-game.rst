@@ -18,7 +18,7 @@ For the sake of simplicity, we consider :math:`\Phi(\mathbf{x}_1, \mathbf{x}_2) 
 .. math::
     F(\mathbf{x}) = \begin{bmatrix} \mathbf{H} \mathbf{x}_1 \\ -\mathbf{H}^\top \mathbf{x}_2 \end{bmatrix} = \begin{bmatrix} & \mathbf{H} \\ -\mathbf{H}^\top & \end{bmatrix} \mathbf{x}
 
-and :math:`\mathcal{S} = \Delta_1 \times \Delta_2`
+and :math:`\mathcal{S} = \Delta_1 \times \Delta_2` [1]_
 
 .. literalinclude:: ../../examples/zero-sum-game.py
    :language: python

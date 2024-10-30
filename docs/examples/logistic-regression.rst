@@ -6,7 +6,8 @@ The sparse logistic regression consists of finding the weight vector :math:`\mat
 
 .. math::
     :label: regression
-
+    :nowrap:
+    
     \begin{align}
         f(\mathbf{x}) := \sum_{i = 1}^M \log\left(1 + \frac{1}{\exp(b_i \mathbf{a}^\top_i \mathbf{x})} \right) + \gamma \|\mathbf{x}\|_1
         \\ = \underbrace{\mathbf{1}^\top_M \log(1 + \exp(-\mathbf{b} \odot \mathbf{A} \mathbf{x}))}_{=:s(\mathbf{x})} + \underbrace{\gamma \|\mathbf{x}\|_1}_{=:g(\mathbf{x})}
@@ -15,11 +16,10 @@ The sparse logistic regression consists of finding the weight vector :math:`\mat
 where :math:`\gamma \in \mathbb{R}_{> 0}` is the :math:`\ell_1`-regulation strength. The gradient for :math:`s(\cdot)`, :math:`\nabla s_\mathbf{x}(\mathbf{x})`, is calculated as
 
 .. math::
-    \begin{align}
-        F(\mathbf{x}) &= \nabla s_\mathbf{x}(\mathbf{x}) = -\frac{\mathbf{A}^\top \odot (\mathbf{1}_N \otimes \mathbf{b}^\top) \odot \exp(-\mathbf{b} \odot \mathbf{A} \mathbf{x})}{1 + \exp(-\mathbf{b} \odot \mathbf{A} \mathbf{x})} \mathbf{1}_M
-    \end{align}
+    F(\mathbf{x}) = \nabla s_\mathbf{x}(\mathbf{x}) = -\frac{\mathbf{A}^\top \odot (\mathbf{1}_N \otimes \mathbf{b}^\top) \odot \exp(-\mathbf{b} \odot \mathbf{A} \mathbf{x})}{1 + \exp(-\mathbf{b} \odot \mathbf{A} \mathbf{x})} \mathbf{1}_M
 
-The problem of finding the minimizer for :eq:`regression` can be cast as a canonical VI, with :math:`F(\mathbf{x}) := \nabla s_\mathbf{x}(\mathbf{x})`. 
+
+The problem of finding the minimizer for :eq:`regression` can be cast as a canonical VI, with :math:`F(\mathbf{x}) := \nabla s_\mathbf{x}(\mathbf{x})` [1]_. 
 
 .. literalinclude:: ../../examples/logistic-regression.py
    :language: python

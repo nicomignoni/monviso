@@ -9,7 +9,7 @@ transitioning from state :math:`x \in \mathcal{X}` to state :math:`x^+ \in \math
 
     v^{\pi}(x) = \overbrace{\sum_{x^+ \in \mathcal{X}} P(x,\pi(x),x^+) \left( r(x,x^+) + \gamma v(x^+) \right)}^{=:\mathsf{T}(v^{\pi})}
 
-returning the "goodness" of policy :math:`\pi`. The expression in :eq:`bellman` is known as *Bellman equation*, and can be expressed as an operator of :math:`v^{\pi}`, i.e., :math:`\mathsf{T}[v^\pi(s)] =: \mathsf{T}(v^{\pi})`. It can be shown that the value function yielded by the optimal policy, :math:`v^*`, results from the fixed-point problem :math:`v^* = \mathsf{T}(v^*)`. Therefore, the latter can be formulated as a canonical VI, with :math:`F = \mathsf{I} - \mathsf{T}`.
+returning the "goodness" of policy :math:`\pi`. The expression in :eq:`bellman` is known as *Bellman equation*, and can be expressed as an operator of :math:`v^{\pi}`, i.e., :math:`\mathsf{T}[v^\pi(s)] =: \mathsf{T}(v^{\pi})`. It can be shown that the value function yielded by the optimal policy, :math:`v^*`, results from the fixed-point problem :math:`v^* = \mathsf{T}(v^*)`. Therefore, the latter can be formulated as a canonical VI, with :math:`F = \mathsf{I} - \mathsf{T}` [1]_.
 
 .. literalinclude:: ../../examples/markov-decision-process.py
    :language: python

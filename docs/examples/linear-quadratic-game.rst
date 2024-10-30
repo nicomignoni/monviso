@@ -27,9 +27,8 @@ which is satisfied by the fixed-point of the best response mapping of each agent
 Proposition 2 in \cite{benenati2024linear} states that any solution of \eqref{eq:vi_base} is a solution for \eqref{eq:best_response} when :math:`\mathcal{S} = \mathcal{U}(\mathbf{x}_0)` and :math:`F : \mathbb{R}^{mTN} \to \mathbb{R}^{mTN}$`, defined as
 
 .. math::
-    \begin{split}
-        F(\mathbf{u}) = &\text{col}(\mathbf{G}^\top_i \bar{\mathbf{Q}}_i)_{i \in \mathcal{N}} (\text{row}(\mathbf{G}_i)_{i \in \mathcal{N}}\mathbf{u} + \mathbf{H} \mathbf{x}_0) + \\ &\text{blkdiag}(\mathbf{I}_T \otimes \mathbf{R}_i)_{i \in \mathcal{N}} \mathbf{u}
-    \end{split}
+    F(\mathbf{u}) = \text{col}(\mathbf{G}^\top_i \bar{\mathbf{Q}}_i)_{i \in \mathcal{N}} (\text{row}(\mathbf{G}_i)_{i \in \mathcal{N}}\mathbf{u} + \mathbf{H} \mathbf{x}_0) +
+    \text{blkdiag}(\mathbf{I}_T \otimes \mathbf{R}_i)_{i \in \mathcal{N}} \mathbf{u}
 
 where, for all :math:`i \in \mathcal{N}`, :math:`\bar{\mathbf{Q}}_i = \text{blkdiag}(\mathbf{I}_{T-1} \otimes \mathbf{Q}_i, \mathbf{P}_i)`, :math:`\mathbf{G}_i = \mathbf{e}^\top_{1,T} \otimes \text{col}(\mathbf{A}^t_i \mathbf{B}_i)_{t=0}^{T-1} + \mathbf{I}_T \otimes \mathbf{B}_i` and :math:`\mathbf{H} = \text{col}(\mathbf{A}^t)_{t = 1}^T`. Matrix :math:`\mathbf{P}_i` results from the open-loop NE feedback synthesis as discussed in [Equation 6] [1]_.
 

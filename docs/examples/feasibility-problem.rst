@@ -28,7 +28,7 @@ Due to the non-expansiveness of the projection in :eq:`projection`, one can find
     
     \mathbf{x}_{k+1} = \mathsf{T}(\mathbf{x}_k) = \frac{1}{M}\sum_{i = 1}^M\mathsf{P}_i(\mathbf{x}_k)
 
-which result from the well-known Krasnoselskii-Mann iterate. By letting :math:`F = \mathsf{I} - \mathsf{T}`, where :math:`\mathsf{I}` denotes the identity operator, the fixed point for :eq:`krasnoselskii-mann` can be treated as the canonical VI. 
+which result from the well-known Krasnoselskii-Mann iterate. By letting :math:`F = \mathsf{I} - \mathsf{T}`, where :math:`\mathsf{I}` denotes the identity operator, the fixed point for :eq:`krasnoselskii-mann` can be treated as the canonical VI [1]_. 
 
 .. literalinclude:: ../../examples/feasibility-problem.py
    :language: python
