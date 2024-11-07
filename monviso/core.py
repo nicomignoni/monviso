@@ -66,6 +66,10 @@ class VI:
         ---------
         x : ndarray
             The proximal operator argument point
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Returns
         -------
@@ -93,6 +97,10 @@ class VI:
         ---------
         x : ndarray
             The projection operator argument point
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Returns
         -------
@@ -112,13 +120,17 @@ class VI:
         ----------
         x : ndarray
             The argument point
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Return
         ------
         float
             The residual value
         """
-        return np.linalg.norm(x - self.prox(x - self.F(x)), **cvxpy_solve_params)
+        return np.linalg.norm(x - self.prox(x - self.F(x), **cvxpy_solve_params))
 
     ########## Algorithms ##########
     def pg(self,
@@ -148,6 +160,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_0`
         step_size : float
             The steps size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -194,6 +210,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_0`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -244,6 +264,10 @@ class VI:
             The initial auxiliary point, corresponding to :math:`\mathbf{y}_0`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -292,6 +316,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_0`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -340,6 +368,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_1`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -392,6 +424,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_1`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -445,6 +481,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_0`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
         
         Yields
         ------
@@ -503,6 +543,10 @@ class VI:
             The initial point, corresponding to :math:`\mathbf{x}_1`
         step_size : float
             The step size value, corresponding to :math:`\lambda`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -569,6 +613,10 @@ class VI:
             The step size value, corresponding to :math:`\lambda`.
         alpha : float
             The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -645,6 +693,10 @@ class VI:
             The step size value, corresponding to :math:`\lambda`.
         alpha : float, optional
             The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -712,6 +764,10 @@ class VI:
             The step size value, corresponding to :math:`\lambda`
         phi : float
             The golden ratio step size, corresponding to :math:`\phi`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -775,6 +831,10 @@ class VI:
             The golden ratio step size, corresponding to :math:`\phi`
         step_size_large : float, optional
             A constant (arbitrarily) large value for the step size
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -792,12 +852,12 @@ class VI:
 
         while True:
             # lambda update
-            dividend = phi*theta*np.linalg.norm(x_current - x_previous, 2) 
-            divisor = 4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
             step_size_current = np.min((
                 rho*step_size,
-                np.divide(dividend, divisor),
-                step_size_large
+                np.divide(
+                    phi*theta*np.linalg.norm(x_current - x_previous, 2), 
+                    4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
+                ), step_size_large
             ))
 
             # graal step
@@ -873,6 +933,10 @@ class VI:
             The golden ratio step size, corresponding to :math:`\phi`
         step_size_large : float, optional
             A constant (arbitrarily) large value for the step size
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Yields
         ------
@@ -897,12 +961,12 @@ class VI:
 
         while True:
             # lambda update
-            dividend = phi*theta*np.linalg.norm(x_current - x_previous, 2)
-            divisor = 4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2) 
             step_size_current = np.min((
                 rho*step_size,
-                np.divide(dividend, divisor),
-                step_size_large
+                np.divide(
+                    phi*theta*np.linalg.norm(x_current - x_previous, 2), 
+                    4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2) 
+                ), step_size_large
             ))
 
             J_current, J_previous = self.residual(x_current), self.residual(x_previous)
@@ -956,6 +1020,10 @@ class VI:
             A constant (arbitrarily) large value for the step size
         phi_large: float, optional
             A constant (arbitrarily) large value for :math:`\phi`
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
         
         Yields
         ------
@@ -982,12 +1050,12 @@ class VI:
         s1_current, s2_current = 0, 0
 
         while True:
-            dividend = alpha*theta_current*np.linalg.norm(x_current - x_previous, 2)
-            divisor = 4*step_size_current*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
             step_size = np.min((
                 rho*step_size_current,
-                np.divide(dividend, divisor),
-                step_size_large
+                np.divide(
+                    alpha*theta_current*np.linalg.norm(x_current - x_previous, 2), 
+                    4*step_size_current*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
+                ), step_size_large
             ))
 
             y = ((phi - 1)*x_current + y_current)/phi
@@ -1060,6 +1128,10 @@ class VI:
             The minimum tolerance over the evaluation function
         log_path : str, optional
             The path for saving the log file
+        **cvxpy_solve_params
+            The parameters for the 
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            method. 
 
         Returns
         -------
