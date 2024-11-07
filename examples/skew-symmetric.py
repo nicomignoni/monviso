@@ -30,7 +30,6 @@ for algorithm, params in cases(x0, L, excluded={"pg", "cfogda"}).items():
         log_path=f"examples/logs/skew-symmetric/{algorithm}.log"
     )
 
-# Plot the results
 plot_results(
     "examples/logs/skew-symmetric",
     "examples/figs/skew-symmetric.pdf",

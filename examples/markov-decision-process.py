@@ -38,7 +38,6 @@ for algorithm, params in cases(x0, L, excluded={"pg", "cfogda"}).items():
         log_path=f"examples/logs/markov-decision-process/{algorithm}.log"
     )
 
-# Plot the results
 plot_results(
     "examples/logs/markov-decision-process",
     "examples/figs/markov-decision-process.pdf",

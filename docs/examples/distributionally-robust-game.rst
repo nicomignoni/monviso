@@ -1,6 +1,0 @@
-Distributionally Robust Game
-----------------------------
-
-
-References
-^^^^^^^^^^

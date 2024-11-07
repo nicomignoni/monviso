@@ -29,10 +29,10 @@ x0 = [np.random.rand(n) for _ in range(2)]
 
 # Solve the VI using the available algorithms
 max_iter = 200
-for algorithm, params in cases(x0, L, excluded={"pg", "cfogda"}).items():
+for algorithm, params in cases(x0, L, excluded={"pg", "cfogda", "fogda"}).items():
     print(f"Using: {algorithm}")
     sol = fp.solution(
-        algorithm, params, max_iter, 
+        algorithm, params, max_iter,
         log_path=f"examples/logs/feasibility/{algorithm}.log"
     )
 

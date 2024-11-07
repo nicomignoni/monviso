@@ -31,11 +31,10 @@ x0 = [np.random.rand(N) for _ in range(2)]
 
 # Solve the VI using the available algorithms
 max_iter = 200
-for algorithm, params in cases(x0, L, excluded={"pg"}).items():
+for algorithm, params in cases(x0, L, excluded={"pg", "cfogda"}).items():
     print(f"Using: {algorithm}")
     sol = slr.solution(algorithm, params, max_iter, log_path=f"examples/logs/logistic-regression/{algorithm}.log")
 
-# Plot the results
 plot_results(
     "examples/logs/logistic-regression",
     "examples/figs/logistic-regression.pdf",

@@ -33,7 +33,6 @@ for algorithm, params in cases(x0, L, excluded={"fogda", "cfogda"}).items():
         algorithm, params, max_iter, log_path=f"examples/logs/linear-complementarity/{algorithm}.log"
     )
 
-# Plot the results
 plot_results(
     "examples/logs/linear-complementarity",
     "examples/figs/linear-complementarity.pdf",

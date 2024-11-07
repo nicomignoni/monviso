@@ -9,3 +9,5 @@ A Python package for solving monotone variational inequalities.
 
 </div>
 
+## Documentation
+Documentation and quick-start guide can be found on the [docs website](https://monviso.readthedocs.io/en/latest/).

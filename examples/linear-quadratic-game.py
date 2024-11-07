@@ -48,10 +48,10 @@ max_iter = 200
 for algorithm, params in cases(u0, L, excluded={"cfogda", "fogda"}).items():
     print(f"Using: {algorithm}")
     sol = lqg.solution(
-        algorithm, params, max_iter, log_path=f"examples/logs/linear-quadratic-game/{algorithm}.log"
+        algorithm, params, max_iter,
+        log_path=f"examples/logs/linear-quadratic-game/{algorithm}.log"
     )
 
-# Plot the results
 plot_results(
     "examples/logs/linear-quadratic-game",
     "examples/figs/linear-quadratic-game.pdf",

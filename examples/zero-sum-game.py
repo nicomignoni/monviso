@@ -46,7 +46,6 @@ for algorithm, params in cases(x0, L, excluded={"pg", "fogda", "cfogda"}).items(
         log_path=f"examples/logs/zero-sum-game/{algorithm}.log"
     )
 
-# Plot the results
 plot_results(
     "examples/logs/zero-sum-game",
     "examples/figs/zero-sum-game.pdf",

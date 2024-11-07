@@ -11,7 +11,7 @@ GOLDEN_RATIO = 0.5*(np.sqrt(5) + 1)
 ALGORITHM_NAMES = (
     "pg", "eg", "popov", "fbf", "frb", "prg", "eag", "arg", 
     "fogda", "cfogda", "graal", "agraal", "hgraal_1", "hgraal_2"
-) 
+)
 TAB20 = plt.get_cmap('tab20')
 COLORS = {name: TAB20.colors[i] for i,name in enumerate(ALGORITHM_NAMES)}
 
@@ -22,7 +22,7 @@ def random_positive_definite_matrix(upper_bound, lower_bound, size):
     centers = np.diag(M)
     M += I(size)*(np.abs(M[np.argmin(centers),:]).sum() + np.abs(centers.min()))
     return M
-    
+   
 def cases(x0, L, z=None, only={}, excluded={}):
     cases_list = {
         "pg": {"x": x0[0], "step_size": 2/L**2},
@@ -37,7 +37,8 @@ def cases(x0, L, z=None, only={}, excluded={}):
         "cfogda": {"x_current": x0[0], "x_previous": x0[1], "y": x0[0], "z": z, "step_size": (np.sqrt(2)-1)/L},
         "graal": {"x": x0[0], "y": x0[1], "step_size": GOLDEN_RATIO/(2*L)},
         "agraal": {"x_current": x0[1], "x_previous": x0[0], "step_size": GOLDEN_RATIO/(2*L)},
-        "hgraal_1": {"x_current": x0[1], "x_previous": x0[0], "step_size": GOLDEN_RATIO/(2*L)}
+        "hgraal_1": {"x_current": x0[1], "x_previous": x0[0], "step_size": GOLDEN_RATIO/(2*L)},
+        "hgraal_2": {"x_current": x0[1], "x_previous": x0[0], "step_size": GOLDEN_RATIO/(2*L)}
     }
 
     only = cases_list.keys() if not only else only
@@ -86,14 +87,14 @@ plt.rcParams.update({
 })
 
 # Plot the legend only
-fig, ax = plt.subplots(figsize=(3.5, 0.05))
+fig, ax = plt.subplots(figsize=(2.1, 0.05))
 for name, color in COLORS.items():
     ax.plot(0, 0, label=name, color=color)
 
 plt.axis('off') 
 plt.legend(
     bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left",
-    mode="expand", borderaxespad=0, ncol=4,
+    mode="expand", borderaxespad=0, ncol=2,
 )
 
 plt.savefig("examples/figs/legend.pdf", bbox_inches="tight")
