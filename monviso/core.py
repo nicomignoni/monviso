@@ -5,7 +5,7 @@ import math
 import numpy as np
 import cvxpy as cp
 
-GOLDEN_RATIO = 0.5*(math.sqrt(5) + 1)
+GOLDEN_RATIO = 0.5 * (math.sqrt(5) + 1)
 
 
 class VI:
@@ -14,16 +14,16 @@ class VI:
     Attributes
     ----------
     F : callable
-        The VI vector mapping, a function transforming a ndarray into an other 
-        ndarray of the same size. 
+        The VI vector mapping, a function transforming a ndarray into an other
+        ndarray of the same size.
     g : cp.expressions.expression.Expression, optional
-        The VI scalar mapping, a single ``cvxpy``'s 
-        `Expression <https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1>`_ 
+        The VI scalar mapping, a single ``cvxpy``'s
+        `Expression <https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1>`_
     S : list of cvxpy.constraints.constraint.Constraint, optional
-        The constraints set, a list of ``cvxpy``'s 
-        `Constraints <https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8>`_ 
+        The constraints set, a list of ``cvxpy``'s
+        `Constraints <https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8>`_
     n : int, optional
-        The size of the vector space 
+        The size of the vector space
     """
 
     def __init__(self, F, g=0, S=None, n=None) -> None:
@@ -47,18 +47,20 @@ class VI:
         self.S = S
 
         self.param_x = cp.Parameter(self.y.size)
-        self._prox = cp.Problem(cp.Minimize(self.g + 0.5*cp.norm(self.y - self.param_x)), S)
-        self._proj = cp.Problem(cp.Minimize(0.5*cp.norm(self.y - self.param_x)), S)
+        self._prox = cp.Problem(
+            cp.Minimize(self.g + 0.5 * cp.norm(self.y - self.param_x)), S
+        )
+        self._proj = cp.Problem(cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), S)
 
     def prox(self, x, **cvxpy_solve_params):
         r"""**Constrained Proximal Operator**
 
         Given a scalar function :math:`g  : \mathbb{R}^n \to \mathbb{R}` and
-        a constraints set :math:`\mathcal{S} \subseteq \mathbb{R}^n`, the 
+        a constraints set :math:`\mathcal{S} \subseteq \mathbb{R}^n`, the
         constrained proximal operator is defined as
-        
-        .. math:: 
-            \text{prox}_{g,\mathcal{S}}(\mathbf{x}) = 
+
+        .. math::
+            \text{prox}_{g,\mathcal{S}}(\mathbf{x}) =
             \underset{\mathbf{y} \in \mathcal{S}}{\text{argmin}} \left\{
             g(\mathbf{y}) + \frac{1}{2}\|\mathbf{y} - \mathbf{x}\|^2 \right\}
 
@@ -67,9 +69,9 @@ class VI:
         x : ndarray
             The proximal operator argument point
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Returns
         -------
@@ -83,14 +85,14 @@ class VI:
     def proj(self, x, **cvxpy_solve_params):
         r"""**Projection Operator**
 
-        The projection operator of a point $\mathbf{x} \in \mathbb{R}^n$ with 
+        The projection operator of a point $\mathbf{x} \in \mathbb{R}^n$ with
         respect to set $\mathcal{S} \subseteq \mathbb{R}^n$ returns the closest
         point to $\mathbf{x}$ that belongs to $\mathcal{S}$, i.e.,
 
-        .. math:: 
+        .. math::
             \text{proj}_{\mathcal{S}}(\mathbf{x}) = \text{prox}_{0,\mathcal{S}}
-            (\mathbf{x}) = \underset{\mathbf{y} 
-            \in \mathcal{S}}{\text{argmin}} \left\{\frac{1}{2}\|\mathbf{y} - 
+            (\mathbf{x}) = \underset{\mathbf{y}
+            \in \mathcal{S}}{\text{argmin}} \left\{\frac{1}{2}\|\mathbf{y} -
             \mathbf{x}\|^2 \right\}
 
         Arguments
@@ -98,9 +100,9 @@ class VI:
         x : ndarray
             The projection operator argument point
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Returns
         -------
@@ -121,9 +123,9 @@ class VI:
         x : ndarray
             The argument point
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Return
         ------
@@ -133,57 +135,49 @@ class VI:
         return np.linalg.norm(x - self.prox(x - self.F(x), **cvxpy_solve_params))
 
     ########## Algorithms ##########
-    def pg(self,
-            x: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def pg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
         r"""**Proximal Gradient**
-        
-        Given a constant step-size :math:`\lambda > 0` and an initial vector 
-        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the basic :math:`k`-th iterate 
+
+        Given a constant step-size :math:`\lambda > 0` and an initial vector
+        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the basic :math:`k`-th iterate
         of the proximal gradient (PG) algorithm is [1]_:
 
-        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k -
             \lambda F(\mathbf{x}_k))
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of PG is guaranteed 
-        for Lipshitz strongly monotone operators, with monotone constant 
-        :math:`\mu > 0` and Lipshitz constants :math:`L < +\infty`, when 
+        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
+        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
+        \mathbb{R}^n` is the VI mapping. The convergence of PG is guaranteed
+        for Lipshitz strongly monotone operators, with monotone constant
+        :math:`\mu > 0` and Lipshitz constants :math:`L < +\infty`, when
         :math:`\lambda \in (0, 2\mu/L^2)`.
 
         Arguments
         ---------
-        x : ndarray 
+        x : ndarray
             The initial point, corresponding to :math:`\mathbf{x}_0`
         step_size : float
             The steps size value, corresponding to :math:`\lambda`
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Yields
         ------
         ndarray
-            The iteration's resulting point 
+            The iteration's resulting point
 
         References
         ----------
-        .. [1] Nemirovskij, A. S., & Yudin, D. B. (1983). Problem complexity 
+        .. [1] Nemirovskij, A. S., & Yudin, D. B. (1983). Problem complexity
            and method efficiency in optimization.
         """
         while True:
-            x = self.prox(x - step_size*self.F(x), **cvxpy_solve_params)
+            x = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
             yield x
 
-    def eg(self,
-            x: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def eg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
         r"""**Extragradient**
 
         Given a constant step-size :math:`\lambda > 0` and an initial vector 
@@ -226,16 +220,13 @@ class VI:
            saddle points and other problems. Matecon, 12, 747-756.
         """
         while True:
-            y = self.prox(x - step_size*self.F(x), **cvxpy_solve_params)
-            x = self.prox(x - step_size*self.F(y), **cvxpy_solve_params)
+            y = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
+            x = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
             yield x
 
-    def popov(self,
-            x: np.ndarray,
-            y: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def popov(
+        self, x: np.ndarray, y: np.ndarray, step_size: float, **cvxpy_solve_params
+    ) -> np.ndarray:
         r"""**Popov's Method**
 
         Given a constant step-size :math:`\lambda > 0` and an initial vectors 
@@ -281,15 +272,11 @@ class VI:
            the USSR 28, 845–848 (1980)
         """
         while True:
-            y = self.prox(x - step_size*self.F(y), **cvxpy_solve_params)
-            x = self.prox(x - step_size*self.F(y), **cvxpy_solve_params)
+            y = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
+            x = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
             yield x
 
-    def fbf(self,
-            x: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def fbf(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
         r"""**Forward-Backward-Forward**
         
         Given a constant step-size :math:`\lambda > 0` and an initial vector 
@@ -333,31 +320,32 @@ class VI:
            Optimization, 38(2), 431-446.
         """
         while True:
-            y = self.prox(x - step_size*self.F(x), **cvxpy_solve_params)
-            x = y - step_size*self.F(y) + step_size*self.F(x)
+            y = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
+            x = y - step_size * self.F(y) + step_size * self.F(x)
             yield x
 
-    def frb(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def frb(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Forward-Reflected-Backward**
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic 
-        :math:`k`-th iterate of the Forward-Reflected-Backward (FRB) 
+        Given a constant step-size :math:`\lambda > 0` and initial vectors
+        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic
+        :math:`k`-th iterate of the Forward-Reflected-Backward (FRB)
         is the following [8]_:
 
         .. math::
-            \mathbf{x}_k = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 2\lambda F(\mathbf{x}_k) 
+            \mathbf{x}_k = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 2\lambda F(\mathbf{x}_k)
                 + \lambda F(\mathbf{x}_{k-1}))
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the FRB algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
+        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
+        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
+        \mathbb{R}^n` is the VI mapping. The convergence of the FRB algorithm
+        is guaranteed for Lipshitz monotone operators, with Lipshitz constant
         :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{2L}\right)`.
 
         Arguments
@@ -369,9 +357,9 @@ class VI:
         step_size : float
             The step size value, corresponding to :math:`\lambda`
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Yields
         ------
@@ -380,41 +368,46 @@ class VI:
 
         References
         ----------
-        .. [8] Malitsky, Y., & Tam, M. K. (2020). A forward-backward splitting 
-           method for monotone inclusions without cocoercivity. SIAM Journal on 
+        .. [8] Malitsky, Y., & Tam, M. K. (2020). A forward-backward splitting
+           method for monotone inclusions without cocoercivity. SIAM Journal on
            Optimization, 30(2), 1451-1472.
         """
         while True:
-            x = self.prox(x_current - 2*step_size*self.F(x_current) + \
-                step_size*self.F(x_previous), **cvxpy_solve_params)
+            x = self.prox(
+                x_current
+                - 2 * step_size * self.F(x_current)
+                + step_size * self.F(x_previous),
+                **cvxpy_solve_params,
+            )
             x_previous = x_current
             x_current = x
             yield x
 
-    def prg(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def prg(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Projected Reflected Gradient**
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic 
-        :math:`k`-th iterate of the projected reflected gradient (PRG) 
+        Given a constant step-size :math:`\lambda > 0` and initial vectors
+        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic
+        :math:`k`-th iterate of the projected reflected gradient (PRG)
         is the following [3]_:
-        
-        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \lambda 
+
+        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \lambda
             F(2\mathbf{x}_k - \mathbf{x}_{k-1}))
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
+        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
+        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
         \mathbb{R}^n` is the VI mapping.
-        The convergence of PRG algorithm is guaranteed for Lipshitz monotone 
-        operators, with Lipshitz constants :math:`L < +\infty`, when 
-        :math:`\lambda \in (0,(\sqrt{2} - 1)/L)`. Differently from the EGD 
-        iteration, the PRGD has the advantage of requiring a single 
-        proximal operator evaluation. 
+        The convergence of PRG algorithm is guaranteed for Lipshitz monotone
+        operators, with Lipshitz constants :math:`L < +\infty`, when
+        :math:`\lambda \in (0,(\sqrt{2} - 1)/L)`. Differently from the EGD
+        iteration, the PRGD has the advantage of requiring a single
+        proximal operator evaluation.
 
         Arguments
         ---------
@@ -425,9 +418,9 @@ class VI:
         step_size : float
             The step size value, corresponding to :math:`\lambda`
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Yields
         ------
@@ -436,22 +429,20 @@ class VI:
 
         References
         ----------
-        .. [3] Malitsky, Y. (2015). Projected reflected gradient methods for 
-           monotone variational inequalities. SIAM Journal on Optimization, 
+        .. [3] Malitsky, Y. (2015). Projected reflected gradient methods for
+           monotone variational inequalities. SIAM Journal on Optimization,
            25(1), 502-520.
         """
         while True:
-            x = self.prox(x_current - step_size*self.F(2*x_current - x_previous),
-                **cvxpy_solve_params)
+            x = self.prox(
+                x_current - step_size * self.F(2 * x_current - x_previous),
+                **cvxpy_solve_params,
+            )
             x_previous = x_current
             x_current = x
             yield x
 
-    def eag(self,
-            x: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def eag(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
         r"""**Extra Anchored Gradient**
 
         Given a constant step-size :math:`\lambda > 0` and an initial vector 
@@ -501,17 +492,22 @@ class VI:
         k = 0
         x0 = x
         while True:
-            y = self.prox(x - step_size*self.F(x) + (x0 - x)/(k+1), **cvxpy_solve_params)
-            x = self.prox(x - step_size*self.F(y) + (x0 - x)/(k+1), **cvxpy_solve_params)
+            y = self.prox(
+                x - step_size * self.F(x) + (x0 - x) / (k + 1), **cvxpy_solve_params
+            )
+            x = self.prox(
+                x - step_size * self.F(y) + (x0 - x) / (k + 1), **cvxpy_solve_params
+            )
             k += 1
             yield x
 
-    def arg(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def arg(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Accelerated Reflected Gradient**
 
         Given a constant step-size :math:`\lambda > 0` and initial vectors 
@@ -561,23 +557,30 @@ class VI:
         k = 1
         x0 = x_previous
         while True:
-            y = 2*x_current - x_previous + 1/(k+1)*(x0 - x_current) - \
-                1/k*(x0 - x_previous)
-            x = self.prox(x_current - step_size*self.F(y) + 1/(k+1)*(x0 - x_current),
-                **cvxpy_solve_params)
+            y = (
+                2 * x_current
+                - x_previous
+                + 1 / (k + 1) * (x0 - x_current)
+                - 1 / k * (x0 - x_previous)
+            )
+            x = self.prox(
+                x_current - step_size * self.F(y) + 1 / (k + 1) * (x0 - x_current),
+                **cvxpy_solve_params,
+            )
 
             x_previous = x_current
             x_current = x
             k += 1
             yield x
 
-    def fogda(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            y: np.ndarray,
-            step_size: float,
-            alpha: float = 2.1,
-        ) -> np.ndarray:
+    def fogda(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        y: np.ndarray,
+        step_size: float,
+        alpha: float = 2.1,
+    ) -> np.ndarray:
         r"""**(Explicit) Fast Optimistic Gradient Descent Ascent**
 
         Given a constant step-size :math:`\lambda > 0` and initial vectors 
@@ -631,10 +634,14 @@ class VI:
         """
         k = 0
         while True:
-            y_current = x_current + k*(x_current - x_previous)/(k+alpha) - \
-                step_size*alpha*self.F(y)/(k+alpha)
-            x = y_current - step_size*(2*k + alpha)*(self.F(y_current) - \
-                self.F(y))/(k+alpha)
+            y_current = (
+                x_current
+                + k * (x_current - x_previous) / (k + alpha)
+                - step_size * alpha * self.F(y) / (k + alpha)
+            )
+            x = y_current - step_size * (2 * k + alpha) * (
+                self.F(y_current) - self.F(y)
+            ) / (k + alpha)
 
             x_previous = x_current
             x_current = x
@@ -642,15 +649,16 @@ class VI:
             k += 1
             yield x
 
-    def cfogda(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            y: np.ndarray,
-            z: np.ndarray,
-            step_size: float,
-            alpha: float = 2.1,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def cfogda(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        y: np.ndarray,
+        z: np.ndarray,
+        step_size: float,
+        alpha: float = 2.1,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Constrained Fast Optimistic Gradient Descent Ascent**
 
         Given a constant step-size :math:`\lambda > 0` and initial vectors 
@@ -711,14 +719,20 @@ class VI:
         """
         k = 1
         while True:
-            y_current = x_current + k*(x_current - x_previous)/(k+alpha) - \
-                        step_size*alpha*(self.F(x_current) + z)
-            x = self.prox(
-                y - step_size*(1 + k/(k+alpha)*(self.F(y_current) - \
-                self.F(y) - z)), **cvxpy_solve_params
+            y_current = (
+                x_current
+                + k * (x_current - x_previous) / (k + alpha)
+                - step_size * alpha * (self.F(x_current) + z)
             )
-            z = (k+alpha)*(y_current - x)/(step_size*(2*k+alpha)) - \
-                (self.F(y_current) - self.F(y) - z)
+            x = self.prox(
+                y
+                - step_size
+                * (1 + k / (k + alpha) * (self.F(y_current) - self.F(y) - z)),
+                **cvxpy_solve_params,
+            )
+            z = (k + alpha) * (y_current - x) / (step_size * (2 * k + alpha)) - (
+                self.F(y_current) - self.F(y) - z
+            )
 
             x_previous = x_current
             x_current = x
@@ -726,13 +740,14 @@ class VI:
             k += 1
             yield x
 
-    def graal(self,
-            x: np.ndarray,
-            y: np.ndarray,
-            step_size: float,
-            phi: float = GOLDEN_RATIO,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def graal(
+        self,
+        x: np.ndarray,
+        y: np.ndarray,
+        step_size: float,
+        phi: float = GOLDEN_RATIO,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Golden Ratio Algorithm**
 
         Given a constant step-size :math:`\lambda > 0` and initial vectors 
@@ -780,18 +795,19 @@ class VI:
            inequalities. Mathematical Programming, 184(1), 383-410.
         """
         while True:
-            y = ((phi - 1)*x + y)/phi
-            x = self.prox(y - step_size*self.F(x), **cvxpy_solve_params)
+            y = ((phi - 1) * x + y) / phi
+            x = self.prox(y - step_size * self.F(x), **cvxpy_solve_params)
             yield x
 
-    def agraal(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            phi: float = GOLDEN_RATIO,
-            step_size_large: float = 1e6,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def agraal(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        phi: float = GOLDEN_RATIO,
+        step_size_large: float = 1e6,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Adaptive Golden Ratio Algorithm**
 
         The Adaptive Golden Ratio Algorithm (aGRAAL) algorithm is a variation 
@@ -846,39 +862,47 @@ class VI:
         .. [5] Malitsky, Y. (2020). Golden ratio algorithms for variational 
            inequalities. Mathematical Programming, 184(1), 383-410.
         """
-        rho = 1/phi + 1/phi**2
+        rho = 1 / phi + 1 / phi**2
         theta = 1
         y = x_current
 
         while True:
             # lambda update
-            step_size_current = np.min((
-                rho*step_size,
-                np.divide(
-                    phi*theta*np.linalg.norm(x_current - x_previous, 2), 
-                    4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
-                ), step_size_large
-            ))
+            step_size_current = np.min(
+                (
+                    rho * step_size,
+                    np.divide(
+                        phi * theta * np.linalg.norm(x_current - x_previous, 2),
+                        4
+                        * step_size
+                        * np.linalg.norm(self.F(x_current) - self.F(x_previous), 2),
+                    ),
+                    step_size_large,
+                )
+            )
 
             # graal step
-            y = ((phi - 1)*x_current + y)/phi
-            x = self.prox(y - step_size_current*self.F(x_current), **cvxpy_solve_params)
+            y = ((phi - 1) * x_current + y) / phi
+            x = self.prox(
+                y - step_size_current * self.F(x_current), **cvxpy_solve_params
+            )
 
-            theta = phi*step_size_current/step_size
+            theta = phi * step_size_current / step_size
 
             x_previous = x_current
             x_current = x
             step_size = step_size_current
             yield x
 
-    def hgraal_1(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            phi: float = GOLDEN_RATIO,
-            step_size_large: float = 1e6,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def hgraal_1(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        phi: float = GOLDEN_RATIO,
+        step_size_large: float = 1e6,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Hybrid Golden Ratio Algorithm I**
 
         The HGRAAL-1 algorithm is a variation of the 
@@ -949,7 +973,7 @@ class VI:
            (2024). A hybrid algorithm for monotone variational inequalities. 
            (Manuscript submitted for publication).
         """
-        rho = 1/phi + 1/phi**2
+        rho = 1 / phi + 1 / phi**2
         theta = 1
         y = x_current
 
@@ -961,48 +985,56 @@ class VI:
 
         while True:
             # lambda update
-            step_size_current = np.min((
-                rho*step_size,
-                np.divide(
-                    phi*theta*np.linalg.norm(x_current - x_previous, 2), 
-                    4*step_size*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2) 
-                ), step_size_large
-            ))
+            step_size_current = np.min(
+                (
+                    rho * step_size,
+                    np.divide(
+                        phi * theta * np.linalg.norm(x_current - x_previous, 2),
+                        4
+                        * step_size
+                        * np.linalg.norm(self.F(x_current) - self.F(x_previous), 2),
+                    ),
+                    step_size_large,
+                )
+            )
 
             J_current, J_previous = self.residual(x_current), self.residual(x_previous)
             J_min = np.min((J_min, J_previous))
 
             condition = np.logical_or(
                 np.logical_and(J_current - J_previous > 0, flag),
-                J_min < J_current + 1/k
+                J_min < J_current + 1 / k,
             )
 
-            y = np.where(condition, ((phi - 1)*x_current + y)/phi, x_current)
+            y = np.where(condition, ((phi - 1) * x_current + y) / phi, x_current)
             flag = not condition
             k += int(not condition)
 
-            x = self.prox(y - step_size_current*self.F(x_current), **cvxpy_solve_params)
+            x = self.prox(
+                y - step_size_current * self.F(x_current), **cvxpy_solve_params
+            )
 
-            theta = phi*step_size_current/step_size
+            theta = phi * step_size_current / step_size
 
             x_previous = x_current
             x_current = x
             step_size = step_size_current
             yield x
 
-    def hgraal_2(self,
-            x_current: np.ndarray,
-            x_previous: np.ndarray,
-            step_size: float,
-            phi: float = GOLDEN_RATIO,
-            alpha: float = GOLDEN_RATIO,
-            step_size_large: float = 1e6,
-            phi_large: float = 1e6,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def hgraal_2(
+        self,
+        x_current: np.ndarray,
+        x_previous: np.ndarray,
+        step_size: float,
+        phi: float = GOLDEN_RATIO,
+        alpha: float = GOLDEN_RATIO,
+        step_size_large: float = 1e6,
+        phi_large: float = 1e6,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         r"""**Hybrid Golden Ratio Algorithm II**
 
-        The pseudo-code for the iteration schema can be fount at [14]_ [Algorithm 2]. 
+        The pseudo-code for the iteration schema can be fount at [14]_ [Algorithm 2].
 
         Arguments
         ---------
@@ -1021,27 +1053,33 @@ class VI:
         phi_large: float, optional
             A constant (arbitrarily) large value for :math:`\phi`
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
-        
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
+
         Yields
         ------
         ndarray
-            The iteration's resulting point 
+            The iteration's resulting point
 
         References
         ----------
-        .. [14] Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S. 
-           (2024). A hybrid algorithm for monotone variational inequalities. 
+        .. [14] Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S.
+           (2024). A hybrid algorithm for monotone variational inequalities.
            (Manuscript submitted for publication).
         """
-        def s2_update(s2, coefficient):
-            return s2 - step_size*phi*np.linalg.norm(x_current - y, 2)/step_size_current \
-               + (step_size*phi/step_size_current - 1 - 1/coefficient)*np.linalg.norm(x - y, 2) \
-               - (step_size*phi/step_size_current-theta)*np.linalg.norm(x - x_current, 2)
 
-        rho = 1/phi + 1/phi**2
+        def s2_update(s2, coefficient):
+            return (
+                s2
+                - step_size * phi * np.linalg.norm(x_current - y, 2) / step_size_current
+                + (step_size * phi / step_size_current - 1 - 1 / coefficient)
+                * np.linalg.norm(x - y, 2)
+                - (step_size * phi / step_size_current - theta)
+                * np.linalg.norm(x - x_current, 2)
+            )
+
+        rho = 1 / phi + 1 / phi**2
         theta_current = 1
         y_current = x_current
         step_size_current = step_size
@@ -1050,28 +1088,41 @@ class VI:
         s1_current, s2_current = 0, 0
 
         while True:
-            step_size = np.min((
-                rho*step_size_current,
-                np.divide(
-                    alpha*theta_current*np.linalg.norm(x_current - x_previous, 2), 
-                    4*step_size_current*np.linalg.norm(self.F(x_current) - self.F(x_previous), 2)
-                ), step_size_large
-            ))
+            step_size = np.min(
+                (
+                    rho * step_size_current,
+                    np.divide(
+                        alpha
+                        * theta_current
+                        * np.linalg.norm(x_current - x_previous, 2),
+                        4
+                        * step_size_current
+                        * np.linalg.norm(self.F(x_current) - self.F(x_previous), 2),
+                    ),
+                    step_size_large,
+                )
+            )
 
-            y = ((phi - 1)*x_current + y_current)/phi
-            x = self.prox(y_current - step_size*self.F(x_current), **cvxpy_solve_params)
-            theta = alpha*step_size/step_size_current
+            y = ((phi - 1) * x_current + y_current) / phi
+            x = self.prox(
+                y_current - step_size * self.F(x_current), **cvxpy_solve_params
+            )
+            theta = alpha * step_size / step_size_current
 
-            s1 = s1_current + 0.5*theta_current*np.linalg.norm(x_current - x_previous, 2) \
-               - step_size*np.linalg.norm(x_current - y, 2)/step_size_current \
-               + (step_size*phi/step_size_current-1-1/phi_large)*np.linalg.norm(x - y, 2) \
-               - (step_size*phi/step_size_current-1.5*theta)*np.linalg.norm(x - x_current, 2)
+            s1 = (
+                s1_current
+                + 0.5 * theta_current * np.linalg.norm(x_current - x_previous, 2)
+                - step_size * np.linalg.norm(x_current - y, 2) / step_size_current
+                + (step_size * phi / step_size_current - 1 - 1 / phi_large)
+                * np.linalg.norm(x - y, 2)
+                - (step_size * phi / step_size_current - 1.5 * theta)
+                * np.linalg.norm(x - x_current, 2)
+            )
 
             s2 = s2_update(s2_current, phi_large)
 
             condition = np.logical_or(
-                np.logical_and(s1 <= 0, flag),
-                np.logical_and(s2 <= 0, not flag)
+                np.logical_and(s1 <= 0, flag), np.logical_and(s2 <= 0, not flag)
             )
 
             if condition:
@@ -1100,19 +1151,21 @@ class VI:
             s2_current = s2
 
             yield x
+
     ################################
 
-    def solution(self,
-            algorithm_name: str,
-            algorithm_params: dict,
-            max_iters: int,
-            eval_func=None,
-            eval_tol: float = 1e-9,
-            log_path: str = None,
-            **cvxpy_solve_params
-        ) -> np.ndarray:
+    def solution(
+        self,
+        algorithm_name: str,
+        algorithm_params: dict,
+        max_iters: int,
+        eval_func=None,
+        eval_tol: float = 1e-9,
+        log_path: str = None,
+        **cvxpy_solve_params,
+    ) -> np.ndarray:
         """
-        Solve the variational inequality, using the indicated algorithm. 
+        Solve the variational inequality, using the indicated algorithm.
 
         Arguments
         ---------
@@ -1123,15 +1176,15 @@ class VI:
         max_iters : int
             The maximum number of iterations
         eval_func : callable, optional
-            The function used to evaluate the convergence 
+            The function used to evaluate the convergence
         eval_tol : float, optional
             The minimum tolerance over the evaluation function
         log_path : str, optional
             The path for saving the log file
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the
+            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            method.
 
         Returns
         -------
@@ -1158,8 +1211,10 @@ class VI:
             algorithm_all_params = algorithm_params | cvxpy_solve_params
             for k, x in enumerate(algorithm(**algorithm_all_params)):
                 eval_func_value = eval_func(x)
-                log_file.write(f"{k},{eval_func_value},{time.process_time() - init_time}\n")
+                log_file.write(
+                    f"{k},{eval_func_value},{time.process_time() - init_time}\n"
+                )
 
                 # stopping criteria
-                if k >= max_iters-1 or eval_func_value <= eval_tol:
+                if k >= max_iters - 1 or eval_func_value <= eval_tol:
                     return x

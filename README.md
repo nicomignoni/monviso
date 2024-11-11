@@ -5,9 +5,13 @@
   <img alt="monviso logo" src="docs/_static/monviso-dark.svg" width="50%" height="50%">
 </picture>
 
-A Python package for solving monotone variational inequalities. 
+**A Python package for solving monotone variational inequalities.**
+
+<a href='https://monviso.readthedocs.io/en/latest/?badge=latest'>
+  <img src='https://readthedocs.org/projects/monviso/badge/?version=latest' alt='Documentation Status' />
+</a>
 
 </div>
 
 ## Documentation
-Documentation and quick-start guide can be found on the [docs website](https://monviso.readthedocs.io/en/latest/).
+A quick-start guide, together with a list of the implemented algorithms, can be found on the [docs website](https://monviso.readthedocs.io/en/latest/).

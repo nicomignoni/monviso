@@ -21,7 +21,7 @@ P /= P.sum(2, keepdims=True)
 R = np.random.rand(num_X, num_X)
 
 # Bellman operator (as fixed point) and VI mapping
-T = lambda v: np.einsum("ijk,ik -> ij", P, R + gamma*v[None,:]).max(1)
+T = lambda v: np.einsum("ijk,ik -> ij", P, R + gamma * v[None, :]).max(1)
 F = lambda x: x - T(x)
 L = 3
 
@@ -34,12 +34,15 @@ max_iter = 200
 for algorithm, params in cases(x0, L, excluded={"pg", "cfogda"}).items():
     print(f"Using: {algorithm}")
     sol = mdp.solution(
-        algorithm, params, max_iter, eval_func=lambda x: np.linalg.norm(F(x), 2),
-        log_path=f"examples/logs/markov-decision-process/{algorithm}.log"
+        algorithm,
+        params,
+        max_iter,
+        eval_func=lambda x: np.linalg.norm(F(x), 2),
+        log_path=f"examples/logs/markov-decision-process/{algorithm}.log",
     )
 
 plot_results(
     "examples/logs/markov-decision-process",
     "examples/figs/markov-decision-process.pdf",
-    r"$\|F(\mathbf{x}_k))\|$"
+    r"$\|F(\mathbf{x}_k))\|$",
 )
