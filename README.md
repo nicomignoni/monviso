@@ -13,5 +13,10 @@
 
 </div>
 
+## Installation
+```
+pip install git+https://github.com/nicomignoni/monviso.git@master
+```
+
 ## Documentation
 A quick-start guide, together with a list of the implemented algorithms, can be found on the [docs website](https://monviso.readthedocs.io/en/latest/).

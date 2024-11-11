@@ -11,6 +11,13 @@ Welcome to monviso!
                  inqualities.
    :keywords: monotone variational inequalities, open source, software,
 
+Installation
+------------
+
+.. code-block:: bash
+   
+   pip install git+https://github.com/nicomignoni/monviso.git@master
+
 Quickstart
 ----------
 
