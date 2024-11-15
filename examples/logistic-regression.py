@@ -2,7 +2,7 @@ import numpy as np
 import cvxpy as cp
 import matplotlib.pyplot as plt
 
-from .utils import *
+from examples.utils import *
 from monviso import VI
 
 np.random.seed(2024)

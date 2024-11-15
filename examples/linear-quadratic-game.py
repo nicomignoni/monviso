@@ -3,7 +3,7 @@ import scipy as sp
 import cvxpy as cp
 import matplotlib.pyplot as plt
 
-from .utils import *
+from examples.utils import *
 from monviso import VI
 
 np.random.rand(2024)
