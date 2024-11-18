@@ -24,7 +24,7 @@ which is satisfied by the fixed-point of the best response mapping of each agent
 
     \mathbf{u}^*_i = \underset{{\mathbf{u}_i \in \mathcal{U}(\mathbf{x}_0,\mathbf{u}^*_{-i})}}{\text{argmin}} J_i(\mathbf{u}_i|\mathbf{x}_0, \mathbf{u}^*_{-i}), \quad \forall i \in \mathcal{N}
 
-Proposition 2 in [1]_ states that any solution of the canonical VI is a solution for :eq:`best_response` when :math:`\mathcal{S} = \mathcal{U}(\mathbf{x}_0)` and :math:`F : \mathbb{R}^{mTN} \to \mathbb{R}^{mTN}$`, defined as
+Proposition 2 in [1]_ states that any solution of the canonical VI is a solution for :eq:`best_response` when :math:`\mathcal{S} = \mathcal{U}(\mathbf{x}_0)` and :math:`F : \mathbb{R}^{mTN} \to \mathbb{R}^{mTN}`, defined as
 
 .. math::
     F(\mathbf{u}) = \text{col}(\mathbf{G}^\top_i \bar{\mathbf{Q}}_i)_{i \in \mathcal{N}} (\text{row}(\mathbf{G}_i)_{i \in \mathcal{N}}\mathbf{u} + \mathbf{H} \mathbf{x}_0) +
