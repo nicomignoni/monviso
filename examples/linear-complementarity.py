@@ -1,6 +1,5 @@
 import numpy as np
 import cvxpy as cp
-import matplotlib.pyplot as plt
 
 from .utils import *
 from monviso import VI
@@ -15,14 +14,20 @@ M = random_positive_definite_matrix(-10, 10, n)
 # Define the mapping and constraints' set
 F = lambda x: -(q + M @ x)
 L = np.linalg.norm(M, 2)
-x = cp.Variable(n)
-S = [x >= 0, -q @ x - cp.quad_form(x, M) >= 0]
+S = [
+    lambda x: x >= 0, 
+    lambda x: -q @ x - cp.quad_form(x, M) >= 0
+]
 
 # Define the VI and the initial(s) points
-lcp = VI(F, S=S)
+lcp = VI(n, F, S=S)
 x0 = []
+x = cp.Variable(n)
 for _ in range(2):
-    prob = cp.Problem(cp.Minimize(np.random.rand(n) @ x), constraints=S).solve()
+    prob = cp.Problem(
+        cp.Minimize(np.random.rand(n) @ x), 
+        constraints=[constraint(x) for constraint in S]
+    ).solve()
     x0.append(x.value)
 
 # Solve the VI using the available algorithms

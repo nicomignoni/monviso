@@ -18,7 +18,7 @@ F = lambda x: A @ x
 L = np.linalg.norm(A, 2)
 
 # Create the VI and the initial solution(s)
-sso = VI(F, n=N * M)
+sso = VI(N * M, F)
 x0 = [np.random.rand(N * M) for _ in range(2)]
 
 # Solve the VI using the available algorithms

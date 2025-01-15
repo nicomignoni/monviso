@@ -19,12 +19,11 @@ F = lambda x: -np.sum(
     (A.T * np.tile(b, (N, 1))) * np.exp(-b * (A @ x)) / (1 + np.exp(-b * (A @ x))),
     axis=1,
 )
-x = cp.Variable(N)
-g = gamma * cp.norm(x, 1)
+g = lambda x: gamma * cp.norm(x, 1)
 L = 1.5
 
 # Define the VI problem
-slr = VI(F, g)
+slr = VI(N, F, g)
 
 # Initial points
 x0 = [np.random.rand(N) for _ in range(2)]

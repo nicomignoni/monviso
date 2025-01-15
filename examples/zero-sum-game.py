@@ -19,10 +19,13 @@ L = np.linalg.norm(H_block, 2)
 
 # Simplex constraints' set
 x = cp.Variable(n1 + n2)
-S = [cp.sum(x[:n1]) == 1, cp.sum(x[n1:]) == 1]
+S = [
+    lambda x: cp.sum(x[:n1]) == 1, 
+    lambda x: cp.sum(x[n1:]) == 1
+]
 
 # Define the two-players zero sum game as a Variational Inequality
-tpzsg = VI(F, S=S)
+tpzsg = VI(n1 + n2, F, S=S)
 
 # Create two initial (feasible) points
 x0 = []

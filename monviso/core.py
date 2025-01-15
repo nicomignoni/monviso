@@ -13,46 +13,37 @@ class VI:
 
     Attributes
     ----------
+    n : int
+        The size of the vector space
     F : callable
         The VI vector mapping, a function transforming a ndarray into an other
         ndarray of the same size.
-    g : cp.expressions.expression.Expression, optional
-        The VI scalar mapping, a single ``cvxpy``'s
+    g : callable, optional
+        The VI scalar mapping, a callable returning a ``cvxpy``'s
         `Expression <https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1>`_
-    S : list of cvxpy.constraints.constraint.Constraint, optional
-        The constraints set, a list of ``cvxpy``'s
+    S : list of callable, optional
+        The constraints set, a list of callables, each returning a ``cvxpy``'s 
         `Constraints <https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8>`_
-    n : int, optional
-        The size of the vector space
     """
 
-    def __init__(self, F, g=0, S=None, n=None) -> None:
-        if S is None:
-            S = []
-
-        # Each constraint/expression in the constraints' set, together with g,
-        # must depend on a single variable
-        extended_S = S + [g]
-        variables = set(
-            sum([e.variables() for e in extended_S if hasattr(e, "variables")], [])
-        )
-        assert len(variables) <= 1
-
-        # The constraints set variable must be a vector
-        self.y = variables.pop() if len(variables) == 1 else cp.Variable(n)
-        assert self.y.ndim == 1
-
+    def __init__(self, n, F, g=None, S=None) -> None:
         self.F = F
-        self.g = g
-        self.S = S
+        self.g = lambda x: 0 if g is None else g
 
+        self.y = cp.Variable(n)
         self.param_x = cp.Parameter(self.y.size)
-        self._prox = cp.Problem(
-            cp.Minimize(self.g + 0.5 * cp.norm(self.y - self.param_x)), S
-        )
-        self._proj = cp.Problem(cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), S)
+        self.constraints = [] if S is None else [constraint(self.y) for constraint in S] 
 
-    def prox(self, x, **cvxpy_solve_params):
+        self._prox = cp.Problem(
+            cp.Minimize(self.g(self.y) + 0.5 * cp.norm(self.y - self.param_x)), 
+            self.constraints
+        )
+        self._proj = cp.Problem(
+            cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), 
+            self.constraints
+        )
+
+    def prox(self, x, **cvxpy_solve_params) -> np.ndarray:
         r"""**Constrained Proximal Operator**
 
         Given a scalar function :math:`g  : \mathbb{R}^n \to \mathbb{R}` and
@@ -82,7 +73,7 @@ class VI:
         self._prox.solve(**cvxpy_solve_params)
         return self.y.value
 
-    def proj(self, x, **cvxpy_solve_params):
+    def proj(self, x, **cvxpy_solve_params) -> np.ndarray:
         r"""**Projection Operator**
 
         The projection operator of a point $\mathbf{x} \in \mathbb{R}^n$ with

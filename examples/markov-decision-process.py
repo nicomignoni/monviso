@@ -26,7 +26,7 @@ F = lambda x: x - T(x)
 L = 3
 
 # Create the VI and the initial solution(s)
-mdp = VI(F, n=num_X)
+mdp = VI(num_X, F)
 x0 = [np.random.rand(num_X) for _ in range(2)]
 
 # Solve the VI using the available algorithms

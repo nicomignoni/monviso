@@ -1,6 +1,4 @@
-dist/
 docs/_build/
 docs/_templates/
-*.egg-info/
 **/__pycache__/
 **/.ipynb_checkpoints/

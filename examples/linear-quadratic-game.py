@@ -37,11 +37,10 @@ F = lambda u: F1 @ (F2 @ u + H @ x0) + F3 @ u
 L = np.linalg.norm(F1 @ F2 + F3, 2) + 1
 
 # Define a constraints set for the collective input
-u = cp.Variable(m * T * N)
-S = [u >= 0]
+S = [lambda u: u >= 0]
 
 # Define the VI and the initial(s) points
-lqg = VI(F, S=S)
+lqg = VI(m * T * N, F, S=S)
 u0 = [np.random.rand(m * T * N) for _ in range(2)]
 
 # Solve the VI using the available algorithms

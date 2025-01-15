@@ -20,7 +20,7 @@ F = lambda x: x - P(x).mean(axis=0)
 L = 10
 
 # Define the VI
-fp = VI(F, n=n)
+fp = VI(n, F)
 
 # Initial points
 x0 = [np.random.rand(n) for _ in range(2)]
