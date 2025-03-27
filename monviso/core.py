@@ -22,25 +22,24 @@ class VI:
         The VI scalar mapping, a callable returning a ``cvxpy``'s
         `Expression <https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1>`_
     S : list of callable, optional
-        The constraints set, a list of callables, each returning a ``cvxpy``'s 
+        The constraints set, a list of callables, each returning a ``cvxpy``'s
         `Constraints <https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8>`_
     """
 
     def __init__(self, n, F, g=None, S=None) -> None:
         self.F = F
-        self.g = lambda x: 0 if g is None else g
+        self.g = (lambda x: 0) if g is None else g
 
         self.y = cp.Variable(n)
         self.param_x = cp.Parameter(self.y.size)
-        self.constraints = [] if S is None else [constraint(self.y) for constraint in S] 
+        self.constraints = [] if S is None else [constraint(self.y) for constraint in S]
 
         self._prox = cp.Problem(
-            cp.Minimize(self.g(self.y) + 0.5 * cp.norm(self.y - self.param_x)), 
-            self.constraints
+            cp.Minimize(self.g(self.y) + 0.5 * cp.norm(self.y - self.param_x)),
+            self.constraints,
         )
         self._proj = cp.Problem(
-            cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), 
-            self.constraints
+            cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), self.constraints
         )
 
     def prox(self, x, **cvxpy_solve_params) -> np.ndarray:

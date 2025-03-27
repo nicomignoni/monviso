@@ -13,10 +13,8 @@ H = np.random.uniform(2, 10, size=(n, n))
 A = np.random.uniform(45, 50, size=(m, n))
 b = np.random.uniform(3, 7, size=(m,))
 
-# Make H positive definite (using Gershgorin Circle Theorem)
-H = (H + H.T) / 2
-centers = np.diag(H)
-H += np.eye(n) * (H[np.argmin(centers), :].sum() + np.abs(centers.min()))
+# Make H positive definite 
+H = H @ H.T
 
 # Lipschitz and strong monotonicity constants
 mu = np.linalg.eigvals(H).min()
@@ -24,13 +22,11 @@ L = np.linalg.norm(H, 2)
 
 # Define F, g, and S
 F = lambda x: H @ x
-
-x = cp.Variable(n)
-g = cp.norm(x)
-S = [A @ x <= b]
+g = lambda x: cp.norm(x)
+S = [lambda x: A @ x <= b]
 
 # Define and solve the VI
-vi = VI(F, g, S)
+vi = VI(n, F, g, S)
 
 x0 = np.random.uniform(4, 5, n)
 algorithm_params = {"x": x0, "step_size": 2 * mu / L**2}
