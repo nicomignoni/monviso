@@ -223,13 +223,13 @@ class VI:
         :math:`\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n`, the :math:`k`-th 
         iterate of Popov's Method (PM) is [6]_:
 
-         .. math:: 
-            \begin{align}
-                \mathbf{y}_ {k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
-                    \lambda F(\mathbf{y}_k)) \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - 
-                    \lambda F(\mathbf{x}_k))
-            \end{align}
+        .. math:: 
+           \begin{align}
+               \mathbf{y}_ {k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+                   \lambda F(\mathbf{y}_k)) \\
+               \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - 
+                   \lambda F(\mathbf{x}_k))
+           \end{align}
 
         where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
         (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
@@ -1024,7 +1024,7 @@ class VI:
     ) -> np.ndarray:
         r"""**Hybrid Golden Ratio Algorithm II**
 
-        The pseudo-code for the iteration schema can be fount at [14]_ [Algorithm 2].
+        The pseudo-code for the iteration schema can be found at [14]_ [Algorithm 2].
 
         Arguments
         ---------
