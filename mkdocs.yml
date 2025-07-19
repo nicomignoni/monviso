@@ -1,0 +1,68 @@
+site_name: monviso docs 
+repo_url: https://github.com/nicomignoni/monviso
+nav: 
+  - Home: index.md
+  - Quickstart: examples/quickstart-nb.ipynb
+  - API: api.md
+
+theme:
+  name: material
+  logo: images/monviso-dark.svg
+  favicon: images/favicon.svg
+  palette:
+    scheme: slate
+    primary: black
+    accent: red
+  palette:
+    - media: "(prefers-color-scheme)"
+      accent: red
+      primary: black
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      accent: red
+      primary: black
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      accent: red
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            docstring_section_style: list
+            separate_signature: true
+            show_signature_annotations: true
+            show_root_members_full_path: true
+            show_root_toc_entry: false
+            show_root_heading: true
+            show_source: false
+            heading_level: 3
+  - mkdocs-jupyter:
+      include_requirejs: true
+      custom_mathjax_url: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"
+      execute: false
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 2
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
