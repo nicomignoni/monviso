@@ -1,0 +1,2745 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../examples/linear-quadratic-game-nb/">
+      
+      
+      
+      <link rel="icon" href="../images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>API - monviso docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-vi-class" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="monviso docs" class="md-header__button md-logo" aria-label="monviso docs" data-md-component="logo">
+      
+  <img src="../images/monviso-dark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            monviso docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="orange"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nicomignoni/monviso" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="monviso docs" class="md-nav__button md-logo" aria-label="monviso docs" data-md-component="logo">
+      
+  <img src="../images/monviso-dark.svg" alt="logo">
+
+    </a>
+    monviso docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nicomignoni/monviso" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/quickstart-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/linear-complementarity-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linear Complementarity Problem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/zero-sum-game-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Two Players Zero-Sum Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/feasibility-problem-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Feasibility problem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/skew-symmetric-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Skew-symmetric operator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/logistic-regression-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sparse logistic regression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/markov-decision-process-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Markov Decision Process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/linear-quadratic-game-nb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linear-Quadratic Dynamic Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-vi-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      The VI Class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The VI Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constrained-proximal-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constrained proximal operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projection-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projection operator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterative-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterative methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterative methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proximal-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proximal gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extragradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extragradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#popovs-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Popov's method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-backward-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forward-backward-forward
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-reflected-backward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forward-reflected-backward
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projected-reflected-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projected reflected gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-anchored-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra anchored gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerated-reflected-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accelerated reflected gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-fast-optimistic-gradient-descent-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      (Explicit) fast optimistic gradient descent-ascent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constrained-fast-optimistic-gradient-descent-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constrained fast optimistic gradient descent-ascent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#golden-ratio-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Golden ratio algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-golden-ratio-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaptive golden ratio algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-golden-ratio-algorithm-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid golden ratio algorithm I
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-golden-ratio-algorithm-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid golden ratio algorithm II
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-vi-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      The VI Class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The VI Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constrained-proximal-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constrained proximal operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projection-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projection operator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterative-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iterative methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Iterative methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proximal-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proximal gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extragradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extragradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#popovs-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Popov's method
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-backward-forward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forward-backward-forward
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forward-reflected-backward" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forward-reflected-backward
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projected-reflected-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projected reflected gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-anchored-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extra anchored gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerated-reflected-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accelerated reflected gradient
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-fast-optimistic-gradient-descent-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      (Explicit) fast optimistic gradient descent-ascent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constrained-fast-optimistic-gradient-descent-ascent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constrained fast optimistic gradient descent-ascent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#golden-ratio-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Golden ratio algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-golden-ratio-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaptive golden ratio algorithm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-golden-ratio-algorithm-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid golden ratio algorithm I
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-golden-ratio-algorithm-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid golden ratio algorithm II
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>API</h1>
+
+<h2 id="the-vi-class">The <code>VI</code> Class<a class="headerlink" href="#the-vi-class" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="monviso.VI" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">monviso.VI</span>
+
+
+<a href="#monviso.VI" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents first">
+
+
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="monviso.VI.n">n</span></code></b>
+              (<code><span title="int">int</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The size of the vector space</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="monviso.VI.F">F</span></code></b>
+              (<code><span title="callable">callable</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The VI vector mapping, i.e., <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span>; a function transforming a ndarray into an other <code>np.ndarray</code> of the same size.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="monviso.VI.g">g</span></code></b>
+              (<code>(<span title="callable">callable</span>, <span title="optional">optional</span>)</code>)
+          –
+          <div class="doc-md-description">
+            <p>The VI scalar mapping, i.e., <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span>; a callable returning a <a href="https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1"><code>cvxpy.Expression</code></a></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="monviso.VI.S">S</span></code></b>
+              (<code>list of callable, optional</code>)
+          –
+          <div class="doc-md-description">
+            <p>The constraints set, i.e., <span class="arithmatex">\(\mathcal{S} \subseteq \mathbb{R}^n\)</span>; a list of callables, each returning a <a href="https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8"><code>Constraints</code></a></p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="constrained-proximal-operator">Constrained proximal operator<a class="headerlink" href="#constrained-proximal-operator" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.prox" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.prox</span>
+
+
+<a href="#monviso.VI.prox" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">prox</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a scalar function <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> and a constraints set <span class="arithmatex">\(\mathcal{S} \subseteq \mathbb{R}^n\)</span>, the constrained proximal operator is defined as</p>
+<div class="arithmatex">\[
+\text{prox}_{g,\mathcal{S}}(\mathbf{x}) = \underset{\mathbf{y} \in \mathcal{S}}{\text{argmin}} \left\{ g(\mathbf{y}) + \frac{1}{2}\|\mathbf{y} - \mathbf{x}\|^2 \right\}
+\]</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The proximal operator argument point</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The proximal operator resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="projection-operator">Projection operator<a class="headerlink" href="#projection-operator" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.proj" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.proj</span>
+
+
+<a href="#monviso.VI.proj" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">proj</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>The projection operator of a point <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^n\)</span> with respect to set <span class="arithmatex">\(\mathcal{S} \subseteq \mathbb{R}^n\)</span> returns the closest point to <span class="arithmatex">\(\mathbf{x}\)</span> 
+that belongs to <span class="arithmatex">\(\mathcal{S}\)</span>, i.e.,</p>
+<div class="arithmatex">\[
+\text{proj}_{\mathcal{S}}(\mathbf{x}) = \text{prox}_{0,\mathcal{S}}
+(\mathbf{x}) = \underset{\mathbf{y}
+\in \mathcal{S}}{\text{argmin}} \left\{\frac{1}{2}\|\mathbf{y} -
+\mathbf{x}\|^2 \right\}
+\]</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The projection operator argument point</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The projected point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h2 id="iterative-methods">Iterative methods<a class="headerlink" href="#iterative-methods" title="Permanent link">&para;</a></h2>
+<h3 id="proximal-gradient">Proximal gradient<a class="headerlink" href="#proximal-gradient" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.pg" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.pg</span>
+
+
+<a href="#monviso.VI.pg" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">pg</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and an initial vector <span class="arithmatex">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the basic <span class="arithmatex">\(k\)</span>-th iterate of the proximal gradient (PG) algorithm is <sup id="monviso.VI.pg--fnref:1"><a class="footnote-ref" href="#monviso.VI.pg--fn:1">1</a></sup>:</p>
+<div class="arithmatex">\[ \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(\mathbf{x}_k)) \]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex (possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span> is the VI mapping. 
+Convergence of PG is guaranteed for Lipschitz strongly monotone operators, with monotone constant <span class="arithmatex">\(\mu &gt; 0\)</span> and Lipschitz constants <span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in (0, 2\mu/L^2)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.pg--fn:1">
+<p>Nemirovskij, A. S., &amp; Yudin, D. B. (1983). Problem complexity
+   and method efficiency in optimization.&#160;<a class="footnote-backref" href="#monviso.VI.pg--fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The steps size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="extragradient">Extragradient<a class="headerlink" href="#extragradient" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.eg" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.eg</span>
+
+
+<a href="#monviso.VI.eg" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">eg</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and an initial vector 
+<span class="arithmatex">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the <span class="arithmatex">\(k\)</span>-th iterate 
+of the extragradient algorithm (EG) is<sup id="monviso.VI.eg--fnref:2"><a class="footnote-ref" href="#monviso.VI.eg--fn:2">1</a></sup>:</p>
+<div class="arithmatex">\[ 
+\begin{align}
+    \mathbf{y}_k &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+        \chi \mathbf{F}(\mathbf{x}_k)) \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_k - 
+        \chi \mathbf{F}(\mathbf{x}_k))
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex 
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to 
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the EGD algorithm 
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{L}\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.eg--fn:2">
+<p>Korpelevich, G. M. (1976). The extragradient method for finding 
+   saddle points and other problems. Matecon, 12, 747-756.&#160;<a class="footnote-backref" href="#monviso.VI.eg--fnref:2" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="popovs-method">Popov's method<a class="headerlink" href="#popovs-method" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.popov" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.popov</span>
+
+
+<a href="#monviso.VI.popov" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">popov</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and an initial vectors <span class="arithmatex">\(\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n\)</span>, the <span class="arithmatex">\(k\)</span>-th iterate of Popov's Method (PM) is<sup id="monviso.VI.popov--fnref:6"><a class="footnote-ref" href="#monviso.VI.popov--fn:6">1</a></sup>:</p>
+<div class="arithmatex">\[ 
+\begin{align}
+    \mathbf{y}_ {k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(\mathbf{y}_k)) \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi \mathbf{F}(\mathbf{x}_k))
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex (possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span> is the VI mapping. 
+The convergence of PM is guaranteed for Lipschitz monotone operators, with Lipschitz constant <span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{2L}\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.popov--fn:6">
+<p>Popov, L.D. A modification of the Arrow-Hurwicz method for search of saddle points. 
+Mathematical Notes of the Academy of Sciences of the USSR 28, 845–848 (1980)&#160;<a class="footnote-backref" href="#monviso.VI.popov--fnref:6" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>y</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{y}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="forward-backward-forward">Forward-backward-forward<a class="headerlink" href="#forward-backward-forward" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.fbf" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.fbf</span>
+
+
+<a href="#monviso.VI.fbf" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">fbf</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and an initial vector <span class="arithmatex">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the <span class="arithmatex">\(k\)</span>-th iterate of Forward-Backward-Forward (FBF) algorithm is<sup id="monviso.VI.fbf--fnref:7"><a class="footnote-ref" href="#monviso.VI.fbf--fn:7">1</a></sup>:</p>
+<div class="arithmatex">\[ 
+\begin{align}
+    \mathbf{y}_k &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+        \chi \mathbf{F}(\mathbf{x}_k)) \\
+    \mathbf{x}_{k+1} &amp;= \mathbf{y}_k - 
+        \chi \mathbf{F}(\mathbf{y}_k) + \chi \mathbf{F}(\mathbf{x}_k)
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex 
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to 
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the FBF algorithm 
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{L}\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.fbf--fn:7">
+<p>Tseng, P. (2000). A modified forward-backward splitting method 
+   for maximal monotone mappings. SIAM Journal on Control and 
+   Optimization, 38(2), 431-446.&#160;<a class="footnote-backref" href="#monviso.VI.fbf--fnref:7" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="forward-reflected-backward">Forward-reflected-backward<a class="headerlink" href="#forward-reflected-backward" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.frb" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.frb</span>
+
+
+<a href="#monviso.VI.frb" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">frb</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors
+<span class="arithmatex">\(\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the basic
+<span class="arithmatex">\(k\)</span>-th iterate of the Forward-Reflected-Backward (FRB)
+is the following<sup id="monviso.VI.frb--fnref:8"><a class="footnote-ref" href="#monviso.VI.frb--fn:8">1</a></sup>:</p>
+<div class="arithmatex">\[ \mathbf{x}_k = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 2\chi \mathbf{F}(\mathbf{x}_k) + \chi \mathbf{F}(\mathbf{x}_{k-1})) \]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the FRB algorithm
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{2L}\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.frb--fn:8">
+<p>Malitsky, Y., &amp; Tam, M. K. (2020). A forward-backward splitting
+   method for monotone inclusions without cocoercivity. SIAM Journal on
+   Optimization, 30(2), 1451-1472.&#160;<a class="footnote-backref" href="#monviso.VI.frb--fnref:8" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a>
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="projected-reflected-gradient">Projected reflected gradient<a class="headerlink" href="#projected-reflected-gradient" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.prg" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.prg</span>
+
+
+<a href="#monviso.VI.prg" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">prg</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors
+<span class="arithmatex">\(\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the basic
+<span class="arithmatex">\(k\)</span>-th iterate of the projected reflected gradient (PRG)
+is the following <sup id="monviso.VI.prg--fnref:3"><a class="footnote-ref" href="#monviso.VI.prg--fn:3">1</a></sup>:</p>
+<div class="arithmatex">\[ \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(2\mathbf{x}_k - \mathbf{x}_{k-1})) \]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to
+\mathbb{R}^n\)</span> is the VI mapping.
+The convergence of PRG algorithm is guaranteed for Lipschitz monotone
+operators, with Lipschitz constants <span class="arithmatex">\(L &lt; +\infty\)</span>, when
+<span class="arithmatex">\(\chi \in (0,(\sqrt{2} - 1)/L)\)</span>. Differently from the EGD
+iteration, the PRGD has the advantage of requiring a single
+proximal operator evaluation.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.prg--fn:3">
+<p>Malitsky, Y. (2015). Projected reflected gradient methods for
+   monotone variational inequalities. SIAM Journal on Optimization,
+   25(1), 502-520.&#160;<a class="footnote-backref" href="#monviso.VI.prg--fnref:3" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a>
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="extra-anchored-gradient">Extra anchored gradient<a class="headerlink" href="#extra-anchored-gradient" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.eag" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.eag</span>
+
+
+<a href="#monviso.VI.eag" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">eag</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and an initial vector 
+<span class="arithmatex">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the <span class="arithmatex">\(k\)</span>-th 
+iterate of extra anchored gradient (EAG) algorithm is <sup id="monviso.VI.eag--fnref:9"><a class="footnote-ref" href="#monviso.VI.eag--fn:9">1</a></sup>:</p>
+<div class="arithmatex">\[
+\begin{align}
+    \mathbf{y}_k &amp;= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+        \chi \mathbf{F}(\mathbf{x}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+        \mathbf{x}_k)\right) \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+        \chi \mathbf{F}(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+        \mathbf{x}_k)\right)
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex 
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to 
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the EAG algorithm 
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{\sqrt{3}L}
+\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.eag--fn:9">
+<p>Yoon, T., &amp; Ryu, E. K. (2021, July). Accelerated Algorithms for 
+   Smooth Convex-Concave Minimax Problems with O (1/k^ 2) Rate on Squared 
+   Gradient Norm. In International Conference on Machine Learning (pp. 
+   12098-12109). PMLR.&#160;<a class="footnote-backref" href="#monviso.VI.eag--fnref:9" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="accelerated-reflected-gradient">Accelerated reflected gradient<a class="headerlink" href="#accelerated-reflected-gradient" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.arg" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.arg</span>
+
+
+<a href="#monviso.VI.arg" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">arg</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors 
+<span class="arithmatex">\(\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n\)</span>, the basic 
+<span class="arithmatex">\(k\)</span>-th iterate of the accelerated reflected gradient (ARG) 
+is the following <sup id="monviso.VI.arg--fnref:10"><a class="footnote-ref" href="#monviso.VI.arg--fn:10">1</a></sup>:</p>
+<div class="arithmatex">\[
+\begin{align}
+    \mathbf{y}_k &amp;= 2\mathbf{x}_k - \mathbf{x}_{k-1} + \frac{1}{k+1}
+    (\mathbf{x}_0 - \mathbf{x}_k) - \frac{1}{k}(\mathbf{x}_k - 
+    \mathbf{x}_{k-1}) \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+        \chi \mathbf{F}(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+        \mathbf{x}_k)\right)
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex 
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to 
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the ARG algorithm 
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{12L}\right)\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.arg--fn:10">
+<p>Cai, Y., &amp; Zheng, W. (2022). Accelerated single-call methods 
+   for constrained min-max optimization. arXiv preprint arXiv:2210.03096.&#160;<a class="footnote-backref" href="#monviso.VI.arg--fnref:10" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="explicit-fast-optimistic-gradient-descent-ascent">(Explicit) fast optimistic gradient descent-ascent<a class="headerlink" href="#explicit-fast-optimistic-gradient-descent-ascent" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.fogda" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.fogda</span>
+
+
+<a href="#monviso.VI.fogda" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">fogda</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors 
+<span class="arithmatex">\(\mathbf{x}_1,\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n\)</span>, the 
+basic <span class="arithmatex">\(k\)</span>-th iterate of the explicit fast OGDA (FOGDA) 
+is the following <sup id="monviso.VI.fogda--fnref:11"><a class="footnote-ref" href="#monviso.VI.fogda--fn:11">1</a></sup>:</p>
+<div class="arithmatex">\[
+\begin{align}
+    \mathbf{y}_k &amp;= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k - 
+        \mathbf{x}_{k-1}) - \chi \frac{\alpha}{k+\alpha}
+        \mathbf{F}(\mathbf{y}_{k-1}) \\
+    \mathbf{x}_{k+1} &amp;= \mathbf{y}_k - \chi \frac{2k+\alpha}
+        {k+\alpha} (\mathbf{F}(\mathbf{y}_k) - \mathbf{F}(\mathbf{y}_{k-1}))
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex 
+(possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to 
+\mathbb{R}^n\)</span> is the VI mapping. The convergence of the ARG algorithm 
+is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+<span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{4L}\right)\)</span>
+and <span class="arithmatex">\(\alpha &gt; 2\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.fogda--fn:11">
+<p>Boţ, R. I., Csetnek, E. R., &amp; Nguyen, D. K. (2023). Fast 
+   Optimistic Gradient Descent Ascent (OGDA) method in continuous and 
+   discrete time. Foundations of Computational Mathematics, 1-60.&#160;<a class="footnote-backref" href="#monviso.VI.fogda--fnref:11" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>y</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{y}_0\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>alpha</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>2.1</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The auxiliary parameter, corresponding to the <span class="arithmatex">\(\alpha\)</span> parameter.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="constrained-fast-optimistic-gradient-descent-ascent">Constrained fast optimistic gradient descent-ascent<a class="headerlink" href="#constrained-fast-optimistic-gradient-descent-ascent" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.cfogda" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.cfogda</span>
+
+
+<a href="#monviso.VI.cfogda" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">cfogda</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">z</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.1</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors <span class="arithmatex">\(\mathbf{x}_1 \in \mathcal{S}\)</span>, <span class="arithmatex">\(\mathbf{z}_1 \in N_{\mathcal{S}}(\mathbf{x}_1)\)</span>, <span class="arithmatex">\(\mathbf{x}_0,\mathbf{y}_0 \in 
+\mathbb{R}^n\)</span>, the basic <span class="arithmatex">\(k\)</span>-th iterate of Constrained Fast Optimistic Gradient Descent Ascent (CFOGDA) is the following<sup id="monviso.VI.cfogda--fnref:12"><a class="footnote-ref" href="#monviso.VI.cfogda--fn:12">1</a></sup>:</p>
+<div class="arithmatex">\[ 
+\begin{align}
+    \mathbf{y}_k &amp;= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k -
+        \mathbf{x}_{k-1}) - \chi \frac{\alpha}{k+\alpha}(
+        \mathbf{F}(\mathbf{y}_k) + \mathbf{z}_k) \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}\left(\mathbf{y}_k
+        - \chi\left(1 + \frac{k}{k+\alpha}\right)(\mathbf{F}(\mathbf{y}_k)
+        - \mathbf{F}(\mathbf{y}_{k-1}) - \zeta_k)\right) \\
+    \mathbf{z}_{k+1} &amp;= \frac{k+\alpha}{\chi (2k+\alpha)}(
+        \mathbf{y}_k - \mathbf{x}_{k+1}) - (\mathbf{F}(\mathbf{y}_k)
+        - \mathbf{F}(\mathbf{y}_{k-1}) - \zeta_k)
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span> is a scalar convex (possibly non-smooth) function, while <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span> is the VI mapping. 
+The convergence of the CFOGDA algorithm is guaranteed for Lipschitz monotone operators, with Lipschitz constant <span class="arithmatex">\(L &lt; +\infty\)</span>, when <span class="arithmatex">\(\chi \in \left(0,\frac{1}{4L}\right)\)</span>
+and <span class="arithmatex">\(\alpha &gt; 2\)</span>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.cfogda--fn:12">
+<p>Sedlmayer, M., Nguyen, D. K., &amp; Bot, R. I. (2023, July). A fast 
+   optimistic method for monotone variational inequalities. In 
+   International Conference on Machine Learning (pp. 30406-30438). PMLR.&#160;<a class="footnote-backref" href="#monviso.VI.cfogda--fnref:12" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>y</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{y}_0\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>z</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{z}_1\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>alpha</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>2.1</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The auxiliary parameter, corresponding to the <span class="arithmatex">\(\alpha\)</span> parameter.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="golden-ratio-algorithm">Golden ratio algorithm<a class="headerlink" href="#golden-ratio-algorithm" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.graal" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.graal</span>
+
+
+<a href="#monviso.VI.graal" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">graal</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Given a constant step-size <span class="arithmatex">\(\chi &gt; 0\)</span> and initial vectors <span class="arithmatex">\(\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n\)</span>, the basic <span class="arithmatex">\(k\)</span>-th iterate the golden ratio algorithm (GRAAL) is the 
+following <sup id="monviso.VI.graal--fnref:4"><a class="footnote-ref" href="#monviso.VI.graal--fn:4">1</a></sup>:</p>
+<div class="arithmatex">\[ 
+\begin{align*}
+    \mathbf{y}_{k+1} &amp;= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}
+    {\phi} \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+        \mathbf{F}(\mathbf{x}_k))
+\end{align*}
+\]</div>
+<p>The convergence of GRAAL algorithm is guaranteed for Lipschitz monotone operators, with Lipschitz constants <span class="arithmatex">\(L &lt; +\infty\)</span>, 
+when <span class="arithmatex">\(\chi \in \left(0,\frac{\varphi}{2L}\right]\)</span> and <span class="arithmatex">\(\phi \in (1,\varphi]\)</span>, where <span class="arithmatex">\(\varphi = \frac{1+\sqrt{5}}{2}\)</span> is the golden ratio.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.graal--fn:4">
+<p>Malitsky, Y. (2020). Golden ratio algorithms for variational 
+   inequalities. Mathematical Programming, 184(1), 383-410.&#160;<a class="footnote-backref" href="#monviso.VI.graal--fnref:4" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>y</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{y}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size value, corresponding to <span class="arithmatex">\(\chi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>phi</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code><span title="monviso.core.GOLDEN_RATIO">GOLDEN_RATIO</span></code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The golden ratio step size, corresponding to <span class="arithmatex">\(\phi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="adaptive-golden-ratio-algorithm">Adaptive golden ratio algorithm<a class="headerlink" href="#adaptive-golden-ratio-algorithm" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.agraal" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.agraal</span>
+
+
+<a href="#monviso.VI.agraal" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">agraal</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="n">step_size_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>The Adaptive Golden Ratio Algorithm (aGRAAL) algorithm is a variation of the Golden Ratio Algorithm (<a class="autorefs autorefs-internal" title="monviso.VI.graal" href="#monviso.VI.graal">monviso.VI.graal</a>), with adaptive step size. 
+Following <sup id="monviso.VI.agraal--fnref:5"><a class="footnote-ref" href="#monviso.VI.agraal--fn:5">1</a></sup>, let <span class="arithmatex">\(\theta_0 = 1\)</span>, <span class="arithmatex">\(\rho = 1/\phi + 1/\phi^2\)</span>, where <span class="arithmatex">\(\phi \in (0,\varphi]\)</span> and <span class="arithmatex">\(\varphi = \frac{1+\sqrt{5}}{2}\)</span> is the golden ratio. 
+Moreover, let <span class="arithmatex">\(\bar{\chi} \gg 0\)</span> be a constant (arbitrarily large) step-size. 
+Given the initial terms <span class="arithmatex">\(\mathbf{x}_0,\mathbf{x}_1 \in \mathbb{R}^n\)</span>, <span class="arithmatex">\(\mathbf{y}_0 = \mathbf{x}_1\)</span>, and <span class="arithmatex">\(\chi_0 &gt; 0\)</span>, the <span class="arithmatex">\(k\)</span>-th iterate for aGRAAL is the following:</p>
+<div class="arithmatex">\[
+\begin{align*} 
+\chi_k &amp;= \min\left\{\rho\chi_{k-1},
+      \frac{\phi\theta_k \|\mathbf{x}_k
+      -\mathbf{x}_{k-1}\|^2}{4\chi_{k-1}\|\mathbf{F}(\mathbf{x}_k)
+      -\mathbf{F}(\mathbf{x}_{k-1})\|^2}, \bar{\chi}\right\} \\
+\mathbf{y}_{k+1} &amp;= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} \\
+\mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+    \mathbf{F}(\mathbf{x}_k)) \\
+\theta_k &amp;= \phi\frac{\chi_k}{\chi_{k-1}} 
+\end{align*}
+\]</div>
+<p>The convergence guarantees discussed for GRAAL also hold for aGRAAL. </p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.agraal--fn:5">
+<p>Malitsky, Y. (2020). Golden ratio algorithms for variational inequalities. Mathematical Programming, 184(1), 383-410.&#160;<a class="footnote-backref" href="#monviso.VI.agraal--fnref:5" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size initial value, corresponding to <span class="arithmatex">\(\chi_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>phi</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code><span title="monviso.core.GOLDEN_RATIO">GOLDEN_RATIO</span></code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The golden ratio step size, corresponding to <span class="arithmatex">\(\phi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size_large</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>1000000.0</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>A constant (arbitrarily) large value for the step size</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="hybrid-golden-ratio-algorithm-i">Hybrid golden ratio algorithm I<a class="headerlink" href="#hybrid-golden-ratio-algorithm-i" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.hgraal_1" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.hgraal_1</span>
+
+
+<a href="#monviso.VI.hgraal_1" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">hgraal_1</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="n">step_size_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>The HGRAAL-1 algorithm is a variation of the Adaptive Golden Ratio Algorithm (<a class="autorefs autorefs-internal" title="monviso.VI.agraal" href="#monviso.VI.agraal">monviso.VI.agraal</a>). 
+Following <sup id="monviso.VI.hgraal_1--fnref:13"><a class="footnote-ref" href="#monviso.VI.hgraal_1--fn:13">1</a></sup>, let <span class="arithmatex">\(\theta_0 = 1\)</span>, <span class="arithmatex">\(\rho = 1/\phi + 1/\phi^2\)</span>, where <span class="arithmatex">\(\phi \in (0,\varphi]\)</span> and <span class="arithmatex">\(\varphi = \frac{1+\sqrt{5}}{2}\)</span> is the golden ratio. 
+The residual at point <span class="arithmatex">\(\mathbf{x}_k\)</span> is given by <span class="arithmatex">\(J : \mathbb{R}^n \to \mathbb{R}\)</span>, defined as follows:</p>
+<div class="arithmatex">\[ J(\mathbf{x}_k) = \|\mathbf{x}_k - \text{prox}_{g,\mathcal{S}} (\mathbf{x}_k - \mathbf{F}(\mathbf{x}_k))\| \]</div>
+<p>Moreover, let <span class="arithmatex">\(\bar{\chi} \gg 0\)</span> be a constant (arbitrarily large) step-size. 
+Given the initial terms <span class="arithmatex">\(\mathbf{x}_0,\mathbf{x}_1 \in\mathbb{R}^n\)</span>, <span class="arithmatex">\(\mathbf{y}_0 = \mathbf{x}_1\)</span>, and <span class="arithmatex">\(\chi_0 &gt; 0\)</span>, the <span class="arithmatex">\(k\)</span>-th iterate for HGRAAL-1 is the following:</p>
+<div class="arithmatex">\[ 
+\begin{align}
+    \chi_k &amp;= \min\left\{\rho\chi_{k-1},
+        \frac{\phi\theta_k \|\mathbf{x}_k
+        -\mathbf{x}_{k-1}\|^2}{4\chi_{k-1}\|\mathbf{F}(\mathbf{x}_k)
+        -\mathbf{F}(\mathbf{x}_{k-1})\|^2}, \bar{\chi}\right\} \\
+    c_k &amp;= \left(\langle J(\mathbf{x}_k) - J(\mathbf{x}_{k-1}) &gt; 0 \rangle 
+        \text{ and } \langle f_k \rangle \right) 
+        \text{ or } \left\langle \min\{J(\mathbf{x}_{k-1}), J(\mathbf{x}_k)\} &lt; 
+        J(\mathbf{x}_k) + \frac{1}{\bar{k}} \right\rangle \\
+    f_k &amp;= \text{not $\langle c_k \rangle$} \\
+    \bar{k} &amp;= \begin{cases} \bar{k}+1 &amp; \text{if $c_k$ is true} \\ 
+        \bar{k} &amp; \text{otherwise} \end{cases} \\
+    \mathbf{y}_{k+1} &amp;= 
+        \begin{cases}
+            \dfrac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} &amp; 
+            \text{if $c_k$ is true} \\
+            \mathbf{x}_k &amp; \text{otherwise}
+        \end{cases} \\
+    \mathbf{x}_{k+1} &amp;= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+        \mathbf{F}(\mathbf{x}_k)) \\
+    \theta_k &amp;= \phi\frac{\chi_k}{\chi_{k-1}} 
+\end{align}
+\]</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.hgraal_1--fn:13">
+<p>Rahimi Baghbadorani, R., Mohajerin Esfahani, P., &amp; Grammatico, S. (2024). A hybrid algorithm for monotone variational inequalities. 
+(Manuscript submitted for publication).&#160;<a class="footnote-backref" href="#monviso.VI.hgraal_1--fnref:13" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size initial value, corresponding to <span class="arithmatex">\(\chi_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>phi</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code><span title="monviso.core.GOLDEN_RATIO">GOLDEN_RATIO</span></code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The golden ratio step size, corresponding to <span class="arithmatex">\(\phi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size_large</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>1000000.0</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>A constant (arbitrarily) large value for the step size</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the 
+<a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> 
+method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div><h3 id="hybrid-golden-ratio-algorithm-ii">Hybrid golden ratio algorithm II<a class="headerlink" href="#hybrid-golden-ratio-algorithm-ii" title="Permanent link">&para;</a></h3>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="monviso.VI.hgraal_2" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">monviso.VI.hgraal_2</span>
+
+
+<a href="#monviso.VI.hgraal_2" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">hgraal_2</span><span class="p">(</span>
+    <span class="n">x_current</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_previous</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="n">step_size_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="n">phi_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">cvxpy_solve_params</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>The pseudo-code for the iteration schema can be found at [Algorithm 2]<sup id="monviso.VI.hgraal_2--fnref:14"><a class="footnote-ref" href="#monviso.VI.hgraal_2--fn:14">1</a></sup>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="monviso.VI.hgraal_2--fn:14">
+<p>Rahimi Baghbadorani, R., Mohajerin Esfahani, P., &amp; Grammatico, S.(2024). A hybrid algorithm for monotone variational inequalities.
+(Manuscript submitted for publication).&#160;<a class="footnote-backref" href="#monviso.VI.hgraal_2--fnref:14" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>x_current</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>x_previous</code></b>
+              (<code><span title="ndarray">ndarray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_1\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size</code></b>
+              (<code><span title="float">float</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>The step size initial value, corresponding to <span class="arithmatex">\(\chi_0\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>phi</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code><span title="monviso.core.GOLDEN_RATIO">GOLDEN_RATIO</span></code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The golden ratio step size, corresponding to <span class="arithmatex">\(\phi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>alpha</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code><span title="monviso.core.GOLDEN_RATIO">GOLDEN_RATIO</span></code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The auxiliary parameter, corresponding to the <span class="arithmatex">\(\alpha\)</span> parameter.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>step_size_large</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>1000000.0</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>A constant (arbitrarily) large value for the step size</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>phi_large</code></b>
+              (<code><span title="float">float</span></code>, default:
+                  <code>1000000.0</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>A constant (arbitrarily) large value for <span class="arithmatex">\(\phi\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**cvxpy_solve_params</code></b>
+          –
+          <div class="doc-md-description">
+            <p>The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Yields:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="ndarray">ndarray</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The iteration's resulting point</p>
+          </div>
+        </li>
+    </ul>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Nicola Mignoni
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../js/mathjax-config.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
