@@ -7,9 +7,7 @@
 
 **A Python package for solving monotone variational inequalities.**
 
-<a href='https://monviso.readthedocs.io/en/latest/?badge=latest'>
-  <img src='https://readthedocs.org/projects/monviso/badge/?version=latest' alt='Documentation Status' />
-</a>
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://nicomignoni.github.io/monviso/)
 
 </div>
 
