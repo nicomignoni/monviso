@@ -1,0 +1,78 @@
+site_name: monviso docs 
+repo_url: https://github.com/nicomignoni/monviso
+nav: 
+  - Home: index.md
+  - Usage:
+    - examples/quickstart-nb.ipynb
+    - Examples:
+      - examples/linear-complementarity-nb.ipynb
+      - examples/zero-sum-game-nb.ipynb
+      - examples/feasibility-problem-nb.ipynb
+      - examples/skew-symmetric-nb.ipynb
+      - examples/logistic-regression-nb.ipynb
+      - examples/markov-decision-process-nb.ipynb
+      - examples/linear-quadratic-game-nb.ipynb
+  - API: api.md
+copyright: Copyright &copy; 2025 Nicola Mignoni 
+
+theme:
+  name: material
+  logo: images/monviso-dark.svg
+  favicon: images/favicon.svg
+  palette:
+    scheme: slate
+    primary: black
+    accent: orange
+  palette:
+    - media: "(prefers-color-scheme)"
+      accent: orange
+      primary: black
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      accent: orange
+      primary: black
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      accent: orange
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            docstring_section_style: list
+            separate_signature: true
+            show_signature_annotations: true
+            show_root_members_full_path: true
+            show_root_toc_entry: false
+            show_root_heading: true
+            show_source: false
+            heading_level: 4
+  - mkdocs-jupyter:
+      execute: false
+      include_requirejs: true
+      custom_mathjax_url: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"
+
+markdown_extensions:
+  - footnotes
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - js/mathjax-config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

@@ -1,37 +1,39 @@
+from typing import Callable
+
 import time
 import datetime
-import math
 
 import numpy as np
 import cvxpy as cp
 
-GOLDEN_RATIO = 0.5 * (math.sqrt(5) + 1)
-
+GOLDEN_RATIO = 0.5 * (np.sqrt(5) + 1)
 
 class VI:
-    r"""**Variational Inequality (VI)**
-
+    r"""
     Attributes
     ----------
     n : int
         The size of the vector space
     F : callable
-        The VI vector mapping, a function transforming a ndarray into an other
-        ndarray of the same size.
+        The VI vector mapping, i.e., $\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n$; a function transforming a ndarray into an other `np.ndarray` of the same size.
     g : callable, optional
-        The VI scalar mapping, a callable returning a ``cvxpy``'s
-        `Expression <https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1>`_
+        The VI scalar mapping, i.e., $g : \mathbb{R}^n \to \mathbb{R}$; a callable returning a [`cvxpy.Expression`](https://www.cvxpy.org/api_reference/cvxpy.expressions.html#id1)
     S : list of callable, optional
-        The constraints set, a list of callables, each returning a ``cvxpy``'s
-        `Constraints <https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8>`_
+        The constraints set, i.e., $\mathcal{S} \subseteq \mathbb{R}^n$; a list of callables, each returning a [`Constraints`](https://www.cvxpy.org/api_reference/cvxpy.constraints.html#id8)
     """
 
-    def __init__(self, n, F, g=None, S=None) -> None:
+    def __init__(
+            self, 
+            n: int, 
+            F: Callable, 
+            g: Callable | None = None, 
+            S: list[Callable] | None = None
+        ) -> None:
         self.F = F
-        self.g = (lambda x: 0) if g is None else g
+        self.g = (lambda _: 0) if g is None else g
 
         self.y = cp.Variable(n)
-        self.param_x = cp.Parameter(self.y.size)
+        self.param_x = cp.Parameter(self.y.shape)
         self.constraints = [] if S is None else [constraint(self.y) for constraint in S]
 
         self._prox = cp.Problem(
@@ -42,26 +44,21 @@ class VI:
             cp.Minimize(0.5 * cp.norm(self.y - self.param_x)), self.constraints
         )
 
-    def prox(self, x, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Constrained Proximal Operator**
+    # Constrained proximal operator
+    def prox(self, x: np.ndarray, **cvxpy_solve_params) -> np.ndarray | None:
+        r"""
+        Given a scalar function $g : \mathbb{R}^n \to \mathbb{R}$ and a constraints set $\mathcal{S} \subseteq \mathbb{R}^n$, the constrained proximal operator is defined as
 
-        Given a scalar function :math:`g  : \mathbb{R}^n \to \mathbb{R}` and
-        a constraints set :math:`\mathcal{S} \subseteq \mathbb{R}^n`, the
-        constrained proximal operator is defined as
+        $$
+        \text{prox}_{g,\mathcal{S}}(\mathbf{x}) = \underset{\mathbf{y} \in \mathcal{S}}{\text{argmin}} \left\{ g(\mathbf{y}) + \frac{1}{2}\|\mathbf{y} - \mathbf{x}\|^2 \right\}
+        $$
 
-        .. math::
-            \text{prox}_{g,\mathcal{S}}(\mathbf{x}) =
-            \underset{\mathbf{y} \in \mathcal{S}}{\text{argmin}} \left\{
-            g(\mathbf{y}) + \frac{1}{2}\|\mathbf{y} - \mathbf{x}\|^2 \right\}
-
-        Arguments
-        ---------
+        Parameters
+        ----------
         x : ndarray
             The proximal operator argument point
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
         Returns
         -------
@@ -72,27 +69,25 @@ class VI:
         self._prox.solve(**cvxpy_solve_params)
         return self.y.value
 
-    def proj(self, x, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Projection Operator**
+    # Projection operator
+    def proj(self, x: np.ndarray, **cvxpy_solve_params) -> np.ndarray | None:
+        r"""
+        The projection operator of a point $\mathbf{x} \in \mathbb{R}^n$ with respect to set $\mathcal{S} \subseteq \mathbb{R}^n$ returns the closest point to $\mathbf{x}$ 
+        that belongs to $\mathcal{S}$, i.e.,
 
-        The projection operator of a point $\mathbf{x} \in \mathbb{R}^n$ with
-        respect to set $\mathcal{S} \subseteq \mathbb{R}^n$ returns the closest
-        point to $\mathbf{x}$ that belongs to $\mathcal{S}$, i.e.,
+        $$
+        \text{proj}_{\mathcal{S}}(\mathbf{x}) = \text{prox}_{0,\mathcal{S}}
+        (\mathbf{x}) = \underset{\mathbf{y}
+        \in \mathcal{S}}{\text{argmin}} \left\{\frac{1}{2}\|\mathbf{y} -
+        \mathbf{x}\|^2 \right\}
+        $$
 
-        .. math::
-            \text{proj}_{\mathcal{S}}(\mathbf{x}) = \text{prox}_{0,\mathcal{S}}
-            (\mathbf{x}) = \underset{\mathbf{y}
-            \in \mathcal{S}}{\text{argmin}} \left\{\frac{1}{2}\|\mathbf{y} -
-            \mathbf{x}\|^2 \right\}
-
-        Arguments
-        ---------
+        Parameters
+        ----------
         x : ndarray
             The projection operator argument point
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
         Returns
         -------
@@ -105,215 +100,188 @@ class VI:
 
     def residual(self, x: np.ndarray, **cvxpy_solve_params) -> float:
         """
-        Computes the distance between a point and its update projected onto
-        the feasible set.
+        Computes the distance between a point and its update projected onto the feasible set.
 
         Parameters
         ----------
         x : ndarray
             The argument point
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
-        Return
-        ------
+        Returns
+        -------
         float
             The residual value
         """
         return np.linalg.norm(x - self.prox(x - self.F(x), **cvxpy_solve_params))
 
-    ########## Algorithms ##########
-    def pg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Proximal Gradient**
+    # Proximal Gradient
+    def pg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray | None:
+        r"""
+        Given a constant step-size $\chi > 0$ and an initial vector $\mathbf{x}_0 \in \mathbb{R}^n$, the basic $k$-th iterate of the proximal gradient (PG) algorithm is [^1]:
 
-        Given a constant step-size :math:`\lambda > 0` and an initial vector
-        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the basic :math:`k`-th iterate
-        of the proximal gradient (PG) algorithm is [1]_:
+        $$ \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(\mathbf{x}_k)) $$
 
-        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k -
-            \lambda F(\mathbf{x}_k))
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n$ is the VI mapping. 
+        Convergence of PG is guaranteed for Lipschitz strongly monotone operators, with monotone constant $\mu > 0$ and Lipschitz constants $L < +\infty$, when $\chi \in (0, 2\mu/L^2)$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
-        \mathbb{R}^n` is the VI mapping. The convergence of PG is guaranteed
-        for Lipshitz strongly monotone operators, with monotone constant
-        :math:`\mu > 0` and Lipshitz constants :math:`L < +\infty`, when
-        :math:`\lambda \in (0, 2\mu/L^2)`.
+        [^1]: Nemirovskij, A. S., & Yudin, D. B. (1983). Problem complexity
+           and method efficiency in optimization.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         step_size : float
-            The steps size value, corresponding to :math:`\lambda`
+            The steps size value, corresponding to $\chi$
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [1] Nemirovskij, A. S., & Yudin, D. B. (1983). Problem complexity
-           and method efficiency in optimization.
         """
         while True:
             x = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
             yield x
 
-    def eg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Extragradient**
+    # Extragradient
+    def eg(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray | None:
+        r"""
+        Given a constant step-size $\chi > 0$ and an initial vector 
+        $\mathbf{x}_0 \in \mathbb{R}^n$, the $k$-th iterate 
+        of the extragradient algorithm (EG) is[^2]:
 
-        Given a constant step-size :math:`\lambda > 0` and an initial vector 
-        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the :math:`k`-th iterate 
-        of the extragradient algorithm (EG) is [2]_:
-
-        .. math:: 
-            \begin{align}
-                \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
-                    \lambda F(\mathbf{x}_k)) \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_k - 
-                    \lambda F(\mathbf{x}_k))
-            \end{align}
+        $$ 
+        \begin{align}
+            \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+                \chi \mathbf{F}(\mathbf{x}_k)) \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_k - 
+                \chi \mathbf{F}(\mathbf{x}_k))
+        \end{align}
+        $$
  
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the EGD algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{L}\right)`.
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex 
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to 
+        \mathbb{R}^n$ is the VI mapping. The convergence of the EGD algorithm 
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{L}\right)$.
 
-        Arguments
-        ---------
+        [^2]: Korpelevich, G. M. (1976). The extragradient method for finding 
+           saddle points and other problems. Matecon, 12, 747-756.
+
+        Parameters
+        ----------
         x : ndarray 
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point 
-
-        References
-        ----------
-        .. [2] Korpelevich, G. M. (1976). The extragradient method for finding 
-           saddle points and other problems. Matecon, 12, 747-756.
         """
         while True:
             y = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
             x = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
             yield x
 
+    # Popov's Method
     def popov(
-        self, x: np.ndarray, y: np.ndarray, step_size: float, **cvxpy_solve_params
-    ) -> np.ndarray:
-        r"""**Popov's Method**
-
-        Given a constant step-size :math:`\lambda > 0` and an initial vectors 
-        :math:`\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n`, the :math:`k`-th 
-        iterate of Popov's Method (PM) is [6]_:
-
-        .. math:: 
-           \begin{align}
-               \mathbf{y}_ {k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
-                   \lambda F(\mathbf{y}_k)) \\
-               \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - 
-                   \lambda F(\mathbf{x}_k))
-           \end{align}
-
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of PM 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{2L}\right)`.
-
-        Arguments
-        ---------
-        x : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
-        y : ndarray
-            The initial auxiliary point, corresponding to :math:`\mathbf{y}_0`
-        step_size : float
-            The step size value, corresponding to :math:`\lambda`
+        self, 
+        x: np.ndarray, 
+        y: np.ndarray, 
+        step_size: float, 
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+    ) -> np.ndarray:
+        r"""
+        Given a constant step-size $\chi > 0$ and an initial vectors $\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n$, the $k$-th iterate of Popov's Method (PM) is[^6]:
+
+        $$ 
+        \begin{align}
+            \mathbf{y}_ {k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(\mathbf{y}_k)) \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi \mathbf{F}(\mathbf{x}_k))
+        \end{align}
+        $$
+
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n$ is the VI mapping. 
+        The convergence of PM is guaranteed for Lipschitz monotone operators, with Lipschitz constant $L < +\infty$, when $\chi \in \left(0,\frac{1}{2L}\right)$.
+
+        [^6]: Popov, L.D. A modification of the Arrow-Hurwicz method for search of saddle points. 
+        Mathematical Notes of the Academy of Sciences of the USSR 28, 845–848 (1980)
+
+        Parameters
+        ----------
+        x : ndarray
+            The initial point, corresponding to $\mathbf{x}_0$
+        y : ndarray
+            The initial auxiliary point, corresponding to $\mathbf{y}_0$
+        step_size : float
+            The step size value, corresponding to $\chi$
+        **cvxpy_solve_params
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [6] Popov, L.D. A modification of the Arrow-Hurwicz method for search 
-           of saddle points. Mathematical Notes of the Academy of Sciences of 
-           the USSR 28, 845–848 (1980)
         """
         while True:
             y = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
             x = self.prox(x - step_size * self.F(y), **cvxpy_solve_params)
             yield x
 
+    # Forward-Backward-Forward
     def fbf(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Forward-Backward-Forward**
-        
-        Given a constant step-size :math:`\lambda > 0` and an initial vector 
-        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the :math:`k`-th 
-        iterate of Forward-Backward-Forward (FBF) algorithm is [7]_:
+        r"""
+        Given a constant step-size $\chi > 0$ and an initial vector $\mathbf{x}_0 \in \mathbb{R}^n$, the $k$-th iterate of Forward-Backward-Forward (FBF) algorithm is[^7]:
 
-        .. math:: 
-            \begin{align}
-                \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
-                    \lambda F(\mathbf{x}_k)) \\
-                \mathbf{x}_{k+1} &= \mathbf{y}_k - 
-                    \lambda F(\mathbf{y}_k) + \lambda F(\mathbf{x}_k)
-            \end{align}
+        $$ 
+        \begin{align}
+            \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 
+                \chi \mathbf{F}(\mathbf{x}_k)) \\
+            \mathbf{x}_{k+1} &= \mathbf{y}_k - 
+                \chi \mathbf{F}(\mathbf{y}_k) + \chi \mathbf{F}(\mathbf{x}_k)
+        \end{align}
+        $$
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the FBF algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{L}\right)`.
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex 
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to 
+        \mathbb{R}^n$ is the VI mapping. The convergence of the FBF algorithm 
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{L}\right)$.
 
-        Arguments
-        ---------
+        [^7]: Tseng, P. (2000). A modified forward-backward splitting method 
+           for maximal monotone mappings. SIAM Journal on Control and 
+           Optimization, 38(2), 431-446.
+
+        Parameters
+        ----------
         x : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [7] Tseng, P. (2000). A modified forward-backward splitting method 
-           for maximal monotone mappings. SIAM Journal on Control and 
-           Optimization, 38(2), 431-446.
         """
         while True:
             y = self.prox(x - step_size * self.F(x), **cvxpy_solve_params)
             x = y - step_size * self.F(y) + step_size * self.F(x)
             yield x
 
+    # Forward-Reflected-Backward
     def frb(
         self,
         x_current: np.ndarray,
@@ -321,46 +289,41 @@ class VI:
         step_size: float,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Forward-Reflected-Backward**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors
+        $\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n$, the basic
+        $k$-th iterate of the Forward-Reflected-Backward (FRB)
+        is the following[^8]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors
-        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic
-        :math:`k`-th iterate of the Forward-Reflected-Backward (FRB)
-        is the following [8]_:
+        $$ \mathbf{x}_k = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 2\chi \mathbf{F}(\mathbf{x}_k) + \chi \mathbf{F}(\mathbf{x}_{k-1})) $$
 
-        .. math::
-            \mathbf{x}_k = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - 2\lambda F(\mathbf{x}_k)
-                + \lambda F(\mathbf{x}_{k-1}))
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to
+        \mathbb{R}^n$ is the VI mapping. The convergence of the FRB algorithm
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{2L}\right)$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
-        \mathbb{R}^n` is the VI mapping. The convergence of the FRB algorithm
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{2L}\right)`.
+        [^8]: Malitsky, Y., & Tam, M. K. (2020). A forward-backward splitting
+           method for monotone inclusions without cocoercivity. SIAM Journal on
+           Optimization, 30(2), 1451-1472.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
             The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve)
             method.
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [8] Malitsky, Y., & Tam, M. K. (2020). A forward-backward splitting
-           method for monotone inclusions without cocoercivity. SIAM Journal on
-           Optimization, 30(2), 1451-1472.
         """
         while True:
             x = self.prox(
@@ -373,6 +336,7 @@ class VI:
             x_current = x
             yield x
 
+    # Projected Reflected Gradient
     def prg(
         self,
         x_current: np.ndarray,
@@ -380,48 +344,44 @@ class VI:
         step_size: float,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Projected Reflected Gradient**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors
+        $\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n$, the basic
+        $k$-th iterate of the projected reflected gradient (PRG)
+        is the following [^3]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors
-        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic
-        :math:`k`-th iterate of the projected reflected gradient (PRG)
-        is the following [3]_:
+        $$ \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \chi \mathbf{F}(2\mathbf{x}_k - \mathbf{x}_{k-1})) $$
 
-        .. math:: \mathbf{x}_{k+1} = \text{prox}_{g,\mathcal{S}}(\mathbf{x}_k - \lambda
-            F(2\mathbf{x}_k - \mathbf{x}_{k-1}))
-
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to
-        \mathbb{R}^n` is the VI mapping.
-        The convergence of PRG algorithm is guaranteed for Lipshitz monotone
-        operators, with Lipshitz constants :math:`L < +\infty`, when
-        :math:`\lambda \in (0,(\sqrt{2} - 1)/L)`. Differently from the EGD
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to
+        \mathbb{R}^n$ is the VI mapping.
+        The convergence of PRG algorithm is guaranteed for Lipschitz monotone
+        operators, with Lipschitz constants $L < +\infty$, when
+        $\chi \in (0,(\sqrt{2} - 1)/L)$. Differently from the EGD
         iteration, the PRGD has the advantage of requiring a single
         proximal operator evaluation.
 
-        Arguments
-        ---------
+        [^3]: Malitsky, Y. (2015). Projected reflected gradient methods for
+           monotone variational inequalities. SIAM Journal on Optimization,
+           25(1), 502-520.
+
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
             The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve)
             method.
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [3] Malitsky, Y. (2015). Projected reflected gradient methods for
-           monotone variational inequalities. SIAM Journal on Optimization,
-           25(1), 502-520.
         """
         while True:
             x = self.prox(
@@ -432,52 +392,51 @@ class VI:
             x_current = x
             yield x
 
+    # Extra Anchored Gradient
     def eag(self, x: np.ndarray, step_size: float, **cvxpy_solve_params) -> np.ndarray:
-        r"""**Extra Anchored Gradient**
+        r"""
+        Given a constant step-size $\chi > 0$ and an initial vector 
+        $\mathbf{x}_0 \in \mathbb{R}^n$, the $k$-th 
+        iterate of extra anchored gradient (EAG) algorithm is [^9]:
 
-        Given a constant step-size :math:`\lambda > 0` and an initial vector 
-        :math:`\mathbf{x}_0 \in \mathbb{R}^n`, the :math:`k`-th 
-        iterate of extra anchored gradient (EAG) algorithm is [9]_:
+        $$
+        \begin{align}
+            \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+                \chi \mathbf{F}(\mathbf{x}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+                \mathbf{x}_k)\right) \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+                \chi \mathbf{F}(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+                \mathbf{x}_k)\right)
+        \end{align}
+        $$
 
-        .. math::
-            \begin{align}
-                \mathbf{y}_k &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
-                    \lambda F(\mathbf{x}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
-                    \mathbf{x}_k)\right) \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
-                    \lambda F(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
-                    \mathbf{x}_k)\right)
-            \end{align}
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex 
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to 
+        \mathbb{R}^n$ is the VI mapping. The convergence of the EAG algorithm 
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{\sqrt{3}L}
+        \right)$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the EAG algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{\sqrt{3}L}
-        \right)`.
+        [^9]: Yoon, T., & Ryu, E. K. (2021, July). Accelerated Algorithms for 
+           Smooth Convex-Concave Minimax Problems with O (1/k^ 2) Rate on Squared 
+           Gradient Norm. In International Conference on Machine Learning (pp. 
+           12098-12109). PMLR.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
         
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [9] Yoon, T., & Ryu, E. K. (2021, July). Accelerated Algorithms for 
-           Smooth Convex-Concave Minimax Problems with O (1/k^ 2) Rate on Squared 
-           Gradient Norm. In International Conference on Machine Learning (pp. 
-           12098-12109). PMLR.
         """
         k = 0
         x0 = x
@@ -491,6 +450,7 @@ class VI:
             k += 1
             yield x
 
+    # Accelerated Reflected Gradient
     def arg(
         self,
         x_current: np.ndarray,
@@ -498,51 +458,49 @@ class VI:
         step_size: float,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Accelerated Reflected Gradient**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors 
+        $\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n$, the basic 
+        $k$-th iterate of the accelerated reflected gradient (ARG) 
+        is the following [^10]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_1,\mathbf{x}_0 \in \mathbb{R}^n`, the basic 
-        :math:`k`-th iterate of the accelerated reflected gradient (ARG) 
-        is the following [10]_:
+        $$
+        \begin{align}
+            \mathbf{y}_k &= 2\mathbf{x}_k - \mathbf{x}_{k-1} + \frac{1}{k+1}
+            (\mathbf{x}_0 - \mathbf{x}_k) - \frac{1}{k}(\mathbf{x}_k - 
+            \mathbf{x}_{k-1}) \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
+                \chi \mathbf{F}(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
+                \mathbf{x}_k)\right)
+        \end{align}
+        $$
 
-        .. math::
-            \begin{align}
-                \mathbf{y}_k &= 2\mathbf{x}_k - \mathbf{x}_{k-1} + \frac{1}{k+1}
-                (\mathbf{x}_0 - \mathbf{x}_k) - \frac{1}{k}(\mathbf{x}_k - 
-                \mathbf{x}_{k-1}) \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{x}_k - 
-                    \lambda F(\mathbf{y}_k) + \frac{1}{k+1}(\mathbf{x}_0 - 
-                    \mathbf{x}_k)\right)
-            \end{align}
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex 
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to 
+        \mathbb{R}^n$ is the VI mapping. The convergence of the ARG algorithm 
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{12L}\right)$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the ARG algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{12L}\right)`.
+        [^10]: Cai, Y., & Zheng, W. (2022). Accelerated single-call methods 
+           for constrained min-max optimization. arXiv preprint arXiv:2210.03096.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [10] Cai, Y., & Zheng, W. (2022). Accelerated single-call methods 
-           for constrained min-max optimization. arXiv preprint arXiv:2210.03096.
         """
         k = 1
         x0 = x_previous
@@ -563,6 +521,7 @@ class VI:
             k += 1
             yield x
 
+    # (Explicit) Fast Optimistic Gradient Descent Ascent
     def fogda(
         self,
         x_current: np.ndarray,
@@ -571,56 +530,54 @@ class VI:
         step_size: float,
         alpha: float = 2.1,
     ) -> np.ndarray:
-        r"""**(Explicit) Fast Optimistic Gradient Descent Ascent**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors 
+        $\mathbf{x}_1,\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n$, the 
+        basic $k$-th iterate of the explicit fast OGDA (FOGDA) 
+        is the following [^11]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_1,\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n`, the 
-        basic :math:`k`-th iterate of the explicit fast OGDA (FOGDA) 
-        is the following [11]_:
+        $$
+        \begin{align}
+            \mathbf{y}_k &= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k - 
+                \mathbf{x}_{k-1}) - \chi \frac{\alpha}{k+\alpha}
+                \mathbf{F}(\mathbf{y}_{k-1}) \\
+            \mathbf{x}_{k+1} &= \mathbf{y}_k - \chi \frac{2k+\alpha}
+                {k+\alpha} (\mathbf{F}(\mathbf{y}_k) - \mathbf{F}(\mathbf{y}_{k-1}))
+        \end{align}
+        $$
 
-        .. math::
-            \begin{align}
-                \mathbf{y}_k &= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k - 
-                    \mathbf{x}_{k-1}) - \lambda \frac{\alpha}{k+\alpha}
-                    F(\mathbf{y}_{k-1}) \\
-                \mathbf{x}_{k+1} &= \mathbf{y}_k - \lambda \frac{2k+\alpha}
-                    {k+\alpha} (F(\mathbf{y}_k) -F(\mathbf{y}_{k-1}))
-            \end{align}
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex 
+        (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to 
+        \mathbb{R}^n$ is the VI mapping. The convergence of the ARG algorithm 
+        is guaranteed for Lipschitz monotone operators, with Lipschitz constant 
+        $L < +\infty$, when $\chi \in \left(0,\frac{1}{4L}\right)$
+        and $\alpha > 2$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the ARG algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{4L}\right)`
-        and :math:`\alpha > 2`.
+        [^11]: Boţ, R. I., Csetnek, E. R., & Nguyen, D. K. (2023). Fast 
+           Optimistic Gradient Descent Ascent (OGDA) method in continuous and 
+           discrete time. Foundations of Computational Mathematics, 1-60.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`.
+            The initial point, corresponding to $\mathbf{x}_0$.
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`.
+            The initial point, corresponding to $\mathbf{x}_1$.
         y : ndarray
-            The initial auxiliary point, corresponding to :math:`\mathbf{y}_0`.
+            The initial auxiliary point, corresponding to $\mathbf{y}_0$.
         step_size : float
-            The step size value, corresponding to :math:`\lambda`.
+            The step size value, corresponding to $\chi$.
         alpha : float
-            The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
+            The auxiliary parameter, corresponding to the $\alpha$ parameter.
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [11] Boţ, R. I., Csetnek, E. R., & Nguyen, D. K. (2023). Fast 
-           Optimistic Gradient Descent Ascent (OGDA) method in continuous and 
-           discrete time. Foundations of Computational Mathematics, 1-60.
         """
         k = 0
         while True:
@@ -639,6 +596,7 @@ class VI:
             k += 1
             yield x
 
+    # Constrained Fast Optimistic Gradient Descent Ascent
     def cfogda(
         self,
         x_current: np.ndarray,
@@ -649,63 +607,55 @@ class VI:
         alpha: float = 2.1,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Constrained Fast Optimistic Gradient Descent Ascent**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors $\mathbf{x}_1 \in \mathcal{S}$, $\mathbf{z}_1 \in N_{\mathcal{S}}(\mathbf{x}_1)$, $\mathbf{x}_0,\mathbf{y}_0 \in 
+        \mathbb{R}^n$, the basic $k$-th iterate of Constrained Fast Optimistic Gradient Descent Ascent (CFOGDA) is the following[^12]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_1 \in \mathcal{S}`, :math:`\mathbf{z}_1 \in 
-        N_{\mathcal{S}}(\mathbf{x}_1)`, :math:`\mathbf{x}_0,\mathbf{y}_0 \in 
-        \mathbb{R}^n`, the basic :math:`k`-th iterate of Constrained Fast 
-        Optimistic Gradient Descent Ascent (CFOGDA) is the following [12]_:
+        $$ 
+        \begin{align}
+            \mathbf{y}_k &= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k -
+                \mathbf{x}_{k-1}) - \chi \frac{\alpha}{k+\alpha}(
+                \mathbf{F}(\mathbf{y}_k) + \mathbf{z}_k) \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{y}_k
+                - \chi\left(1 + \frac{k}{k+\alpha}\right)(\mathbf{F}(\mathbf{y}_k)
+                - \mathbf{F}(\mathbf{y}_{k-1}) - \zeta_k)\right) \\
+            \mathbf{z}_{k+1} &= \frac{k+\alpha}{\chi (2k+\alpha)}(
+                \mathbf{y}_k - \mathbf{x}_{k+1}) - (\mathbf{F}(\mathbf{y}_k)
+                - \mathbf{F}(\mathbf{y}_{k-1}) - \zeta_k)
+        \end{align}
+        $$
 
-        .. math:: 
-            \begin{align}
-                \mathbf{y}_k &= \mathbf{x}_k + \frac{k}{k+\alpha}(\mathbf{x}_k -
-                    \mathbf{x}_{k-1}) - \lambda \frac{\alpha}{k+\alpha}(
-                    F(\mathbf{y}_k) + \mathbf{z}_k) \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}\left(\mathbf{y}_k
-                    - \lambda\left(1 + \frac{k}{k+\alpha}\right)(F(\mathbf{y}_k)
-                    - F(\mathbf{y}_{k-1}) - \zeta_k)\right) \\
-                \mathbf{z}_{k+1} &= \frac{k+\alpha}{\lambda (2k+\alpha)}(
-                    \mathbf{y}_k - \mathbf{x}_{k+1}) - (F(\mathbf{y}_k)
-                    - F(\mathbf{y}_{k-1}) - \zeta_k)
-            \end{align}
+        where $g : \mathbb{R}^n \to \mathbb{R}$ is a scalar convex (possibly non-smooth) function, while $\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n$ is the VI mapping. 
+        The convergence of the CFOGDA algorithm is guaranteed for Lipschitz monotone operators, with Lipschitz constant $L < +\infty$, when $\chi \in \left(0,\frac{1}{4L}\right)$
+        and $\alpha > 2$.
 
-        where :math:`g : \mathbb{R}^n \to \mathbb{R}` is a scalar convex 
-        (possibly non-smooth) function, while :math:`F : \mathbb{R}^n \to 
-        \mathbb{R}^n` is the VI mapping. The convergence of the CFOGDA algorithm 
-        is guaranteed for Lipshitz monotone operators, with Lipshitz constant 
-        :math:`L < +\infty`, when :math:`\lambda \in \left(0,\frac{1}{4L}\right)`
-        and :math:`\alpha > 2`.
+        [^12]: Sedlmayer, M., Nguyen, D. K., & Bot, R. I. (2023, July). A fast 
+           optimistic method for monotone variational inequalities. In 
+           International Conference on Machine Learning (pp. 30406-30438). PMLR.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`.
+            The initial point, corresponding to $\mathbf{x}_0$.
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`.
+            The initial point, corresponding to $\mathbf{x}_1$.
         y : ndarray
-            The initial auxiliary point, corresponding to :math:`\mathbf{y}_0`.
+            The initial auxiliary point, corresponding to $\mathbf{y}_0$.
         z : ndarray
-            The initial auxiliary point, corresponding to :math:`\mathbf{z}_1`.
+            The initial auxiliary point, corresponding to $\mathbf{z}_1$.
         step_size : float
-            The step size value, corresponding to :math:`\lambda`.
+            The step size value, corresponding to $\chi$.
         alpha : float, optional
-            The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
+            The auxiliary parameter, corresponding to the $\alpha$ parameter.
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [12] Sedlmayer, M., Nguyen, D. K., & Bot, R. I. (2023, July). A fast 
-           optimistic method for monotone variational inequalities. In 
-           International Conference on Machine Learning (pp. 30406-30438). PMLR.
         """
         k = 1
         while True:
@@ -715,9 +665,7 @@ class VI:
                 - step_size * alpha * (self.F(x_current) + z)
             )
             x = self.prox(
-                y
-                - step_size
-                * (1 + k / (k + alpha) * (self.F(y_current) - self.F(y) - z)),
+                y - step_size * (1 + k / (k + alpha) * (self.F(y_current) - self.F(y) - z)),
                 **cvxpy_solve_params,
             )
             z = (k + alpha) * (y_current - x) / (step_size * (2 * k + alpha)) - (
@@ -730,6 +678,7 @@ class VI:
             k += 1
             yield x
 
+    # Golden Ratio Algorithm
     def graal(
         self,
         x: np.ndarray,
@@ -738,57 +687,52 @@ class VI:
         phi: float = GOLDEN_RATIO,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Golden Ratio Algorithm**
+        r"""
+        Given a constant step-size $\chi > 0$ and initial vectors $\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n$, the basic $k$-th iterate the golden ratio algorithm (GRAAL) is the 
+        following [^4]:
 
-        Given a constant step-size :math:`\lambda > 0` and initial vectors 
-        :math:`\mathbf{x}_0,\mathbf{y}_0 \in \mathbb{R}^n`, the basic 
-        :math:`k`-th iterate the golden ratio algorithm (GRAAL) is the 
-        following [4]_:
+        $$ 
+        \begin{align*}
+            \mathbf{y}_{k+1} &= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}
+            {\phi} \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+                \mathbf{F}(\mathbf{x}_k))
+        \end{align*}
+        $$
 
-        .. math:: 
-            \begin{align*}
-                \mathbf{y}_{k+1} &= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}
-                {\phi} \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \lambda 
-                    F(\mathbf{x}_k))
-            \end{align*}
+        The convergence of GRAAL algorithm is guaranteed for Lipschitz monotone operators, with Lipschitz constants $L < +\infty$, 
+        when $\chi \in \left(0,\frac{\varphi}{2L}\right]$ and $\phi \in (1,\varphi]$, where $\varphi = \frac{1+\sqrt{5}}{2}$ is the golden ratio.
 
-        The convergence of GRAAL algorithm is guaranteed for Lipshitz monotone 
-        operators, with Lipshitz constants :math:`L < +\infty`, when 
-        :math:`\lambda \in \left(0,\frac{\varphi}{2L}\right]` and :math:`\phi 
-        \in (1,\varphi]`, where :math:`\varphi = \frac{1+\sqrt{5}}{2}` is the 
-        golden ratio.
 
-        Arguments
-        ---------
+        [^4]: Malitsky, Y. (2020). Golden ratio algorithms for variational 
+           inequalities. Mathematical Programming, 184(1), 383-410.
+
+        Parameters
+        ----------
         x : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         y : ndarray
-            The initial auxiliary point, corresponding to :math:`\mathbf{y}_0`
+            The initial auxiliary point, corresponding to $\mathbf{y}_0$
         step_size : float
-            The step size value, corresponding to :math:`\lambda`
+            The step size value, corresponding to $\chi$
         phi : float
-            The golden ratio step size, corresponding to :math:`\phi`
+            The golden ratio step size, corresponding to $\phi$
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point 
-
-        References
-        ----------
-        .. [4] Malitsky, Y. (2020). Golden ratio algorithms for variational 
-           inequalities. Mathematical Programming, 184(1), 383-410.
         """
         while True:
             y = ((phi - 1) * x + y) / phi
             x = self.prox(y - step_size * self.F(x), **cvxpy_solve_params)
             yield x
 
+    # Adaptive Golden Ratio Algorithm
     def agraal(
         self,
         x_current: np.ndarray,
@@ -798,59 +742,47 @@ class VI:
         step_size_large: float = 1e6,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Adaptive Golden Ratio Algorithm**
-
-        The Adaptive Golden Ratio Algorithm (aGRAAL) algorithm is a variation 
-        of the :func:`Golden Ratio Algorithm <monviso.core.VI.graal>`, with 
-        adaptive step size. Following [5]_, let :math:`\theta_0 = 1`, 
-        :math:`\rho = 1/\phi + 1/\phi^2`, where :math:`\phi \in (0,\varphi]` 
-        and :math:`\varphi = \frac{1+\sqrt{5}}{2}` is the golden ratio. 
-        Moreover, let :math:`\bar{\lambda} \gg 0` be a constant 
-        (arbitrarily large) step-size. Given the initial terms 
-        :math:`\mathbf{x}_0,\mathbf{x}_1 \in \mathbb{R}^n`, :math:`\mathbf{y}_0 = 
-        \mathbf{x}_1`, and :math:`\lambda_0 > 0`, the :math:`k`-th iterate for 
-        aGRAAL is the following:
+        r"""
+        The Adaptive Golden Ratio Algorithm (aGRAAL) algorithm is a variation of the Golden Ratio Algorithm ([monviso.VI.graal][]), with adaptive step size. 
+        Following [^5], let $\theta_0 = 1$, $\rho = 1/\phi + 1/\phi^2$, where $\phi \in (0,\varphi]$ and $\varphi = \frac{1+\sqrt{5}}{2}$ is the golden ratio. 
+        Moreover, let $\bar{\chi} \gg 0$ be a constant (arbitrarily large) step-size. 
+        Given the initial terms $\mathbf{x}_0,\mathbf{x}_1 \in \mathbb{R}^n$, $\mathbf{y}_0 = \mathbf{x}_1$, and $\chi_0 > 0$, the $k$-th iterate for aGRAAL is the following:
          
-        .. math::
-            \begin{align*} 
-            \lambda_k &= \min\left\{\rho\lambda_{k-1},
-                  \frac{\phi\theta_k \|\mathbf{x}_k
-                  -\mathbf{x}_{k-1}\|^2}{4\lambda_{k-1}\|F(\mathbf{x}_k)
-                  -F(\mathbf{x}_{k-1})\|^2}, \bar{\lambda}\right\} \\
-            \mathbf{y}_{k+1} &= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} \\
-            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \lambda 
-                F(\mathbf{x}_k)) \\
-            \theta_k &= \phi\frac{\lambda_k}{\lambda_{k-1}} 
-            \end{align*}
+        $$
+        \begin{align*} 
+        \chi_k &= \min\left\{\rho\chi_{k-1},
+              \frac{\phi\theta_k \|\mathbf{x}_k
+              -\mathbf{x}_{k-1}\|^2}{4\chi_{k-1}\|\mathbf{F}(\mathbf{x}_k)
+              -\mathbf{F}(\mathbf{x}_{k-1})\|^2}, \bar{\chi}\right\} \\
+        \mathbf{y}_{k+1} &= \frac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} \\
+        \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+            \mathbf{F}(\mathbf{x}_k)) \\
+        \theta_k &= \phi\frac{\chi_k}{\chi_{k-1}} 
+        \end{align*}
+        $$
 
         The convergence guarantees discussed for GRAAL also hold for aGRAAL. 
 
-        Arguments
-        ---------
+        [^5]: Malitsky, Y. (2020). Golden ratio algorithms for variational inequalities. Mathematical Programming, 184(1), 383-410.
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size initial value, corresponding to :math:`\lambda_0`
+            The step size initial value, corresponding to $\chi_0$
         phi : float
-            The golden ratio step size, corresponding to :math:`\phi`
+            The golden ratio step size, corresponding to $\phi$
         step_size_large : float, optional
             A constant (arbitrarily) large value for the step size
         **cvxpy_solve_params
-            The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
-            method. 
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point 
-
-        References
-        ----------
-        .. [5] Malitsky, Y. (2020). Golden ratio algorithms for variational 
-           inequalities. Mathematical Programming, 184(1), 383-410.
         """
         rho = 1 / phi + 1 / phi**2
         theta = 1
@@ -884,6 +816,7 @@ class VI:
             step_size = step_size_current
             yield x
 
+    # Hybrid Golden Ratio Algorithm I
     def hgraal_1(
         self,
         x_current: np.ndarray,
@@ -893,75 +826,65 @@ class VI:
         step_size_large: float = 1e6,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Hybrid Golden Ratio Algorithm I**
+        r"""
+        The HGRAAL-1 algorithm is a variation of the Adaptive Golden Ratio Algorithm ([monviso.VI.agraal][]). 
+        Following [^13], let $\theta_0 = 1$, $\rho = 1/\phi + 1/\phi^2$, where $\phi \in (0,\varphi]$ and $\varphi = \frac{1+\sqrt{5}}{2}$ is the golden ratio. 
+        The residual at point $\mathbf{x}_k$ is given by $J : \mathbb{R}^n \to \mathbb{R}$, defined as follows:
 
-        The HGRAAL-1 algorithm is a variation of the 
-        :func:`Adaptive Golden Ratio Algorithm <monviso.core.VI.agraal>`. 
-        Following [13]_, let :math:`\theta_0 = 1`, :math:`\rho = 1/\phi + 
-        1/\phi^2`, where :math:`\phi \in (0,\varphi]` and 
-        :math:`\varphi = \frac{1+\sqrt{5}}{2}` is the golden ratio. 
-        The residual at point :math:`\mathbf{x}_k` is given 
-        by :math:`J : \mathbb{R}^n \to \mathbb{R}`, defined as follows:
+        $$ J(\mathbf{x}_k) = \|\mathbf{x}_k - \text{prox}_{g,\mathcal{S}} (\mathbf{x}_k - \mathbf{F}(\mathbf{x}_k))\| $$
 
-        .. math:: J(\mathbf{x}_k) = \|\mathbf{x}_k - \text{prox}_{g,\mathcal{S}} 
-            (\mathbf{x}_k - F(\mathbf{x}_k))\| 
+        Moreover, let $\bar{\chi} \gg 0$ be a constant (arbitrarily large) step-size. 
+        Given the initial terms $\mathbf{x}_0,\mathbf{x}_1 \in\mathbb{R}^n$, $\mathbf{y}_0 = \mathbf{x}_1$, and $\chi_0 > 0$, the $k$-th iterate for HGRAAL-1 is the following:
 
-        Moreover, let :math:`\bar{\lambda} \gg 0` be a constant (arbitrarily large) 
-        step-size. Given the initial terms :math:`\mathbf{x}_0,\mathbf{x}_1 \in
-        \mathbb{R}^n`, :math:`\mathbf{y}_0 = \mathbf{x}_1`, and :math:`\lambda_0 
-        > 0`, the :math:`k`-th iterate for HGRAAL-1 is the following:
+        $$ 
+        \begin{align}
+            \chi_k &= \min\left\{\rho\chi_{k-1},
+                \frac{\phi\theta_k \|\mathbf{x}_k
+                -\mathbf{x}_{k-1}\|^2}{4\chi_{k-1}\|\mathbf{F}(\mathbf{x}_k)
+                -\mathbf{F}(\mathbf{x}_{k-1})\|^2}, \bar{\chi}\right\} \\
+            c_k &= \left(\langle J(\mathbf{x}_k) - J(\mathbf{x}_{k-1}) > 0 \rangle 
+                \text{ and } \langle f_k \rangle \right) 
+                \text{ or } \left\langle \min\{J(\mathbf{x}_{k-1}), J(\mathbf{x}_k)\} < 
+                J(\mathbf{x}_k) + \frac{1}{\bar{k}} \right\rangle \\
+            f_k &= \text{not $\langle c_k \rangle$} \\
+            \bar{k} &= \begin{cases} \bar{k}+1 & \text{if $c_k$ is true} \\ 
+                \bar{k} & \text{otherwise} \end{cases} \\
+            \mathbf{y}_{k+1} &= 
+                \begin{cases}
+                    \dfrac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} & 
+                    \text{if $c_k$ is true} \\
+                    \mathbf{x}_k & \text{otherwise}
+                \end{cases} \\
+            \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \chi 
+                \mathbf{F}(\mathbf{x}_k)) \\
+            \theta_k &= \phi\frac{\chi_k}{\chi_{k-1}} 
+        \end{align}
+        $$
 
-        .. math:: 
-            \begin{align}
-                \lambda_k &= \min\left\{\rho\lambda_{k-1},
-                    \frac{\phi\theta_k \|\mathbf{x}_k
-                    -\mathbf{x}_{k-1}\|^2}{4\lambda_{k-1}\|F(\mathbf{x}_k)
-                    -F(\mathbf{x}_{k-1})\|^2}, \bar{\lambda}\right\} \\
-                c_k &= \left(\langle J(\mathbf{x}_k) - J(\mathbf{x}_{k-1}) > 0 \rangle 
-                    \text{ and } \langle f_k \rangle \right) 
-                    \text{ or } \left\langle \min\{J(\mathbf{x}_{k-1}), J(\mathbf{x}_k)\} < 
-                    J(\mathbf{x}_k) + \frac{1}{\bar{k}} \right\rangle \\
-                f_k &= \text{not $\langle c_k \rangle$} \\
-                \bar{k} &= \begin{cases} \bar{k}+1 & \text{if $c_k$ is true} \\ 
-                    \bar{k} & \text{otherwise} \end{cases} \\
-                \mathbf{y}_{k+1} &= 
-                    \begin{cases}
-                        \dfrac{(\phi - 1)\mathbf{x}_k + \phi\mathbf{y}_k}{\phi} & 
-                        \text{if $c_k$ is true} \\
-                        \mathbf{x}_k & \text{otherwise}
-                    \end{cases} \\
-                \mathbf{x}_{k+1} &= \text{prox}_{g,\mathcal{S}}(\mathbf{y}_{k+1} - \lambda 
-                    F(\mathbf{x}_k)) \\
-                \theta_k &= \phi\frac{\lambda_k}{\lambda_{k-1}} 
-            \end{align}
+        [^13]: Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S. (2024). A hybrid algorithm for monotone variational inequalities. 
+        (Manuscript submitted for publication).
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size initial value, corresponding to :math:`\lambda_0`
+            The step size initial value, corresponding to $\chi_0$
         phi : float
-            The golden ratio step size, corresponding to :math:`\phi`
+            The golden ratio step size, corresponding to $\phi$
         step_size_large : float, optional
             A constant (arbitrarily) large value for the step size
         **cvxpy_solve_params
             The parameters for the 
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_ 
+            [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) 
             method. 
 
         Yields
         ------
         ndarray
             The iteration's resulting point 
-
-        References
-        ----------
-        .. [13] Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S. 
-           (2024). A hybrid algorithm for monotone variational inequalities. 
-           (Manuscript submitted for publication).
         """
         rho = 1 / phi + 1 / phi**2
         theta = 1
@@ -1011,6 +934,7 @@ class VI:
             step_size = step_size_current
             yield x
 
+    # Hybrid Golden Ratio Algorithm II
     def hgraal_2(
         self,
         x_current: np.ndarray,
@@ -1022,41 +946,35 @@ class VI:
         phi_large: float = 1e6,
         **cvxpy_solve_params,
     ) -> np.ndarray:
-        r"""**Hybrid Golden Ratio Algorithm II**
+        r"""
+        The pseudo-code for the iteration schema can be found at [Algorithm 2][^14].
 
-        The pseudo-code for the iteration schema can be found at [14]_ [Algorithm 2].
+        [^14]: Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S.(2024). A hybrid algorithm for monotone variational inequalities.
+        (Manuscript submitted for publication).
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         x_current : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_0`
+            The initial point, corresponding to $\mathbf{x}_0$
         x_previous : ndarray
-            The initial point, corresponding to :math:`\mathbf{x}_1`
+            The initial point, corresponding to $\mathbf{x}_1$
         step_size : float
-            The step size initial value, corresponding to :math:`\lambda_0`
+            The step size initial value, corresponding to $\chi_0$
         phi : float, optional
-            The golden ratio step size, corresponding to :math:`\phi`
+            The golden ratio step size, corresponding to $\phi$
         alpha : float, optional
-            The auxiliary parameter, corresponding to the :math:`\alpha` parameter.
+            The auxiliary parameter, corresponding to the $\alpha$ parameter.
         step_size_large : float, optional
             A constant (arbitrarily) large value for the step size
         phi_large: float, optional
-            A constant (arbitrarily) large value for :math:`\phi`
+            A constant (arbitrarily) large value for $\phi$
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
         Yields
         ------
         ndarray
             The iteration's resulting point
-
-        References
-        ----------
-        .. [14] Rahimi Baghbadorani, R., Mohajerin Esfahani, P., & Grammatico, S.
-           (2024). A hybrid algorithm for monotone variational inequalities.
-           (Manuscript submitted for publication).
         """
 
         def s2_update(s2, coefficient):
@@ -1142,8 +1060,6 @@ class VI:
 
             yield x
 
-    ################################
-
     def solution(
         self,
         algorithm_name: str,
@@ -1151,14 +1067,14 @@ class VI:
         max_iters: int,
         eval_func=None,
         eval_tol: float = 1e-9,
-        log_path: str = None,
+        log_path: str | None = None,
         **cvxpy_solve_params,
-    ) -> np.ndarray:
+    ) -> np.ndarray | None:
         """
         Solve the variational inequality, using the indicated algorithm.
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         algorithm_name : str
             The name of the algorithm to use
         algorithm_params : dict
@@ -1172,9 +1088,7 @@ class VI:
         log_path : str, optional
             The path for saving the log file
         **cvxpy_solve_params
-            The parameters for the
-            `cvxpy.Problem.solve <https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve>`_
-            method.
+            The parameters for the [`cvxpy.Problem.solve`](https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve) method.
 
         Returns
         -------
