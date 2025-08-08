@@ -461,29 +461,6 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/linear-complementarity-nb/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Linear Complementarity Problem
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="examples/zero-sum-game-nb/" class="md-nav__link">
         
   
@@ -739,14 +716,14 @@
 <pre><code class="language-bash">pip install git+https://github.com/nicomignoni/monviso.git@master
 </code></pre>
 <h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<p>If you're already familiar with variational inequalities (VI), hop to the <a href="examples/quickstart-nb/">Quickstart</a> for an overview on how to use <code>monviso</code>. Otherwise, the following provides an (extremely) essential introduction to VIs and to the nomenclature that will be used in the rest of the documentation. </p>
-<p>Given a vector mapping <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span> and a scalar convex (possibly non-smooth) function <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span>, solving a VI consists of solving the following </p>
+<p>If you're already familiar with <a href="https://en.wikipedia.org/wiki/Variational_inequality">variational inequalities</a> (VI), hop to the <a href="examples/quickstart-nb/">Quickstart</a> for an overview on how to use <code>monviso</code>. Otherwise, the following provides an (extremely) essential introduction to VIs and to the nomenclature that will be used in the rest of the documentation. </p>
+<p>Given a <a href="https://en.wikipedia.org/wiki/Vector-valued_function">vector mapping</a> <span class="arithmatex">\(\mathbf{F} : \mathbb{R}^n \to \mathbb{R}^n\)</span> and a scalar <a href="https://en.wikipedia.org/wiki/Convex_function">convex</a> (possibly <a href="https://en.wikipedia.org/wiki/Smoothness">non-smooth</a>) function <span class="arithmatex">\(g : \mathbb{R}^n \to \mathbb{R}\)</span>, solving a VI consists of solving the following </p>
 <div class="arithmatex">\[\begin{equation}
     \label{eq:vi_base}
     \text{find } \mathbf{x}^* \in \mathbb{R}^n \text{ such that } (\mathbf{x} - \mathbf{x}^*)^\top \mathbf{F}(\mathbf{x}^*) - g(\mathbf{x}) - g(\mathbf{x}^*) \geq 0, \quad \forall \mathbf{x} \in \mathbb{R}^n.
 \end{equation}\]</div>
 <p>It turns out that a lot of problems in optimal control, optimization, machine learning, game theory, finance, and much more, boil down to solving some instance of <span class="arithmatex">\(\eqref{eq:vi_base}\)</span>. Such a problem is usually solved through iterative methods: one constructs an algorithm that produces a <span class="arithmatex">\(\mathbf{x}_k\)</span> at each iteration <span class="arithmatex">\(k\)</span> such that <span class="arithmatex">\(\mathbf{x}_k \to \mathbf{x}^*\)</span> when <span class="arithmatex">\(k \to \infty\)</span>. </p>
-<p>What <code>monviso</code> does is providing a convenient way for accessing and using these iterative methods for solving an instance of <span class="arithmatex">\(\eqref{eq:vi_base}\)</span>. The iterative methods that are currently implemented are listed in the <a href="api/#iterative-methods">API documentation</a>. Since many of these algorithms rely on evaluating a proximal operator, <code>monviso</code> builds on top of <a href="https://www.cvxpy.org/"><code>cvxpy</code></a>, a package for modelling and solving <a href="https://en.wikipedia.org/wiki/Convex_optimization">convex optimization problems</a>.  </p>
+<p>What <code>monviso</code> does is providing a convenient way for accessing and using these iterative methods for solving an instance of <span class="arithmatex">\(\eqref{eq:vi_base}\)</span>. The iterative methods that are currently implemented are listed in the <a href="api/#iterative-methods">API documentation</a>. Since many of these algorithms rely on evaluating a <a href="https://en.wikipedia.org/wiki/Proximal_operator">proximal operator</a> (or a <a href="https://en.wikipedia.org/wiki/Proximal_operator#Properties">projection step</a>), <code>monviso</code> builds on top of <a href="https://www.cvxpy.org/"><code>cvxpy</code></a>, a package for modelling and solving <a href="https://en.wikipedia.org/wiki/Convex_optimization">convex optimization problems</a>.  </p>
 <h2 id="cite-as">Cite as<a class="headerlink" href="#cite-as" title="Permanent link">&para;</a></h2>
 <p>If you used <code>monviso</code> in your project or research, please consider citing the related <a href="">paper</a>:</p>
 <pre><code>@inproceedings{mignoni2025monviso,

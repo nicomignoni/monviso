@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../quickstart-nb/">
-      
-      
-        <link rel="next" href="../zero-sum-game-nb/">
       
       
       <link rel="icon" href="../../images/favicon.svg">
@@ -283,20 +279,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -312,7 +306,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Usage
@@ -346,20 +340,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -375,86 +367,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             Examples
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Linear Complementarity Problem
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Linear Complementarity Problem
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
             
               
                 
@@ -1128,7 +1046,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="linear-complementarity-problem">Linear Complementarity Problem<a class="anchor-link" href="#linear-complementarity-problem">¶</a></h1><p>A common problem that can be cast to a VI is the linear complementarity problem [1]: given $\mathbf{q} \in \mathbb{R}^n$ and $0 \prec \mathbf{M} \in \mathbb{R}^{n \times n}$, one want to solve the following</p>
+<h1 id="linear-complementarity-problem">Linear Complementarity Problem<a class="anchor-link" href="#linear-complementarity-problem">¶</a></h1><p>A common problem that can be cast to a VI is the linear complementarity problem [1]: given $\mathbf{q} \in \mathbb{R}^n$ and $\mathbf{0} \prec \mathbf{M} \in \mathbb{R}^{n \times n}$, one want to solve the following</p>
 <p>$$
 \begin{equation}
     \label{eq:complementarity}
@@ -1136,17 +1054,17 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 \end{equation}
 $$</p>
 <p>By setting $F(\mathbf{x}) = - \mathbf{M}\mathbf{x} - \mathbf{q}$ and $\mathcal{S} = \mathbb{R}_{\geq 0}$ it can be readily verified that each solution for $(\mathbf{x} - \mathbf{x}^*)^\top F(\mathbf{x}^*) \geq 0$ is also a solution for $\eqref{eq:complementarity}$.</p>
-<h2 id="references">References<a class="anchor-link" href="#references">¶</a></h2><p>[1] Harker, P. T., &amp; Pang, J. S. (1990). For the linear complementarity problem. Lectures in Applied Mathematics, 26, 265-284.</p>
+<p>Let's start by creating some data</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6da27416-ca32-46c1-bb75-430d8eb50d03">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a5603658-791c-42e2-b612-eb6cb2295944">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-1">
@@ -1167,17 +1085,119 @@ $$</p>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2024</span><span class="p">)</span>
 
-<span class="c1"># Problem data</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">random_positive_definite_matrix</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-1">import numpy as np
+import cvxpy as cp
 
-<span class="c1"># Define the mapping and constraints' set</span>
-<span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="p">(</span><span class="n">q</span> <span class="o">+</span> <span class="n">M</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">q</span> <span class="o">@</span> <span class="n">x</span> <span class="o">-</span> <span class="n">cp</span><span class="o">.</span><span class="n">quad_form</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+from utils import *
+from monviso import VI
 
-<span class="c1"># Define the VI and the initial(s) points</span>
+np.random.seed(2024)
+
+n = 5
+q = np.random.uniform(-10, 10, n)
+M = random_positive_definite_matrix(-10, 10, n)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a4ec2e89-a7cb-4d9a-8431-2b557d5e9de4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Then, let's define the mapping $\mathbf{F}(\cdot)$ and te</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=177e2b41-8460-4dbb-bde9-6ab8ce16cfaa">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-2">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span> <span class="n">q</span> <span class="o">-</span> <span class="n">M</span> <span class="o">@</span> <span class="n">x</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-2">F = lambda x: - q - M @ x
+
+y = cp.Variable(n)
+S = [x &gt;= 0]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=76e6b059-7549-4c99-8c79-d70ce176e491">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-3">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linals</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-3">L = np.linalg.norm(M, 2)
+mu = np.linals.eigvals(M).min()</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6da27416-ca32-46c1-bb75-430d8eb50d03">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Define the VI and the initial(s) points</span>
 <span class="n">lcp</span> <span class="o">=</span> <span class="n">VI</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="n">S</span><span class="p">)</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -1205,23 +1225,9 @@ $$</p>
     <span class="sa">r</span><span class="s2">"$\|\mathbf</span><span class="si">{x}</span><span class="s2">_k \! - \! \text</span><span class="si">{proj}</span><span class="s2">_{\mathcal</span><span class="si">{S}</span><span class="s2">}(\mathbf</span><span class="si">{x}</span><span class="s2">_k \! - \! F(\mathbf</span><span class="si">{x}</span><span class="s2">_k))\|$"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">import numpy as np
-import cvxpy as cp
+<div class="clipboard-copy-txt" id="cell-4">
 
-from utils import *
-from monviso import VI
 
-np.random.seed(2024)
-
-# Problem data
-n = 5
-q = np.random.uniform(-10, 10, size=n)
-M = random_positive_definite_matrix(-10, 10, n)
-
-# Define the mapping and constraints' set
-F = lambda x: -(q + M @ x)
-L = np.linalg.norm(M, 2)
-S = [lambda x: x &gt;= 0, lambda x: -q @ x - cp.quad_form(x, M) &gt;= 0]
 
 # Define the VI and the initial(s) points
 lcp = VI(n, F, S=S)
@@ -1288,6 +1294,44 @@ Using: hgraal_2
 <img alt="No description has been provided for this image" class="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALoAAAC/CAYAAABJw8ZCAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjAsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvlHJYcgAAAAlwSFlzAAAPYQAAD2EBqD+naQAAHFVJREFUeJztnW1wW9d553/3ggD4IhEgaMlyZMsiSMd1HacWQKlv3rQVgUlnPdvJRKS8X9rsjiNy0nb6IWNT4mZ2Y8/OVkNKaWe/iZA6nenuzkQWqO3G9b4QSDLJzHYbU4TsNnUcWwQp25JsSyIuIIok3u7ZDyAggK+XeCWE85sB8XLPvc9zwf99cM6555xHEUIIJJKHHLXWDkgk1UAKXdIQSKFLGgIpdElDIIUuaQik0CUNgRS6pCGQQpc0BFLokoZACn0Fr9fL0NAQwWCw1q5IKoAihwBkCAaDeDyeWrshqRAPRUT3+/243e6Cz3w+H8FgEJ/PZ+gYmqZtq7ykvnhoIrrX6yUQCACZ6BwOhxkcHMTv9wPQ39+f+zyf48ePEw6HsdvtOJ3OguNIHh6aau2AETRNw+fzMTw8DMDY2BiDg4PY7fZ1y4dCIVwuFwB2u51AIEB/f/+GVROXy5W7CAYGBipyDpLaUhdCt9vtDA4OMjY2BrCpyLNomrYtG7J+/nBTF0LPcvfuXYAtRe5yuXJVFE3TOHz4cKVdk+xw6qIxmq26jI6OMjo6ytjYWEHEzlY7svVxj8eTa1yGw2H6+/tr5Llkp/DQNEYlks2oi4gukZTKjhe6EIJYLIb84ZGUwo4X+r1797DZbNy7d2/NNiEEmqZV/SJoNLu1tF0uu4Z7XSYmJlAUZctydrudo0ePluSURFJuDAs9ewNmKxwOR9HOSCSVwrDQu7q6KumHRFJRDAv9zJkzhqsu3/zmN0tySiIpN4aF/uqrr1bSj20TT6X5k/8W4rXf78JWa2ckO54d3+uyERaTyj+E57kVjdfaFUkdUNRYl7m5OUKhEABOpxOn00l7e3tZHdsKRVHYb2/mVkwKXbI12xL6xMQEgUAARVFwuVw4HA6mpqb4/ve/z+zsLCMjIzz//PMVcnUt++0t3JQRXWKAbTVGvV4vx44d27DMD3/4Qy5fvszXv/71sji3FV+wt/CpjOgSAxgW+uDgIDbb5s2+vr4+otFoyU4ZZX9HC1fn7lTNnqR+MdwY3Urk2y1XDnr27uLa7cWq2ZPUL3XbGAX4tcftzN5dIracxNZiqbp9Sf1Q143RPbut7Gu38s5HGr/z9N6q2ZXUH3XdGAV4obuD//PPn0qhSzbFcB19cHBwy2jd19dHX19fqT5ti3/57B7+7h9vEV1KVtWupL6o68YowPP7d/Ol/TZG//f7cnKGZENKHgJw5swZLly4AMDly5dLdmi7KIrC6LHnCLz3GX/2/Xd476acjSRZS8mTo69evYrdbicUChEIBDh37ly5fAMgFoths9mIRqNrenaEEESjUWw2G5/GlvnPwQ+5fPUGzU0qj7Y309FqocViQlVAVRQURcl7DQYGY66LEJBMJjGbzUUfo57s1tK2EPDnLzqx2+2GRs9uRNFCP378OEeOHMlNyAiHwxUZnmtU6NkvIZ5K8+FnC9xeiBNdTLKYSKMLgRACXYC+8lzK9S2EYHl5mebm5pK+/HqxW0vbQgj6n3OULPSiFzAaGRlhfn6e6elpAoEA8/PzaJrGK6+8UrQz5cDaZOJL+yvbTljvAqsGtbJbS9tZu6VStNAPHToEZHpasmPVZ2dnS3ZIIqkERTVGVzc6z549C8jpdpKdS1FCP336dO711atXC95vhd/vJxgM5hYMlUiqQVFCHxgY4KWXXuLChQu43W7DK9GGw2HC4TAejwen07lmrXKJpFIUJfTh4WG6uroYGhrC7/dz8eJFQ/s5nU6mpqbwer2Ew2GcTueaMvF4nFgsVvCATKNEPuQj+9guRTVGe3p6iEQiTE5OMj4+TiQS4eWXX95yv+wSzi6Xi6GhITwez5r1Yk6fPs3rr7++Zt9oNLrmBIUQLCwsAFS9J6CR7NbS9kZ2t1o6fDVF9aP39PQQCATo6upC0zS8Xi9TU1Nb7ufz+QqqLX6/P5fFIks8HicefzBrKBaL8cQTT6BpmqF+9GrQaHZraXsju9v1oaiIPjo6muthyWajMMLx48fx+Xy4XC40TVt3P6vVitVqXfO5snJnc6PPq/2PbzS7tbRdDrs7fn307d4ZrQaNZreWtstl13Bj1OiArewAL4lkJ2G46nLo0CFOnTrFkSNH1kysmJubIxAIEA6HGRkZKbuTEkmpbLvqkp1Olx3boigKTqeToaGhikyj26jqcv9ejB/8p9c59G/+iKef/nJd/pzWi91a2i6X3W03Ro8dO7bpdLpqYWlu4dbcBzz90afw9Jdr7Y5kh2O4jv6tb32LCxcu8M4771TQHeOYzWaazGaSd7VauyKpAwxHdJvNtqOWg9ZTSUwtTcSjkVq7IqkDDEf0bFLaaDTKj370o9yt+VqhCJ1ERxOpxc9r6oekPjAs9GxDwGazIYRgYGCgptUYxWxFbWkivbyIfm+5Zn5I6gPDQg8EAly/fh3ITLbo7++v6mJF66G2mFiK30fM36+pH5Kdj2GhT01N0dfXR2dnJ1/96lcJBoO8++67QG1m/4tEgt/7L2+TjkYRi4mq25fUF4Ybo5cuXaKrq4toNEowGCQQCPDyyy8TDofp7Oys6upcAIrFglAV9PuLiPty6WjJ5mw7K53NZlvTl37q1Knye2aAVKsZcX8J/c4CuraIam+tiR+SnU9ZchjV6rZ/apcF/d4ySpuV1Ed3a+KDpD4oi9CrvQxdFt1mhaUE+uPtCNnzItmEus1KB6DbLVjTOrdvfISILSOS6Vq7JNmhlCT07DIXtULfZaFFEXw+NwdA4m25roxkfUoS+p07tc0flG4zZ4R+fQbLV76IWFhGpPWa+iTZmZQk9FpM58pH322hWU8zf/sTlFYLKArp67JRKllLXdfRU45mrEtJotE7KIqC6clOUr/8FJFI1do1yQ6jroWefqSVpntxlhcXmJ/9CPPT+1B2WUl/VtsBZ5KdR10LPdXRArqgw9LChz/+KQDq3nZSP7+BHl2qsXeSnURJQnc4HOXyoygUcxO6zcK+5g6uv/8OAE1ffBT1MRupmc+LWtFJ8nBSktCzy0XXCqGopPa2cmDPPm7dDJNaTmTq6k840D+Lkb4mx6pLMtR11UWYmkg9vouOpkwP0M9/8D8BMHXuwux+ktS1z0nfkDOQJHUu9LTZSuJAG4n332f/40/x/s9+mtum7tlN0xcfJfnzG6Rv36uhl5KdQF1npVMtu1nu2kX8lx9wqO9Fbt28xme/uAZkIrzJuQfTAQfJK3Okb0Rknb2BKVnoHo+Hvr4+JiYmmJycLIdPhmmy7ib+WCsmm429zSp79h7gJ389ntuuKArmZ75A09P7SP7TDVLv3ZTjYRqUooV+/Phxzp49SyQSYXZ2lkgkUvbUi1vR3OwgYbHS1uNk4cc/5iv/+t9y4+MP+KfLf1dQrsm5B8vhg+jz90n83w8z0V0OFWgoqp6VLhgMomka4XCYwcHBba9znU9by15uW1to32/m5ltv8dTJYQ795lf50eW/orWjg+7f++1cWbVzF5bf7CH9yTzJf74JH36GaX8Hpi/YUdvWrt4rebioala6cDhMIBBgdHQUTdNKEjmA3foIS80tND//KOpPpoi+9Ra/+2d/zNKfx/jB+TF+9Wcv8C+GBmntyIyXV5pUmg4+gunJTtKfRNBvaiRmPkdps6J27kK1t6LsbkZps6Codd1Ol6yiKKFfvny5YI7o2bNneeWVV7bMSpeN5n6/n6mpKUZHR9eUWS8RALBuSo8Oi4O4tYV7PXvo/I1f5/b3vscuj4ffHznJ45ff4u//10V+8Sff4JE9+3lk35PsOdCF7bHHsO3fT7N9F5bn9mExmdHv3kefXyAVvo1YjIMuoMWC0mJGabGgmE1gNqFYmsBsAlVBWV4mrVhQTSor6agzqajznss96K2U1Cb1ansju9v9botaH/3w4cO5DBdXr17F4/Fw9+7WowZ9Ph+apjE8PIzP5wNYkwzgtddeWze1y/Xr19esjx7X4/xt7G/ouw5793+NyB//KeqTT7J7bDQzkjGd5ub/m2Zu+mfM37nB4v0oifgyqVQy7xtQUFV15YtTUIDsn/zXmaIrX25tB202HH/w2hnaV2WO3m5toKiIns1K5/V6GRwcZGBgwNB+vb29BINBIDN8YH5+fk2ZkZERvv3tb+feZ1O72Gy2NULXdR20NMTvsLu7h+a/+B5zf/QNmv/Dv+eRf/cd2LcPx4tevvSit2C/xP1F4rEFEouLJBYWSdxfRE+nQdcRCIQu0IVgJZc6QugIAQg9YxOIL8exNq/U7XOhQmRei7wPC8JIqdFQkIgnsVjNbH21iXVflkIikcRiMZfnYJuxyt+2XbtKX8VXFMnJkyeFqqpiYmJiW/uNjo6KS5cuieHhYUPlo9GoAEQ0Gl2zTdd1Mf7+6+IXf/uHuc+W33tP/PLIEfHJ174mUv/1b4R49x0hIhEhdH1bfm6GrusiEokIvYzH3Ml2a2m7XHarmpUOyCXn6u/vL8b0GvRUilTiwW1+6zPP0PXmm9z6zne49r2/xPHCC9i7DmJ2dMDevWDvAJsdbO3Q3g4trdBUdJtcUicU/R++cuUKXV1duN1uvF6vYaGXnaRg0ayAEJlGIGDeu5cD589z/+23uXtunDt/9de0/tqX2fXMr9B64ADNdhvKwgIsLGT2s1igpSXzaG4Bsznz2ernJjM0mUA1YVpegkQic5GYTGsfqprzR1J7qpqVrhIopg7udD4Kd6/BI08VbGs7coS2I0dIfvop9yYD3H/7Z9x58y30xUWsXV1Yn+rB8oX9mDtbaWpuxby7naa2VtSmJpRkEhLxzMWQTEAimXlOpyGdpi2ZAqHn3qOvcwMqK/Z1n9W8Hpr896ufVx4ooEBbKp258BTlQUM5V4YHr9e8zy+7yX6rX2ffA83xODQ3r/l8vbJlfb3/8bXf7Tap+6x0//2XfubV9/nD2D6svSe2PJ7QdZI3bhD/8EPiH3xA4uOPSd26RfLmLZKffopYXgazGZPNlnnY7Znn9nbU1hbU1laU5hbiikKrowNTaytKaytqS0vmAlmJ5qrJhJJ939S0sk1FMTWBqma0JvRMg1fXM6/FymtdrGxb+SxzsghdsLS0SEtz84OmqBAPHvnvjW7bqtxKA1sIQSKRwGKxrNgWDxqNBRLK+7xg21afr268i9ym6K//BrZVvS7bxXBEX913vhEXLlyoasKAX939HMFPfsKbLXF+JRbCYdlDm2kXTYoZVVFQUFEUtbCPYv9erPv3Yv3d3y44lhACPXYPPRolHY2ia3nPsRhiaYnk4gL6ndskYjFSySRiaRmxtIS+tIRIJDKPZAqSSUQyiUgkVglhBbMZxWxGMalgylwEqCYwqSsXi2llmyl38WBS0VEwmc0rF5Apc2MrV2Zln7yorqiF7zO/HqAo6gbvs2VXulzzflUSiSSW5maU7C+OQuaiXXP8lXsIBbahoJs2//OCXxAlbzsIFJrKEIvrPivdvrZ9/Pz2PL8VDzPX9hjvWppYTC+gU+JYFtvKowAVaFt5PGLsOCvdlGpSR0mlUZM6aiqNktRRk2nQBYouUNICRddR9Ex5JS1Q0npuW6acvlJOrJTLf59GSScz5QS5qPzgNZl9WHle+VwR67zOHiO/fPb5/sb7Zctl9l/5LK/cg+8k73MebFOykV3klQGeffFfGfuuN6Fus9LBg4xlHyx9wMT/+Ab/8fZt7j77B1i+NED7vudRW2zoJjOiVNGvQghBLBajvb296hna1rNblbqnEERjMWzt7dVtZAvBYmwJe4lVl7qvo2dT8703/x4//Ye/5JkPfshz9zQ6VxqHSSCtKCtBIvOc+UnMu7dT1K1OUeR+ku2S/tNr2Ds6qpt+MZ+5uTkOHjxYyiHKxrOdz/LsixfgRUimk9xeuEV6WSO9HCWVjqMLPSNzsSLv/IaXYR6UvX//Pm1tbWU9hy2tC8Hi4iKtra01yTNaC9tCCOxlOE5JQh8YGGB0dJSjR49y6tQpFEXh9OnTZXCrNMwmM3tsB8B2oCLHz/8lqcfksvVkO2u3VEoai+p2uzl69CgTExNomsapU6dqkuZFItmKkiK62+0GMqMSL126RHt7+7oDtSSSWlNSRO/t7aWnpweXy5VrKAYCgbI4JpGUk5Ii+qFDh7h2LTPrfnZ2llAoRCQi11GR7DzKNl+sq6uL+fl5xsfHty4skVSZso5PPXFi67EmEkktKGqsy0YpXZxOZ9XzjUokRjBcdZmcnMxNVH777bdxuVwcOnSo4CGEqFkqRolkMwwL/dy5c7melfPnz+NwOLh69SqKotDX10dfXx92u71qs8R1XfDm1G3iqR09gkGyQyiqMRoMBjl37hxCCN54443c2ovZwV3VQFEgrYvt3cGXNCxFN0bzl587f/48wJbrupQTRVFQFTKz9SWSLSgqoq8e69DZ2VkWZ7aLqijZIdMSyaYUFdFnZmY4e/YsTqeTcDhcbp8Mo6rbHHwoaViKiuivvvoqNpuNyclJ7Hb7lguLVgoZ0SVGKSqix2IxTpw4UfMbRKqKFLrEEEVF9IGBgVyfei1RFUVWXSSGKErow8PDBXXzbPditZG9LhKjFFV1GRoaoqOjA8jMAJmdna3qEhdZVFVGdIkxihL6+Pg4fX19ufdXr14tm0PbIdMYlUqXbE1RVZesyLP19Gz2i2qTqbrUxLSkzihK6LOzs/T09HDw4EGeeuop5ubmtrW/pmllGSogqy4SoxRVdRkbGyMQCNDV1YWmaYyOjm5r9n8wGNxwbul2UruoufEu1VV71pdGsVtL2xvZ3e5KBEUJ3ePxFKym29vba3hfv99Pf38/Fy9eXHf76dOn103tEo1G15xsOpVkWU8SjUarvgTDwsICsP0vvB7t1tL2RnarktolEonklkaLxWK5eaKxWAyfz7fhndJQKITL5dr02NtJ7WK9HcWsqDVZawRoGLu1tF0uu0UtSedwOOju7i5wRFGUXFfjRom7QqFQrv/99OnTnD9/fkvhb7Yk3fS1KCpJnu/ubIiFhBp5AaNS7RYV0S9dulTQvZjPZl2NLpcLl8uVy05XKqoKQmY8lxigrhcZfXc2RjKZwP2UjOgPq+1y2a3r9MiyH11ilJKEvtFqANUi048ulS7ZmpKEfufOnXL5URRyPLrEKCUJvdr1xNXIGUYSo9R5HV1GdIkx6lzo66f3lEhWU9dCbzIppGRIlxigJKE7HI5y+VEUVrNKUt4wkhigJKG/+uqr5fKjKCxNKsm0jOiSranrqoulSSWVRvalS7akvoVuzuQNlVFdshUlC/3MmTO5VQCqnZGuSVVQFEikZNeLZHNKFrrH46Gvr4+JiQkmJyfL4ZNhlFvTWMQSiaSM6JLNKXo13ePHj3PkyBFcLheRSIRIJFKwwm5VuDFFc/orLCdlRJdsTtFCHxkZYX5+nunpaQKBAPPz82iaVt11GE0WbPHPiSwcYH9nc/XsSuqOooWeXeKir68v1804OztbHq+MYjLTmb7B9dhz1bUrqTuKqqOvbnRmh+tWMxEAAKk4j6Y/Ino/yY27S6TlXVLJBhQ1w+jw4cNMTU0BmalzHo9nw3mipbLZDCPx939BytTCrfQe/lE5TBIrJlIo6CgIMp2Pknrnt55ux97RUf05owMDA7z00kt4vV4GBwcZGBgo2oGSSCyw/MUXeeJRJ0/E77EcT5JMq6Cr6FQwv5EQLC4t0drSkkmmVC1qZbeWtsv1TxRFcvLkSaGqqpiYmCj2EIaIRqMCENFotHBDOiVE4JTQPvtI6LpeUR9Wo+u6iEQiDWO3lrbLZbeoiN7T00MkEmFycpLx8XEikQgvv/xyea48oygq4oURxJIc1SXZmqJ7Xa5cuUJXVxdutxuv11sDoStg3Q3L0eraldQlRfW6jI6OFixJNzg4WFanJJJyU5TQjx07VvC+1rmMJJKtMFx1mZiYMNS9Y7fbOXr0aElO5SNWWt3r5UwSQhCLxVAUpeqL6jSS3Vra3szu7t27DftiWOhbrZGYpdyzju7duwfAE088UdbjSuqf9e6tbMSOX5JO13Vu3ry57tWbXWn3448/NnzC5aDR7NbS9mZ2KxLRz5w5Y7jqUs7EXaqq8vjjj29apr29ver/+Ea0W0vbpdo1LPRazw+VSEqhrqfSSSRGqWuhW61Wvvvd72K1WqXdh9R2uezu+MaoRFIO6jqiSyRGkUKXNARS6JKGoG6F7vP5CAaD+Hy+qtjLjtI8efJkxX3w+/243e6Cz9azVW7769mt1nn7/X78fv+Wdoq1XZdCDwaDQGZNGYfDgd/vr7jNkZERAoEAo6OjFfehv7+/YCjFerYqYX+1XajOefv9fux2O/39/XR2dubEvNpOKbbrUuihUAin0wlk7sRm569WknA4TDAYzEWcavqwnq1q2a/Geff39+PxeACYmZmht7e37Odc9MSLWlOOPKXbYXh4GMj847ORpJo+rGerGvared7BYBC3243L5SIYDJb1nOsyortcLubn54HMiR8+fLii9oLBYO5nM/tFV9OH9WxVw341zzsUCqFpGoODg4RCobKfc10K3ePxoGkawWCQcDhMf39/1ezBg5/aSvmQPWY2gq5nqxL2N7MLlTvvcDjMwMAA4+PjuN1u5ufny37O8s6opCGoy4gukWwXKXRJQyCFLmkIpNAlDYEUuqQhkEKXNARS6JKGQArdIKFQiIGBAdxud+4GSrXo7u6u6PHzbxJl37vdbsLhcO4zTdMYGxurqB+VRArdIC6XC6/XS29vb24AUiWGCK93zEAgUHY7+YyPjxfcZXQ6nWialhtABZlBVB6PpyojRSuBFHoJjI+PV+WY+YIrN36/f82YkXA4jN1uX1PW5XJV/KKrFFLoRZIdXZc/dhrg5MmT+P1+xsbGCIVCBINBuru7CQaDeL3e3OCokydP5oa/ZqsI6x0zFArR3d2d229sbCw3SSEbXUOhEB0dHQSDQfx+f0EGklAolBvLPTQ0tOY8AoHAmjEjwWAw96vl9/vX/MrkV2nqhbodpltrPB7PmiWzfT4fnZ2dOeF4vV4CgQB2ux2Hw8GlS5dykbKzszMnptHRUcbHx9c9psvlykX0rOCyxx8aGsLpdOJyuejt7cXhcODxeHJ17v7+fi5evEh3d3dussJqsqMB85mensbr9eL3+/F4PJw4cSLnk9vtLhgXXi/IiF5GpqenuXv3bm54a3ZWDmQEu7o64PP5CIVC64pto+PnCyz7S5FlverGyMgI09PTuN1uTp8+vWb7euO7g8EgFy9exOl0YrfbuXTpUm5buReRrRZS6CWiaVquCpGdb+nxeHLRej18Ph93795lcHAwVy4UCq17zHxW94TMzMwUrHK8ngjfeOMNxsfHmZmZweFwbFnt0DQtJ+4TJ04QDocL9pmfn6+7aA5S6IYJhUIEAgGuXLmSi6JDQ0P4fL5cJB0cHMzNecyvP4fD4YJ6bm9vb25cdTaaZ8W0+pjZ/d94441c9SFbb3a73Xg8ngIbmqYRCAS4ePEimqYxMzOTq893d3evEanT6SwQ8pUrV3jppZdyvqye6TMzM1OXQpfj0RucUCjElStXDKfnGRgYKKjK1Asyojc4LpeLmZkZQ2WDwSAjIyMV9qgySKFLGBkZ2fLml6ZpaJpmOPPJTkNWXSQNgYzokoZACl3SEEihSxoCKXRJQyCFLmkIpNAlDYEUuqQhkEKXNAT/H/8ik699yqQPAAAAAElFTkSuQmCC"/>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=849c91af-267b-4ccc-a2fc-8288b860434d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-5"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=273ff7f1-d3a7-47a4-969b-7577b7700e7c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="references">References<a class="anchor-link" href="#references">¶</a></h2><p>[1] Harker, P. T., &amp; Pang, J. S. (1990). For the linear complementarity problem. Lectures in Applied Mathematics, 26, 265-284.</p>
 </div>
 </div>
 </div>
