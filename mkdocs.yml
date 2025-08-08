@@ -5,7 +5,6 @@ nav:
   - Usage:
     - examples/quickstart-nb.ipynb
     - Examples:
-      - examples/linear-complementarity-nb.ipynb
       - examples/zero-sum-game-nb.ipynb
       - examples/feasibility-problem-nb.ipynb
       - examples/skew-symmetric-nb.ipynb
@@ -46,6 +45,7 @@ theme:
         name: Switch to system preference
 
 plugins:
+  - macros
   - search
   - mkdocstrings:
       handlers:
