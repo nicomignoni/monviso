@@ -29,9 +29,12 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 
+[tool.setuptools.packages.find]
+include = ["monviso*"]
+
 [tool.setuptools.dynamic]
 version = { attr = "monviso.__version__" }
 
 [project.urls]
 Homepage = "https://github.com/nicomignoni/monviso"
-Documentation = "https://monviso.readthedocs.io/en/latest/index.html"
+Documentation = "https://nicomignoni.github.io/monviso/"
