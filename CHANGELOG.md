@@ -2,7 +2,7 @@
 
 [Unreleased]
 
-# TODO
+## TODO
 - Improve testing
 
 ## Added
