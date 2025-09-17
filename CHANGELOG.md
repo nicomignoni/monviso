@@ -6,6 +6,7 @@
 - Improve testing
 
 ## Added
+- Allowed to pass args to the mapping F, other than x
 - Defined a consisted convention for naming indexed terms.
 - Better detailed the quickstart.
 

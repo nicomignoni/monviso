@@ -51,18 +51,18 @@ class VI:
         else:
             raise Exception()
 
-    def residual(self, x: np.ndarray, **kwargs) -> float:
-        return np.linalg.norm(x - self.prox(x - self.F(x), **kwargs))
+    def residual(self, x: np.ndarray, *args, **kwargs) -> float:
+        return np.linalg.norm(x - self.prox(x - self.F(x, *args), **kwargs))
 
     # Proximal Gradient
-    def pg(self, xk: np.ndarray, step_size: float, **kwargs):
-        xk1 = self.prox(xk - step_size * self.F(xk), **kwargs)
+    def pg(self, xk: np.ndarray, step_size: float, *args, **kwargs):
+        xk1 = self.prox(xk - step_size * self.F(xk, *args), **kwargs)
         return xk1
 
     # Extragradient
-    def eg(self, xk: np.ndarray, step_size: float, **kwargs):
-        yk = self.prox(xk - step_size * self.F(xk), **kwargs)
-        xk1 = self.prox(xk - step_size * self.F(yk), **kwargs)
+    def eg(self, xk: np.ndarray, step_size: float, *args, **kwargs):
+        yk = self.prox(xk - step_size * self.F(xk, *args), **kwargs)
+        xk1 = self.prox(xk - step_size * self.F(yk, *args), **kwargs)
         return xk1
 
     # Popov's Method
@@ -71,18 +71,19 @@ class VI:
         xk: np.ndarray, 
         yk: np.ndarray, 
         step_size: float, 
+        *args,
         **kwargs
     ):
-        yk1 = self.prox(xk - step_size * self.F(yk), **kwargs)
-        xk1 = self.prox(xk - step_size * self.F(yk1), **kwargs)
+        yk1 = self.prox(xk - step_size * self.F(yk, *args), **kwargs)
+        xk1 = self.prox(xk - step_size * self.F(yk1, *args), **kwargs)
         return xk1, yk1
 
     # Forward-Backward-Forward
-    def fbf(self, xk: np.ndarray, step_size: float, **kwargs):
-        Fxk = self.F(xk)
+    def fbf(self, xk: np.ndarray, step_size: float, *args, **kwargs):
+        Fxk = self.F(xk, *args)
 
         yk = self.prox(xk - step_size * Fxk, **kwargs)
-        xk1 = yk - step_size * (self.F(yk) - Fxk)
+        xk1 = yk - step_size * (self.F(yk, *args) - Fxk)
         return xk1
 
     # Forward-Reflected-Backward
@@ -91,9 +92,10 @@ class VI:
         xk: np.ndarray,
         x1k: np.ndarray,
         step_size: float,
+        *args,
         **kwargs,
     ):
-        xk1 = self.prox(xk - step_size * (2 * self.F(xk) + self.F(x1k)), **kwargs)
+        xk1 = self.prox(xk - step_size * (2 * self.F(xk, *args) + self.F(x1k, *args)), **kwargs)
         return xk1
 
     # Projected Reflected Gradient
@@ -102,9 +104,10 @@ class VI:
         xk: np.ndarray,
         x1k: np.ndarray,
         step_size: float,
+        *args,
         **kwargs,
     ):
-        xk1 = self.prox(xk - step_size * self.F(2*xk - x1k), **kwargs)
+        xk1 = self.prox(xk - step_size * self.F(2*xk - x1k, *args), **kwargs)
         return xk1
 
     # Extra Anchored Gradient
@@ -114,10 +117,11 @@ class VI:
         x0: np.ndarray, 
         k: int,
         step_size: float, 
+        *args,
         **kwargs
     ):
-        yk = self.prox(xk - step_size * self.F(xk) + (x0 - xk) / (k + 1), **kwargs)
-        xk1 = self.prox(xk - step_size * self.F(yk) + (x0 - xk) / (k + 1), **kwargs)
+        yk = self.prox(xk - step_size * self.F(xk, *args) + (x0 - xk) / (k + 1), **kwargs)
+        xk1 = self.prox(xk - step_size * self.F(yk, *args) + (x0 - xk) / (k + 1), **kwargs)
         return xk1
 
     # Accelerated Reflected Gradient
@@ -128,10 +132,11 @@ class VI:
         x0: np.ndarray,
         k: int,
         step_size: float,
-        **kwargs,
+        *args,
+        **kwargs
     ):
         yk = 2 * xk - x1k + (x0 - xk) / (k + 1) - (xk - x1k) / k
-        xk1 = self.prox(xk - step_size * self.F(yk) + (x0 - xk) / (k + 1), **kwargs)
+        xk1 = self.prox(xk - step_size * self.F(yk, *args) + (x0 - xk) / (k + 1), **kwargs)
         return xk1
 
     # (Explicit) Fast Optimistic Gradient Descent Ascent
@@ -143,9 +148,10 @@ class VI:
         k: int,
         step_size: float,
         alpha: float = 2.1,
+        *args
     ):
-        yk = xk + k * (xk - x1k) / (k + alpha) - step_size * alpha * self.F(y1k) / (k + alpha)
-        xk1 = yk - step_size * (2*k + alpha) * (self.F(yk) - self.F(y1k)) / (k + alpha)
+        yk = xk + k * (xk - x1k) / (k + alpha) - step_size * alpha * self.F(y1k, *args) / (k + alpha)
+        xk1 = yk - step_size * (2*k + alpha) * (self.F(yk, *args) - self.F(y1k, *args)) / (k + alpha)
         return xk1, yk
 
     # Constrained Fast Optimistic Gradient Descent Ascent
@@ -158,14 +164,15 @@ class VI:
         k: int,
         step_size: float,
         alpha: float = 2.1,
-        **kwargs,
+        *args,
+        **kwargs
     ):
-        yk = xk + k * (xk - x1k) / (k + alpha) - step_size * alpha * (self.F(y1k) + zk)
+        yk = xk + k * (xk - x1k) / (k + alpha) - step_size * alpha * (self.F(y1k, *args) + zk)
         xk1 = self.prox(
-            yk - step_size * (1 + k / (k + alpha)) * (self.F(yk) - self.F(y1k) - zk),
+            yk - step_size * (1 + k / (k + alpha)) * (self.F(yk, *args) - self.F(y1k, *args) - zk),
             **kwargs,
         )
-        zk1 = (k + alpha) * (yk - xk1) / (step_size * (2*k + alpha)) - (self.F(yk) - self.F(y1k) - zk)
+        zk1 = (k + alpha) * (yk - xk1) / (step_size * (2*k + alpha)) - (self.F(yk, *args) - self.F(y1k, *args) - zk)
 
         return xk1, yk, zk1 
 
@@ -176,10 +183,11 @@ class VI:
         yk: np.ndarray,
         step_size: float,
         phi: float = GOLDEN_RATIO,
+        *args,
         **kwargs,
     ):
         yk1 = ((phi - 1) * xk + yk) / phi
-        xk1 = self.prox(yk1 - step_size * self.F(xk), **kwargs)
+        xk1 = self.prox(yk1 - step_size * self.F(xk, *args), **kwargs)
         return xk1, yk1
 
     # Adaptive Golden Ratio Algorithm
@@ -192,6 +200,7 @@ class VI:
         tk: float = 1,
         step_size_large: float = 1e6,
         phi: float = GOLDEN_RATIO,
+        *args,
         **kwargs,
     ):
         rho = 1 / phi + 1 / phi**2
@@ -202,14 +211,14 @@ class VI:
                 rho * s1k,
                 np.divide(
                     phi * tk * np.linalg.norm(xk - x1k, 2),
-                    4 * s1k * np.linalg.norm(self.F(xk) - self.F(x1k), 2),
+                    4 * s1k * np.linalg.norm(self.F(xk, *args) - self.F(x1k, *args), 2),
                 ),
                 step_size_large,
             )
         )
 
         # graal step
-        xk1, yk1 = self.graal(xk, yk, sk, phi, **kwargs)
+        xk1, yk1 = self.graal(xk, yk, sk, phi, *args, **kwargs)
 
         tk1 = phi * sk / s1k
 
@@ -226,6 +235,7 @@ class VI:
         ck: int = 1,
         phi: float = GOLDEN_RATIO,
         step_size_large: float = 1e6,
+        *args,
         **kwargs,
     ):
         rho = 1 / phi + 1 / phi**2
@@ -237,7 +247,7 @@ class VI:
                 rho * s1k,
                 np.divide(
                     phi * tk * np.linalg.norm(xk - x1k, 2),
-                    4 * s1k * np.linalg.norm(self.F(xk) - self.F(x1k), 2),
+                    4 * s1k * np.linalg.norm(self.F(xk, *args) - self.F(x1k, *args), 2),
                 ),
                 step_size_large,
             )
@@ -253,7 +263,7 @@ class VI:
         flag = not condition
         ck1 = ck + 1 if condition else ck
 
-        xk1 = self.prox(yk1 - sk * self.F(xk), **kwargs)
+        xk1 = self.prox(yk1 - sk * self.F(xk, *args), **kwargs)
         tk1 = phi * sk / s1k
 
         return xk1, yk1, sk, tk1, ck1
