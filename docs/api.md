@@ -24,10 +24,12 @@
 {% set s1k = "**`s1k`** (`float`) – The previous step-size, corresponding to $s_{k-1}$" %}
 {% set sk = "**`sk`** (`float`) – The current steps-size, corresponding to $s_k$" %} 
 
-{% set z0 = "**`z0`** (`ndarray`) – The initial auxiliary point, corresponding to $\mathbf{z}_0$" %} 
+{% set z0 = "**`z0`** (`ndarray`) – The initial auxiliary point, corresponding to $\mathbf{z}_0$" %}
 {% set z1k = "**`z1k`** (`ndarray`) – The previous point, corresponding to $\mathbf{z}_{k-1}$" %}
-{% set zk = "**`zk`** (`ndarray`) – The current auxiliary point, corresponding to $\mathbf{z}_k$" %} 
+{% set zk = "**`zk`** (`ndarray`) – The current auxiliary point, corresponding to $\mathbf{z}_k$" %}
 {% set zk1 = "**`zk1`** (`ndarray`) – The next auxiliary point, corresponding to $\mathbf{z}_{k+1}$" %}
+
+{% set k = "**`k`** (`int`) – The $k$-th iteration step" %}
 
 ## The `VI` Class
 The `VI` class defines the variational inequality. It is characterized by the vector mapping `F`and the `prox` operator. Both take and return a `np.ndarray`. `F` is a callable defined and passed directly by the user, while the `prox` operator can be defined in different ways:
@@ -36,7 +38,7 @@ The `VI` class defines the variational inequality. It is characterized by the ve
 - by defining a `y`, which is a `cp.Variable` and, optionally:
 
     - a callable `g`, taking a `cp.Variable` as argument and retuning a scalar. If not define, it will default to `g = 0`. 
-    - a constraint set `S`, with each element being a `cp.Constraint`. If not defined, it will default to `S = []`.
+    - a constraint set `S`, with each element being a `cp.Constraint`. If not define 
 
 ::: monviso.VI
     options:
