@@ -924,7 +924,7 @@
 <p>by defining a <code>y</code>, which is a <code>cp.Variable</code> and, optionally:</p>
 <ul>
 <li>a callable <code>g</code>, taking a <code>cp.Variable</code> as argument and retuning a scalar. If not define, it will default to <code>g = 0</code>. </li>
-<li>a constraint set <code>S</code>, with each element being a <code>cp.Constraint</code>. If not defined, it will default to <code>S = []</code>.</li>
+<li>a constraint set <code>S</code>, with each element being a <code>cp.Constraint</code>. If not define </li>
 </ul>
 </li>
 </ul>
@@ -1039,7 +1039,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.pg" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">pg</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">pg</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1078,7 +1078,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.eg" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">eg</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">eg</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1115,7 +1115,13 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.popov" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">popov</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">yk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">popov</span><span class="p">(</span>
+    <span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">yk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1154,7 +1160,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.fbf" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">fbf</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">fbf</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1186,7 +1192,13 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.frb" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">frb</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">x1k</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">frb</span><span class="p">(</span>
+    <span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x1k</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1219,7 +1231,13 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 
 
 <a href="#monviso.VI.prg" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">prg</span><span class="p">(</span><span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">x1k</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">prg</span><span class="p">(</span>
+    <span class="n">xk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x1k</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1266,6 +1284,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
     <span class="n">x0</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1279,7 +1298,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 <ul>
 <li><strong><code>xk</code></strong> (<code>ndarray</code>) – The current point, corresponding to <span class="arithmatex">\(\mathbf{x}_k\)</span>.</li>
 <li><strong><code>x0</code></strong> (<code>ndarray</code>) – The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span>.</li>
-<li>{{ k }}</li>
+<li><strong><code>k</code></strong> (<code>int</code>) – The <span class="arithmatex">\(k\)</span>-th iteration step</li>
 <li><strong><code>step_size</code></strong> (<code>float</code>) – The steps size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</li>
 <li><code>**cvxpy_solve_params</code> – The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</li>
 </ul>
@@ -1316,6 +1335,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
     <span class="n">x0</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1330,7 +1350,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 <li><strong><code>xk</code></strong> (<code>ndarray</code>) – The current point, corresponding to <span class="arithmatex">\(\mathbf{x}_k\)</span>. </li>
 <li><strong><code>x1k</code></strong> (<code>ndarray</code>) – The previous point, corresponding to <span class="arithmatex">\(\mathbf{x}_{k-1}\)</span>.</li>
 <li><strong><code>x0</code></strong> (<code>ndarray</code>) – The initial point, corresponding to <span class="arithmatex">\(\mathbf{x}_0\)</span>.</li>
-<li>{{ k }}</li>
+<li><strong><code>k</code></strong> (<code>int</code>) – The <span class="arithmatex">\(k\)</span>-th iteration step</li>
 <li><strong><code>step_size</code></strong> (<code>float</code>) – The steps size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</li>
 <li><code>**cvxpy_solve_params</code> – The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</li>
 </ul>
@@ -1367,6 +1387,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.1</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -1380,7 +1401,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 <li><strong><code>xk</code></strong> (<code>ndarray</code>) – The current point, corresponding to <span class="arithmatex">\(\mathbf{x}_k\)</span>.</li>
 <li><strong><code>x1k</code></strong> (<code>ndarray</code>) – The previous point, corresponding to <span class="arithmatex">\(\mathbf{x}_{k-1}\)</span>.</li>
 <li><strong><code>y1k</code></strong> (<code>ndarray</code>) – The previous point, corresponding to <span class="arithmatex">\(\mathbf{y}_{k-1}\)</span></li>
-<li>{{ k }}</li>
+<li><strong><code>k</code></strong> (<code>int</code>) – The <span class="arithmatex">\(k\)</span>-th iteration step</li>
 <li><strong><code>step_size</code></strong> (<code>float</code>) – The steps size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</li>
 <li><strong><code>alpha</code></strong> (<code>float</code>, optional) – The auxiliary parameter, corresponding to <span class="arithmatex">\(\alpha\)</span>.</li>
 <li><code>**cvxpy_solve_params</code> – The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</li>
@@ -1418,6 +1439,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.1</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1433,7 +1455,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
 <li><strong><code>x1k</code></strong> (<code>ndarray</code>) – The previous point, corresponding to <span class="arithmatex">\(\mathbf{x}_{k-1}\)</span>. </li>
 <li><strong><code>y1k</code></strong> (<code>ndarray</code>) – The previous point, corresponding to <span class="arithmatex">\(\mathbf{y}_{k-1}\)</span></li>
 <li><strong><code>zk</code></strong> (<code>ndarray</code>) – The current auxiliary point, corresponding to <span class="arithmatex">\(\mathbf{z}_k\)</span></li>
-<li>{{ k }}</li>
+<li><strong><code>k</code></strong> (<code>int</code>) – The <span class="arithmatex">\(k\)</span>-th iteration step</li>
 <li><strong><code>step_size</code></strong> (<code>float</code>) – The steps size value, corresponding to <span class="arithmatex">\(\chi\)</span>.</li>
 <li><strong><code>alpha</code></strong> (<code>float</code>, optional) – The auxiliary parameter, corresponding to <span class="arithmatex">\(\alpha\)</span>.</li>
 <li><code>**cvxpy_solve_params</code> – The parameters for the <a href="https://www.cvxpy.org/api_reference/cvxpy.problems.html#cvxpy.Problem.solve"><code>cvxpy.Problem.solve</code></a> method.</li>
@@ -1468,6 +1490,7 @@ The vector corresponding to the decision variable of the VI is always denoted wi
     <span class="n">yk</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
     <span class="n">step_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1524,6 +1547,7 @@ Given the initial terms <span class="arithmatex">\(\mathbf{x}_0,\mathbf{x}_1 \in
     <span class="n">tk</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">step_size_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
     <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1601,6 +1625,7 @@ Given the initial terms <span class="arithmatex">\(\mathbf{x}_0,\mathbf{x}_1 \in
     <span class="n">ck</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">GOLDEN_RATIO</span><span class="p">,</span>
     <span class="n">step_size_large</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000000.0</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
